@@ -3,9 +3,10 @@
 
 PORTNAME=	django-contrib-comments
 PORTVERSION=	1.7.3
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	koobs@FreeBSD.org
 COMMENT=	Code formerly known as django.contrib.comments
@@ -13,9 +14,7 @@ COMMENT=	Code formerly known as django.contrib.comments
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=0:www/py-django18@${FLAVOR}
-
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes

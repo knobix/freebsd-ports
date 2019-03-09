@@ -3,9 +3,10 @@
 
 PORTNAME=	django-hijack
 PORTVERSION=	2.1.1
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
 COMMENT=	Allows DJango superusers to login as other users
@@ -13,10 +14,8 @@ COMMENT=	Allows DJango superusers to login as other users
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:www/py-django18@${FLAVOR}
-
 NO_ARCH=	yes
-USES=		python
+USES=		python django
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

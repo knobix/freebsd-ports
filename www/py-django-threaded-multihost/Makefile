@@ -3,21 +3,20 @@
 
 PORTNAME=	django-threaded-multihost
 PORTVERSION=	1.4.1
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	www python
 MASTER_SITES=	http://www.caomhin.org/geek/ports/
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
 COMMENT=	Multi-host utilities to Django
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_hg>=0.4:devel/py-setuptools_hg@${FLAVOR}
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:www/py-django18@${FLAVOR}
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_hg>=0.4:devel/py-setuptools_hg@${PY_FLAVOR}
 
 LICENSE=	BSD3CLAUSE
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
-USES=		python:2.7
+USES=		python:2.7 django
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

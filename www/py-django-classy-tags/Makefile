@@ -3,16 +3,15 @@
 
 PORTNAME=	django-classy-tags
 PORTVERSION=	0.8.0
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Class based template tags for Django
 
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:www/py-django18@${FLAVOR}
-
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

@@ -2,6 +2,7 @@
 
 PORTNAME=	django-netfields
 DISTVERSION=	0.8
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,11 +13,10 @@ COMMENT=	Django PostgreSQL netfields implementation
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>0:www/py-django18@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}netaddr>=0:net/py-netaddr@${FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}netaddr>=0:net/py-netaddr@${FLAVOR} \
 		${PY_IPADDRESS}
 
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes

@@ -3,9 +3,10 @@
 
 PORTNAME=	sudo
 PORTVERSION=	2.1.0
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}django-
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 DISTNAME=	django-${PORTNAME}-${PORTVERSION}
 
 MAINTAINER=	tj@FreeBSD.org
@@ -13,9 +14,7 @@ COMMENT=	Sudo mode is an extra layer of security for Django
 
 LICENSE=	BSD3CLAUSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=0:www/py-django18@${FLAVOR}
-
-USES=		python
+USES=		python django
 USE_PYTHON=	distutils autoplist
 NO_ARCH=	yes
 

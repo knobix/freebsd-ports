@@ -2,9 +2,10 @@
 
 PORTNAME=	django-allauth
 PORTVERSION=	0.34.0
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	Vladimir.Chukharev@gmail.com
 COMMENT=	User registration with social account authentication
@@ -12,10 +13,8 @@ COMMENT=	User registration with social account authentication
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=1.6:www/py-django18@${FLAVOR}
-
 NO_ARCH=	yes
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

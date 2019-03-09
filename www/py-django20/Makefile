@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	django
-PORTVERSION=	2.0.1
+PORTVERSION=	${DJANGO_PORTVERSION}
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP \
 		https://www.djangoproject.com/m/releases/${PORTVERSION}/
@@ -25,8 +26,10 @@ USE_PYTHON=	autoplist distutils
 SHEBANG_FILES=	django/bin/django-admin.py \
 		django/conf/project_template/manage.py-tpl
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django-devel ${PYTHON_PKGNAMEPREFIX}django18 \
-			${PYTHON_PKGNAMEPREFIX}django11[01]
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django18 \
+			${PYTHON_PKGNAMEPREFIX}django11[01] \
+			${PYTHON_PKGNAMEPREFIX}django20
+
 CPE_VENDOR=		djangoproject
 
 DOCSDIR=		${PREFIX}/share/doc/py-django
@@ -61,4 +64,5 @@ post-install-HTMLDOCS-on:
 	${MKDIR} ${STAGEDIR}/${DOCSDIR}
 	${CP} -R ${WRKSRC}/docs/_build/html ${STAGEDIR}/${DOCSDIR}
 
+.include "${.CURDIR}/Makefile.version"
 .include <bsd.port.mk>

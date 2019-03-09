@@ -4,8 +4,9 @@
 PORTNAME=	django-post_office
 DISTVERSIONPREFIX=	v
 DISTVERSION=	3.0.4
+PORTREVISION=	1
 CATEGORIES=	www python
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ultima@FreeBSD.org
 COMMENT=	Django app to monitor and send mail asynchronously
@@ -13,10 +14,9 @@ COMMENT=	Django app to monitor and send mail asynchronously
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django-jsonfield>=0:www/py-django-jsonfield@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django18>=1.8:www/py-django18@${FLAVOR}
+RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-jsonfield>=0:www/py-django-jsonfield@${DJANGO_FLAVOR}
 
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 USE_GITHUB=	yes

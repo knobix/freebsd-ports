@@ -3,10 +3,10 @@
 
 PORTNAME=	django-markwhat
 PORTVERSION=	1.4
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www python textproc
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	koobs@FreeBSD.org
 COMMENT=	Template filters that implement common markup languages
@@ -14,7 +14,7 @@ COMMENT=	Template filters that implement common markup languages
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

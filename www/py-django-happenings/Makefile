@@ -3,9 +3,10 @@
 
 PORTNAME=	django-happenings
 PORTVERSION=	0.3.3
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
 COMMENT=	Event calendar app for Django
@@ -13,12 +14,11 @@ COMMENT=	Event calendar app for Django
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=0:www/py-django18@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${PY_FLAVOR}
 
-CONFLICTS_INSTALL= py*-django-mptt
+CONFLICTS_INSTALL= py*-django*-django-mptt
 
-USES=		python
+USES=		python django
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

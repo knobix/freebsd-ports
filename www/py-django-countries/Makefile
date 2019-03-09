@@ -3,16 +3,17 @@
 
 PORTNAME=	django-countries
 PORTVERSION=	5.0
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	alfred@FreeBSD.org
 COMMENT=	Provides country choices for use with django
 
 LICENSE=	BSD2CLAUSE
 
-USES=		python
+USES=		python django
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	django
-PORTVERSION=	1.10.8
-PORTREVISION=	1
+PORTVERSION=	${DJANGO_PORTVERSION}
+PORTREVISION=	2
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP \
 		https://www.djangoproject.com/m/releases/${PORTVERSION}/
@@ -64,4 +64,5 @@ post-install-HTMLDOCS-on:
 	${MKDIR} ${STAGEDIR}/${DOCSDIR}
 	${CP} -R ${WRKSRC}/docs/_build/html ${STAGEDIR}/${DOCSDIR}
 
+.include "${.CURDIR}/Makefile.version"
 .include <bsd.port.mk>

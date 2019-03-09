@@ -3,19 +3,18 @@
 
 PORTNAME=	django-filer
 PORTVERSION=	0.8.6
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	xenophon+fbsdports@irtnog.org
 COMMENT=	File and Image Management Application for django
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=0:www/py-django18@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-easy-thumbnails>=0:graphics/py-django-easy-thumbnails@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pillow>=0:graphics/py-pillow@${FLAVOR}
+RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}easy-thumbnails>=0:graphics/py-django-easy-thumbnails@${DJANGO_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pillow>=0:graphics/py-pillow@${PY_FLAVOR}
 
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

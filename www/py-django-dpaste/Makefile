@@ -3,9 +3,10 @@
 
 PORTNAME=	dpaste
 PORTVERSION=	2.10
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}django-
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}django-
 
 MAINTAINER=	koobs@FreeBSD.org
 COMMENT=	Django based pastebin
@@ -13,18 +14,17 @@ COMMENT=	Django based pastebin
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:www/py-django18@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-mptt>=0.8.3:www/py-django-mptt@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pygments>=1.6:textproc/py-pygments@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}requests>=2.0.0:www/py-requests@${FLAVOR}
+RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-mptt>=0.8.3:www/py-django-mptt@${DJANGO_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pygments>=1.6:textproc/py-pygments@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}requests>=2.0.0:www/py-requests@${PY_FLAVOR}
 
 OPTIONS_DEFINE=		MIGRATIONS
 
 MIGRATIONS_DESC=	Schema and data migration support (via south)
 
-MIGRATIONS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}south>=0.8.2:databases/py-south@${FLAVOR}
+MIGRATIONS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}south>=0.8.2:databases/py-south@${PY_FLAVOR}
 
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=	yes

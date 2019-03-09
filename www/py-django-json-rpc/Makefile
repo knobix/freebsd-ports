@@ -3,19 +3,17 @@
 
 PORTNAME=	django-json-rpc
 PORTVERSION=	0.6.2
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	www python
 MASTER_SITES=	http://wiki.pcbsd.org/ports/
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	jhixson@gmail.com
 COMMENT=	Simple JSON-RPC implementation for Django
 
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:www/py-django18@${FLAVOR}
-
 LICENSE=	MIT
 
-USES=		python tar:bzip2
+USES=		python django tar:bzip2
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

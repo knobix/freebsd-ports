@@ -3,24 +3,23 @@
 
 PORTNAME=	graphite-web
 PORTVERSION=	0.9.15
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www python
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	swills@FreeBSD.org
 COMMENT=	Enterprise scalable realtime graphing platform
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cairo>=1.8.10:graphics/py-cairo@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}carbon>=${PORTVERSION}:databases/py-carbon@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django18>=1.4:www/py-django18@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-tagging>=0.3.1:www/py-django-tagging@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cairo>=1.8.10:graphics/py-cairo@${PY_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}carbon>=${PORTVERSION}:databases/py-carbon@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-tagging>=0.3.1:www/py-django-tagging@${DJANGO_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${PY_FLAVOR} \
 		xorg-fonts-truetype>=0:x11-fonts/xorg-fonts-truetype
 
 FETCH_ARGS=	-o ${DISTNAME}${EXTRACT_SUFX}
-USES=		cpe python:2
+USES=		cpe python:2 django
 USE_GITHUB=	yes
 GH_ACCOUNT=	graphite-project
 CPE_VENDOR=	graphite_project

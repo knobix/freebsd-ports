@@ -3,22 +3,20 @@
 
 PORTNAME=	django-evolution
 PORTVERSION=	0.7.6
-PORTREVISION=	1
+PORTREVISION=	2
 DISTVERSIONPREFIX=	release-
 CATEGORIES=	www python
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	cs@FreeBSD.org
 COMMENT=	Database schema evolution tool for the Django web framework
 
 LICENSE=	BSD3CLAUSE
 
-RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:www/py-django18@${FLAVOR}
-
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	beanbaginc
-USES=		python:2.7
+USES=		python:2.7 django
 USE_PYTHON=	distutils autoplist
 
 post-extract:

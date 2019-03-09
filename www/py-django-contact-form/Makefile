@@ -3,20 +3,19 @@
 
 PORTNAME=	django-contact-form
 PORTVERSION=	1.4.2
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	rene@FreeBSD.org
 COMMENT=	Generic contact-form application for Django
 
 LICENSE=	BSD3CLAUSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=0:www/py-django18@${FLAVOR}
-
 NO_ARCH=	yes
 
-USES=		python
+USES=		python django
 USE_PYTHON=	autoplist distutils
 
 do-test:

@@ -3,9 +3,10 @@
 
 PORTNAME=	django-registration-redux
 PORTVERSION=	1.4
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
 COMMENT=	User-registration application for Django
@@ -13,12 +14,10 @@ COMMENT=	User-registration application for Django
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django18>=0:www/py-django18@${FLAVOR}
-
 NO_ARCH=	yes
-USES=		python
+USES=		python django
 USE_PYTHON=	distutils autoplist
 
-CONFLICTS_INSTALL=	pootle-[0-9]* py??-django-registration-[0-9]*
+CONFLICTS_INSTALL=	pootle-[0-9]* py??-django*-django-registration-[0-9]*
 
 .include <bsd.port.mk>
