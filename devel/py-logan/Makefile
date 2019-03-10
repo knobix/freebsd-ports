@@ -18,7 +18,6 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mock>=0.8.0:devel/py-mock@${PY_FLAVOR} \
 
 USES=		python django
 USE_PYTHON=	autoplist concurrent distutils
->>>>>>> master
 NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DOCS
