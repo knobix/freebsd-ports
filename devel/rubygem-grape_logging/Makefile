@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	grape_logging
-PORTVERSION=	1.7.0
+PORTVERSION=	1.8.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
@@ -12,10 +12,12 @@ COMMENT=	Request logging for Grape
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-RUN_DEPENDS=	rubygem-grape>=0:devel/rubygem-grape
+RUN_DEPENDS=	rubygem-grape>=0:devel/rubygem-grape \
+		rubygem-rack>=0:www/rubygem-rack
+
+USES=		gem
+USE_RUBY=	yes
 
 NO_ARCH=	yes
-USE_RUBY=	yes
-USES=		gem
 
 .include <bsd.port.mk>

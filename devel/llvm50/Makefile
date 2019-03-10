@@ -1,10 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	llvm
-DISTVERSION=	5.0.0
-PORTREVISION=	6
+DISTVERSION=	5.0.2
+PORTREVISION=	3
 CATEGORIES=	devel lang
-MASTER_SITES=	http://llvm.org/${PRE_}releases/${LLVM_RELEASE}/${RCDIR}
+MASTER_SITES=	https://releases.llvm.org/${LLVM_RELEASE}/${RCDIR} LOCAL/brooks
 PKGNAMESUFFIX=	${LLVM_SUFFIX}
 DISTNAME=	${PORTNAME}-${DISTVERSION}.src
 DISTFILES=	${PORTNAME}-${DISTVERSION}.src${EXTRACT_SUFX}
@@ -28,9 +28,8 @@ LLVM_PREFIX=	${PREFIX}/llvm${LLVM_SUFFIX}
 DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${LLVM_SUFFIX}
 DATADIR=	${PREFIX}/share/${PORTNAME}${LLVM_SUFFIX}
 
-USES=		cmake:outsource compiler:c++11-lib libedit perl5 tar:xz \
-		shebangfix
-_USES_PYTHON?=	python:build
+USES=		cmake compiler libedit perl5 tar:xz shebangfix
+_USES_PYTHON?=	python:2.7,build
 USES+=		${_USES_PYTHON}
 USE_LDCONFIG=	${LLVM_PREFIX}/lib
 SHEBANG_FILES=	utils/lit/lit.py utils/llvm-lit/llvm-lit.in
@@ -39,7 +38,7 @@ SUB_FILES=	llvm-wrapper.sh
 SUB_LIST=	LLVM_PREFIX="${LLVM_PREFIX}" LLVM_SUFFIX="${LLVM_SUFFIX}"
 
 CMAKE_INSTALL_PREFIX=	${LLVM_PREFIX}
-CMAKE_ARGS=	-DLLVM_BUILD_LLVM_DYLIB=ON
+CMAKE_ARGS=	-DLLVM_BUILD_LLVM_DYLIB=ON -DLLVM_LINK_LLVM_DYLIB=ON
 CMAKE_ARGS+=	-DLLVM_ENABLE_RTTI=ON
 CMAKE_ARGS+=	-DLLVM_DEFAULT_TARGET_TRIPLE=${CONFIGURE_TARGET}
 CMAKE_ARGS+=	-DLLVM_HOST_TRIPLE=${CONFIGURE_TARGET}
@@ -47,14 +46,19 @@ CMAKE_ARGS+=	-DLLVM_HOST_TRIPLE=${CONFIGURE_TARGET}
 # we need to either change the whole man-shuffle below, or simply
 # redefine CMAKE_INSTALL_MANDIR
 CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR:PATH="share/man"
+CMAKE_ARGS+=	-DLLVM_PARALLEL_LINK_JOBS=1
+
+# Disable assertions.  They should be disabled by cmake, but USES=cmake
+# overrides -DCMAKE_*_FLAGS_RELEASE.
+CFLAGS+=	-DNDEBUG
+CXXFLAGS+=	-DNDEBUG
 
 OPTIONS_DEFINE=	CLANG DOCS EXTRAS LIT LLD LLDB
 OPTIONS_DEFINE_amd64=	COMPILER_RT GOLD OPENMP
-OPTIONS_DEFINE_i386=	COMPILER_RT
+OPTIONS_DEFINE_i386=	COMPILER_RT OPENMP
 OPTIONS_DEFAULT=	CLANG EXTRAS LIT LLD LLDB
 OPTIONS_DEFAULT_amd64=	COMPILER_RT GOLD OPENMP
-OPTIONS_DEFAULT_i386=	COMPILER_RT
-OPTIONS_EXCLUDE_FreeBSD_10=	LLDB
+OPTIONS_DEFAULT_i386=	COMPILER_RT OPENMP
 OPTIONS_SUB=	yes
 
 CLANG_DESC=	Build clang
@@ -66,7 +70,6 @@ CLANG_EXTRA_PATCHES= \
 	${PATCHDIR}/clang-patch-tools_clang_tools_clang-format_clang-format-sublime.py \
 	${PATCHDIR}/clang-patch-tools_clang_tools_clang-format_git-clang-format \
 	${PATCHDIR}/clang-patch-tools_clang_tools_scan-build_libexec_ccc-analyzer
-CLANG_CONFLICTS_INSTALL=	clang-devel-3.[1234567]*
 CLANG_DISTFILES=	cfe-${DISTVERSION}.src${EXTRACT_SUFX}
 CLANG_CMAKE_ON=		-DCLANG_DEFAULT_OPENMP_RUNTIME=libomp
 CLANG_PORTDOCS=		clang
@@ -87,17 +90,20 @@ GOLD_DESC=		Build the LLVM Gold plugin for LTO
 GOLD_CMAKE_ON=		-DLLVM_BINUTILS_INCDIR=${LOCALBASE}/include
 GOLD_BUILD_DEPENDS=	${LOCALBASE}/bin/ld.gold:devel/binutils
 LIT_DESC=		Install lit and FileCheck test tools
-LIT_VARS=		_USES_PYTHON=python
+LIT_VARS=		_USES_PYTHON=python:2.7
 LLD_DESC=		Install lld, the LLVM linker
 LLD_DISTFILES=		lld-${DISTVERSION}.src${EXTRACT_SUFX}
-LLDB_BUILD_DEPENDS=	swig3.0:devel/swig30
+LLD_EXTRA_PATCHES=	${PATCHDIR}/lld
+LLDB_BUILD_DEPENDS=	swig3.0:devel/swig30 \
+			${PY_ENUM34}
 LLDB_DESC=		Install lldb, the LLVM debugger
 LLDB_DISTFILES=		lldb-${DISTVERSION}.src${EXTRACT_SUFX}
 LLDB_IMPLIES=		CLANG
-LLDB_VARS=		_USES_PYTHON=python
+LLDB_VARS=		_USES_PYTHON=python:2.7
 OPENMP_DESC=		Install libomp, the LLVM OpenMP runtime library
 OPENMP_DISTFILES=	openmp-${DISTVERSION}.src${EXTRACT_SUFX}
 OPENMP_EXTRA_PATCHES=	${PATCHDIR}/openmp-patch-bug32279
+OPENMP_EXTRA_PATCHES+=	${PATCHDIR}/openmp-patch-i386
 
 .if defined(WITH_DEBUG)
 CMAKE_BUILD_TYPE=	RelWithDebInfo
@@ -110,8 +116,6 @@ _CRTLIBDIR=	${LLVM_PREFIX:S|${PREFIX}/||}/lib/clang/${LLVM_RELEASE}/lib/freebsd
 .for option in CLANG COMPILER_RT EXTRAS LLD LLDB OPENMP
 WRKSRC_${option:tl}=		${WRKDIR}/${${option}_DISTFILES:S/${EXTRACT_SUFX}//}
 .endfor
-
-OPTIONS_SUB=	yes
 
 PLIST_SUB+=	LLVM_LIB_VER=${LLVM_LIB_VER} \
 		LLVM_MAJOR=${LLVM_MAJOR} \
@@ -193,6 +197,11 @@ EXTRAS_LIBS=	libclangApplyReplacements \
 		libfindAllSymbols \
 		libmodernizeCore
 EXTRAS_PATTERN=	${EXTRAS_COMMANDS:tW:C/  */|/g}|${EXTRAS_LIBS:tW:C/  */|/g}
+
+# Force GCC 5 on non-clang systems because GCC 8 won't compile this code.
+.if exists(/usr/lib/libstdc++.so)
+USE_GCC=	5
+.endif
 
 .include <bsd.port.options.mk>
 
@@ -338,15 +347,10 @@ PORTDOCS+=	lld
 CXXFLAGS+=	-D_GLIBCXX_USE_C99
 .endif
 
-.if ${ARCH} == "armv6" || ${ARCH} == "armv7"
+.if ${ARCH} == "armv6"
 BUILD_DEPENDS+=	${LOCALBASE}/bin/ld:devel/binutils
 CONFIGURE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
 MAKE_ENV+=	COMPILER_PATH=${LOCALBASE}/bin
-.endif
-
-.if ${PYTHON_REL} < 3400
-LLDB_BUILD_DEPENDS+= \
-	${PYTHON_PKGNAMEPREFIX}enum34>0:devel/py-enum34
 .endif
 
 post-extract-CLANG-on:
@@ -384,7 +388,7 @@ post-patch-CLANG-on:
 post-build-COMPILER_RT-on:
 	${MKDIR} ${WRKDIR}/compiler-rt-build
 	cd ${WRKDIR}/compiler-rt-build && \
-	${CMAKE_BIN} ${CMAKE_ARGS} \
+	${SETENV} ${CONFIGURE_ENV} ${CMAKE_BIN} ${CMAKE_ARGS} \
 	    -DLLVM_CONFIG_PATH=${CONFIGURE_WRKSRC}/bin/llvm-config \
 	    ${WRKSRC_compiler_rt} && \
 	${MAKE_ENV} ${MAKE_CMD}
@@ -462,7 +466,7 @@ post-install-LIT-on:
 	    ${STAGEDIR}${PREFIX}/bin/FileCheck${LLVM_SUFFIX}
 
 TEST_CMD=	'(cd ${WRKSRC}/test; ${SETENV} ${MAKE_ENV} LD_LIBRARY_PATH=${WRKSRC}/Release/lib ${MAKE_CMD} check-local-lit)'
-regression-test: ${BUILD_COOKIE}
+do-test:
 	if [ `${ID} -u` = 0 ]; then \
 		${CHOWN} -R nobody ${WRKSRC}/test; \
 		su -m nobody -c ${TEST_CMD}; \

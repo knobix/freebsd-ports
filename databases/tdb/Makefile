@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=		tdb
-PORTVERSION=		1.3.15
-PORTREVISION=		1
+PORTVERSION=		1.3.16
+PORTREVISION=		0
 PORTEPOCH=		1
 CATEGORIES=		databases
 MASTER_SITES=		SAMBA
@@ -14,6 +14,13 @@ LICENSE=		GPLv3
 
 IGNORE_NONTHREAD_PYTHON=needs port lang/python${PYTHON_SUFFIX} to be build with THREADS support
 
+#FLAVORS=		default nopython debug
+#nopython_PKGNAMESUFFIX=	-nopython
+#debug_PKGNAMESUFFIX=	-debug
+#nopython_CONFLICTS=	tdb tdb-debug
+#debug_CONFLICTS=	tdb tdb-nopython
+#default_CONFLICTS=	tdb-nopython tdb-debug
+
 USES=			compiler pkgconfig waf
 USE_LDCONFIG=		yes
 WAF_CMD=		buildtools/bin/waf
@@ -23,7 +30,6 @@ PKGCONFIGDIR?=		${PREFIX}/libdata/pkgconfig
 PLIST_SUB+=		PKGCONFIGDIR=${PKGCONFIGDIR:S;${PREFIX}/;;}
 
 CONFIGURE_ARGS+=	--mandir=${MANPREFIX}/man \
-			--infodir=${PREFIX}/${INFO_PATH}/${INFO_SUBDIR} \
 			--disable-rpath \
 			--without-gettext
 
@@ -41,7 +47,11 @@ PLIST_FILES+=		include/tdb.h \
 			${TDB_BINS} \
 			lib/libtdb.so \
 			lib/libtdb.so.1 \
-			%%PKGCONFIGDIR%%/tdb.pc
+			${PKGCONFIGDIR}/tdb.pc
+
+.if defined(SAMBA4_DEBUG)
+CFLAGS+=		-DTDB_TRACE=1
+.endif
 
 .if defined(NO_PYTHON)
 USES+=			python:2.7,build
@@ -49,14 +59,14 @@ CONFIGURE_ARGS+=	--disable-python
 .else
 USES+=			python:2.7
 
-PLIST_FILES+=		%%PYTHON_SITELIBDIR%%/tdb.so \
-			%%PYTHON_SITELIBDIR%%/_tdb_text.py
+PLIST_FILES+=		${PYTHON_SITELIBDIR}/tdb.so \
+			${PYTHON_SITELIBDIR}/_tdb_text.py
 # XXX: This is a gross hack to make port use both Python 2.7+ and 3.3+
 # This is not officially supported, use at your own risk
-.if defined(WITH_SAMBA4_PYTHON3) && ${WITH_SAMBA4_PYTHON3:Mpython3\.[0-9]}
-SAMBA4_PYTHON3=		${WITH_SAMBA4_PYTHON3}
-SAMBA4_PYTHON3_VERSION:=${SAMBA4_PYTHON3:S/^python//}
-SAMBA4_PYTHON3_VER:=	${SAMBA4_PYTHON3_VERSION:C/\.//}
+.if defined(WITH_SAMBA4_PYTHON3) && ${WITH_SAMBA4_PYTHON3:M3\.[0-9]}
+SAMBA4_PYTHON3_VERSION=	${WITH_SAMBA4_PYTHON3}
+SAMBA4_PYTHON3=		python${SAMBA4_PYTHON3_VERSION}
+SAMBA4_PYTHON3_VER=	${SAMBA4_PYTHON3_VERSION:C/\.//}
 .if !exists(${PORTSDIR}/lang/python${SAMBA4_PYTHON3_VER})
 .error			unsupported or unknown Python version ${SAMBA4_PYTHON3_VERSION}
 .endif
@@ -72,8 +82,8 @@ CONFIGURE_ARGS+=	--extra-python=${LOCALBASE}/bin/${SAMBA4_PYTHON3}
 PLIST_SUB+=		SAMBA4_PYTHON3_SO_ABI=${SAMBA4_PYTHON3_SO_ABI} \
 			SAMBA4_PYTHON3_SITELIBDIR=${SAMBA4_PYTHON3_SITELIBDIR}
 
-PLIST_FILES+=		%%SAMBA4_PYTHON3_SITELIBDIR%%/tdb.so \
-			%%SAMBA4_PYTHON3_SITELIBDIR%%/_tdb_text.py
+PLIST_FILES+=		${SAMBA4_PYTHON3_SITELIBDIR}/tdb.${SAMBA4_PYTHON3_SO_ABI}.so \
+			${SAMBA4_PYTHON3_SITELIBDIR}/_tdb_text.py
 .endif
 .endif
 
@@ -125,7 +135,7 @@ post-install:
 .if !defined(NO_PYTHON)
 			${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/tdb.so
 .if defined(SAMBA4_PYTHON3)
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SAMBA4_PYTHON3_SITELIBDIR}/tdb.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SAMBA4_PYTHON3_SITELIBDIR}/tdb.${SAMBA4_PYTHON3_SO_ABI}.so
 .endif
 .endif
 

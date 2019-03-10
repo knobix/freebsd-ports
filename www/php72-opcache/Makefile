@@ -6,6 +6,8 @@ MASTERDIR=	${.CURDIR}/../../lang/php72
 
 PKGNAMESUFFIX=	-opcache
 
-USES=	php:zend
+TEST_TARGET=    test
+
+USES=	php:zend,noflavors
 
 .include "${MASTERDIR}/Makefile"

@@ -3,7 +3,7 @@
 
 PORTNAME=	django-appmedia
 PORTVERSION=	1.0.1
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -11,7 +11,7 @@ PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 MAINTAINER=	kurt.lidl@cello.com
 COMMENT=	Serve static content from within django app directories
 
-USES=		python:2 django
+USES=		python:2.7 django
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.mk>

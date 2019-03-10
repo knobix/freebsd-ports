@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	w3m
-PORTVERSION=	0.5.3.20170102
+PORTVERSION=	0.5.3.20190105
 CATEGORIES+=	www ipv6
 
 MAINTAINER?=	nobutaka@FreeBSD.org
@@ -13,6 +13,8 @@ LICENSE_NAME=	w3m
 LICENSE_FILE=	${WRKSRC}/doc/README
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
+BROKEN_mips64=		fails to build: qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+
 LIB_DEPENDS=	libgc.so:devel/boehm-gc
 
 USES=		iconv pkgconfig perl5 ssl
@@ -20,7 +22,7 @@ USE_GITHUB=	yes
 
 GH_ACCOUNT=	tats
 GH_PROJECT=	w3m
-GH_TAGNAME=	1ac245b
+GH_TAGNAME=	599f5c1
 
 MAKE_JOBS_UNSAFE=	yes
 
@@ -70,7 +72,7 @@ PKGMESSAGE=	${NONEXISTENT}
 
 post-patch:
 	@${REINPLACE_CMD} -e \
-		's|\`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
+		's|`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
 		-e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/configure
 	@${FIND} ${WRKSRC}/doc* -type f \! -name HISTORY \

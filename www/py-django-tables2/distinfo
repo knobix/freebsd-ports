@@ -1,3 +1,4 @@
-TIMESTAMP = 1506157208
-SHA256 (django-tables2-1.11.0.tar.gz) = ebe836d5b3548d4b9db28ee34a8d6a4f90875e81f6c10c2e8643f46d905ea62d
-SIZE (django-tables2-1.11.0.tar.gz) = 2895645
+TIMESTAMP = 1522914211
+SHA256 (django-tables2-1.21.2.tar.gz) = c5c979201b7a2f7e88f2784dcd478e0c809d3a2053dea576cb71ce51676bbf7a
+SIZE (django-tables2-1.21.2.tar.gz) = 2680587
+

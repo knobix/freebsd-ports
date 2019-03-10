@@ -1,11 +1,11 @@
 # $FreeBSD$
 
 PORTNAME=	peek-performance_bar
-PORTVERSION=	1.3.0
+PORTVERSION=	1.3.1
 CATEGORIES=	devel rubygems
 MASTER_SITES=	RG
 
-MAINTAINER=	idefix@fechner.net
+MAINTAINER=	mfechner@FreeBSD.org
 COMMENT=	Take a peek into the window.performance timing behind your app
 
 LICENSE=	MIT

@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	gnustep-base
-PORTVERSION=	1.25.0
-PORTREVISION=	3
+DISTVERSIONPREFIX=	base-
+DISTVERSION=	1_26_0
+PORTREVISION=	1
 CATEGORIES=	lang devel gnustep
-MASTER_SITES=	GNUSTEP/core
 
 MAINTAINER=	theraven@FreeBSD.org
 COMMENT=	GNUstep Foundation library
@@ -21,12 +21,17 @@ LIB_DEPENDS+=	libgcrypt.so:security/libgcrypt
 
 RUN_DEPENDS+=	${LOCALBASE}/GNUstep/System/Library/Makefiles/GNUstep.sh:devel/gnustep-make
 
-GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--disable-procfs --disable-mixedabi --with-installation-domain=SYSTEM
-CONFIGURE_ENV=	OBJCFLAGS='-fobjc-runtime=gnustep-1.7 -fblocks'
 USES=		pkgconfig iconv gnustep
 USE_GNUSTEP=	build
 USE_LDCONFIG=	${GNUSTEP_SYSTEM_LIBRARIES}
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	gnustep
+GH_PROJECT=	libs-base
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-procfs --disable-mixedabi --with-installation-domain=SYSTEM
+CONFIGURE_ENV=	OBJCFLAGS='-fobjc-runtime=gnustep-2.0 -fblocks'
 
 MAKE_FLAGS=	OPTFLAG="${CFLAGS}"
 

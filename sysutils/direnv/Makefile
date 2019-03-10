@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	direnv
-PORTVERSION=	2.13.1
+PORTVERSION=	2.19.2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	sysutils
 
@@ -11,19 +11,18 @@ COMMENT=	Environment variable manager for your shell
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/go:lang/go
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	zimbatm
-GH_SUBDIR=	src/github.com/zimbatm/direnv
-MAKE_ENV=	GOPATH=${WRKSRC}
+BUILD_DEPENDS=	${LOCALBASE}/bin/go:lang/go \
+		bash:shells/bash
 
 USES=		gmake
 
-PLIST_FILES=	bin/direnv man/man1/direnv.1.gz man/man1/direnv-stdlib.1.gz
+USE_GITHUB=	yes
+GH_ACCOUNT=	direnv
+GH_SUBDIR=	src/github.com/direnv/direnv
+MAKE_ENV=	GOPATH=${WRKSRC}
+MAKEFILE=	GNUmakefile
 
-post-patch:
-	${MV} ${WRKSRC}/vendor/github.com/direnv ${WRKSRC}/src/github.com
+PLIST_FILES=	bin/direnv man/man1/direnv.1.gz man/man1/direnv-stdlib.1.gz
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/direnv \

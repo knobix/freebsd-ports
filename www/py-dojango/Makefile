@@ -2,17 +2,23 @@
 # $FreeBSD$
 
 PORTNAME=	dojango
-PORTVERSION=	0.5.7
-PORTREVISION=	2
+PORTVERSION=	0.5.9
+PORTREVISION=	1
 CATEGORIES=	www python java
-MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	jpaetzel@FreeBSD.org
 COMMENT=	Django application for building dojo
 
+LICENSE=	BSD3CLAUSE
+
 USES=		python django
 USE_PYTHON=	distutils autoplist
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	william-gr
+GH_PROJECT=	dojango
+GH_TAGNAME=	7477cee
 
 OPTIONS_DEFINE=		JAVA
 

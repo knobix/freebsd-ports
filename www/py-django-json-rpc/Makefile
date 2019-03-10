@@ -2,18 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	django-json-rpc
-PORTVERSION=	0.6.2
-PORTREVISION=	4
+PORTVERSION=	0.7.2
+PORTREVISION=	1
 CATEGORIES=	www python
-MASTER_SITES=	http://wiki.pcbsd.org/ports/
+MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	jhixson@gmail.com
+MAINTAINER=	jhixson@FreeBSD.org
 COMMENT=	Simple JSON-RPC implementation for Django
 
 LICENSE=	MIT
 
-USES=		python django tar:bzip2
+USES=		python django
 USE_PYTHON=	distutils autoplist
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	trytond28_party_vcarddav
 PORTVERSION=	2.8.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	finance python
 MASTER_SITES=	https://pypi.python.org/packages/source/t/trytond_party_vcarddav/ \
 		http://downloads.tryton.org/${PORTVERSION:R}/
@@ -15,8 +15,8 @@ COMMENT=	Tryton Application Platform (Party VCardDAV Module)
 LICENSE=	GPLv3
 
 RUN_DEPENDS=	trytond28_party>=2.8.0:finance/trytond28_party \
-		${PYTHON_PKGNAMEPREFIX}vobject>=0.8.1:deskutils/py-vobject@${FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}PyWebDAV>=0:www/py-pywebdav@${FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}vobject>=0.8.1:deskutils/py-vobject@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}PyWebDAV>=0:www/py-pywebdav@${PY_FLAVOR}
 
 CONFLICTS=	trytond_party_vcarddav-2.[46].*
 

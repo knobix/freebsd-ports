@@ -3,7 +3,7 @@
 
 PORTNAME=	sdlpop
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.17
+DISTVERSION=	1.18.1
 CATEGORIES=	games
 
 MAINTAINER=	pkubaj@anongoth.pl
@@ -24,6 +24,8 @@ PORTDOCS=	*
 
 DESKTOP_ENTRIES=	"Prince" "Open-Source port of Prince of Persia" \
 		"${DATADIR}/icon.png" "prince"  "Game;" false
+
+OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%DATADIR%%|${DATADIR}|' ${WRKSRC}/seg009.c

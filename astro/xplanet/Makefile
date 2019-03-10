@@ -3,11 +3,11 @@
 
 PORTNAME=	xplanet
 PORTVERSION=	1.3.0
-PORTREVISION=	10
+PORTREVISION=	11
 CATEGORIES=	astro geography
 MASTER_SITES=	SF
 
-MAINTAINER=	novel@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Draw pictures of the earth textured by an image
 
 GNU_CONFIGURE=	yes

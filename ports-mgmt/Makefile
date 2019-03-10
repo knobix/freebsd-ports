@@ -14,7 +14,6 @@
     SUBDIR += freebsd-bugzilla-cli
     SUBDIR += genpatch
     SUBDIR += genplist
-    SUBDIR += hs-porte
     SUBDIR += jailaudit
     SUBDIR += lsknobs
     SUBDIR += managepkg
@@ -28,6 +27,7 @@
     SUBDIR += pkg
     SUBDIR += pkg-devel
     SUBDIR += pkg-plist
+    SUBDIR += pkg-provides
     SUBDIR += pkg-rmleaf
     SUBDIR += pkg_cleanup
     SUBDIR += pkg_cutleaves
@@ -47,6 +47,7 @@
     SUBDIR += portell
     SUBDIR += portest
     SUBDIR += portfind
+    SUBDIR += portgraph
     SUBDIR += portless
     SUBDIR += portlint
     SUBDIR += portmaster
@@ -69,7 +70,6 @@
     SUBDIR += py-skog
     SUBDIR += symports
     SUBDIR += synth
-    SUBDIR += tinderbox
     SUBDIR += wanted-ports
 
 .include <bsd.port.subdir.mk>

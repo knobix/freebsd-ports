@@ -3,6 +3,7 @@
 
 PORTNAME=	trytond28_account
 PORTVERSION=	2.8.8
+PORTREVISION=	1
 CATEGORIES=	finance python
 MASTER_SITES=	CHEESESHOP \
 		http://downloads.tryton.org/${PORTVERSION:R}/
@@ -15,7 +16,7 @@ LICENSE=	GPLv3
 
 RUN_DEPENDS=	trytond28>=2.8.2:finance/trytond28 \
 		trytond28_company>=2.8.0:finance/trytond28_company \
-		${PYTHON_PKGNAMEPREFIX}dateutil>=1.5:devel/py-dateutil@${FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}dateutil>=1.5:devel/py-dateutil@${PY_FLAVOR}
 
 CONFLICTS=	trytond_account-2.[46].*
 

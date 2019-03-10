@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	convertall
-PORTVERSION=	0.6.1
+PORTVERSION=	0.7.5
+PORTREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	SF/${PORTNAME}/${PORTVERSION}
 
@@ -12,20 +13,15 @@ COMMENT=	Another unit converter
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/doc/LICENSE
 
-USES=		pyqt:4 python:3.3+
-USE_PYQT=	core gui
+USES=		pyqt:5 python:3.4+ shebangfix
+USE_PYQT=	core gui widgets sip
+
+SHEBANG_FILES=	source/convertall.py
 
 CONFIGURE_ARGS=	-p ${PREFIX} -d ${DOCSDIR} -i ${DATADIR}/icons -b ${STAGEDIR}
 NO_ARCH=	yes
 NO_BUILD=	yes
 WRKSRC=		${WRKDIR}/ConvertAll
-
-DESKTOP_ENTRIES="ConvertAll" \
-		"Unit Converter" \
-		"${DATADIR}/icons/${PORTNAME}.svg" \
-		"${PORTNAME}" \
-		"Qt;Utility;Calculator;" \
-		false
 
 OPTIONS_DEFINE=	NLS
 OPTIONS_SUB=	yes

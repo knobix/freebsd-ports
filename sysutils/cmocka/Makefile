@@ -2,6 +2,7 @@
 
 PORTNAME=	cmocka
 PORTVERSION=	1.1.1
+PORTREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	https://cmocka.org/files/1.1/ \
 		LOCAL/dteske
@@ -11,7 +12,7 @@ COMMENT=	Unit testing framework for C with support for mock objects
 
 LICENSE=	APACHE20
 
-USES=		cmake:outsource tar:xz
+USES=		cmake tar:xz
 USE_LDCONFIG=	yes
 
 PLIST_FILES=	include/cmocka.h \

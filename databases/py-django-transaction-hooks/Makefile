@@ -3,12 +3,12 @@
 
 PORTNAME=	django-transaction-hooks
 PORTVERSION=	0.2
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	databases python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	rene@FreeBSD.org
+MAINTAINER=	python@FreeBSD.org
 COMMENT=	Django database backends to register transaction-commit hooks
 
 LICENSE=	BSD3CLAUSE

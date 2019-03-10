@@ -3,13 +3,17 @@
 
 PORTNAME=	swine
 PORTVERSION=	1.0.4
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	emulators deskutils python
 
 MAINTAINER=	koalative@gmail.com
 COMMENT=	Qt4 graphical Wine frontend
 
-LICENSE=	GPLv2
+LICENSE=	GPLv2+
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 RUN_DEPENDS=	xterm:x11/xterm \
 		cabextract:archivers/cabextract \
@@ -21,11 +25,16 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	dswd
 GH_PROJECT=	Swine
 
-USES=		gmake python:2.7 pyqt:4
+USES=		gmake python:2.7 qt:4 shebangfix pyqt:4
+SHEBANG_FILES=	*.py
 NO_BUILD=	yes
 USE_PYQT=	gui_run xml_build
-USE_QT4=	linguist_build
+USE_QT=		linguist_build
+BINARY_ALIAS=	pyrcc4=pyrcc4-${PYTHON_VER} \
+		pyuic4=pyuic4-${PYTHON_VER} \
+		pylupdate4=pylupdate4-${PYTHON_VER}
 ONLY_FOR_ARCHS=	i386 amd64
+NO_ARCH=	yes
 
 PORTDOCS=	README
 OPTIONS_DEFINE=	DOCS
@@ -50,6 +59,7 @@ post-install:
 	${LN} -sf ${DATADIR}/images/swine32.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/${PORTNAME}.png
 
+post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
 

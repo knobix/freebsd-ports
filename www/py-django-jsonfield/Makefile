@@ -1,15 +1,17 @@
 # Created by: Tom Judge <tj@FreeBSD.org>
 # $FreeBSD$
 
-PORTNAME=	django-jsonfield
-PORTVERSION=	1.0.3
+PORTNAME=	jsonfield
+PORTVERSION=	2.0.2
 PORTREVISION=	1
 CATEGORIES=	www python
-MASTER_SITES=	GH
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	tj@FreeBSD.org
+MAINTAINER=	ultima@FreeBSD.org
 COMMENT=	Reusable JSONField model for Django to store ad-hoc data
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		python django
 USE_PYTHON=	distutils autoplist

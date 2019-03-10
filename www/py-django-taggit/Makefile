@@ -1,20 +1,23 @@
 # $FreeBSD$
 
 PORTNAME=	django-taggit
-PORTVERSION=	0.15.0
-PORTREVISION=	2
+PORTVERSION=	0.23.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	wg@FreeBSD.org
+MAINTAINER=	kai@FreeBSD.org
 COMMENT=	Reusable Django application for simple tagging
 
 LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}isort>0:devel/py-isort@${PY_FLAVOR}
 
 USES=		python django
 USE_PYTHON=	autoplist distutils
 
-NO_ARCH=	yes
+NO_ARCH=		yes
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-taggit
 
 .include <bsd.port.mk>

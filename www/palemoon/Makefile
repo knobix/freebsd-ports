@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	palemoon
-DISTVERSION=	27.6.2
+DISTVERSION=	27.9.4
 DISTVERSIONSUFFIX=_Release
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	www ipv6
 
 MAINTAINER=	lichray@gmail.com
@@ -29,21 +29,18 @@ GH_PROJECT=	Pale-Moon
 
 USE_GECKO=	gecko
 MOZ_PKGCONFIG_FILES=	# empty
-USE_MOZILLA=	-soundtouch
-
-USE_GL=		gl
+USE_MOZILLA=	-webp
 
 PM_ICON=	${PORTNAME}.png
 PM_ICON_SRC=	${PREFIX}/lib/${PORTNAME}/browser/icons/mozicon128.png
 PM_DESKTOP=	${WRKSRC}/browser/branding/official/${PORTNAME}.desktop
 MOZ_OPTIONS=	--enable-application=browser \
-		--enable-official-branding \
 		--enable-devtools \
 		--enable-jemalloc \
 		--enable-jemalloc-lib
 
-OPTIONS_DEFAULT=	BUNDLED_CAIRO GTK2
-OPTIONS_EXCLUDE=	DTRACE INTEGER_SAMPLES JACK TEST
+OPTIONS_DEFAULT=	GTK2
+OPTIONS_EXCLUDE=	JACK TEST WAYLAND
 
 .include "${.CURDIR}/../../www/firefox/Makefile.options"
 

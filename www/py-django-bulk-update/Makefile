@@ -2,18 +2,22 @@
 
 PORTNAME=	django-bulk-update
 PORTVERSION=	2.2.0
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	rene@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Bulk update using a single query over Django ORM
 
 LICENSE=	MIT
 
-NO_ARCH=	yes
 USES=		python:-3.4 django:111+
 USE_PYTHON=	autoplist distutils
+
+NO_ARCH=	yes
+
+post-extract:
+	${RM} ${WRKSRC}/tests/__init__.py # prevent conflict with devel/py-phply in textproc/pootle
 
 .include <bsd.port.mk>

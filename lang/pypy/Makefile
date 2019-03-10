@@ -49,6 +49,7 @@ BUILD_WRKSRC?=	${WRKDIR}/build/usession-release-pypy2.7-v${DISTVERSION}-0/testin
 MAKE_ENV+=	PYPY_LOCALBASE=${LOCALBASE} LDSHARED="${CC} -shared"
 PACKAGE_ARGS?=	--without-gdbm --without-sqlite3 --without-tk
 USE_LDCONFIG=	${PREFIX}/${PYPY_DIR}/bin
+LLD_UNSAFE=	yes
 USES=		gettext-runtime gmake shebangfix ssl tar:bzip2
 SHEBANG_FILES?=	lib-python/2.7/plat-mac/appletrunner.py \
 		lib-python/2.7/plat-mac/bundlebuilder.py \
@@ -104,7 +105,7 @@ PLIST=		${.CURDIR}/pkg-plist
 .include "${MASTERDIR}/bsd.pypy.mk"
 .include <bsd.port.pre.mk>
 
-.if ${OPSYS} == FreeBSD && (${OSVERSION} < 1100000 || (${ARCH} != i386 && ${ARCH} != amd64))
+.if ${OPSYS} == FreeBSD && ${ARCH} != i386 && ${ARCH} != amd64
 PYPY_ARGS=	--withoutmod-_vmprof
 .else
 LIB_DEPENDS+=	libunwind.so:devel/libunwind

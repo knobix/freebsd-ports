@@ -1,4 +1,5 @@
 %%PYTHON_SITELIBDIR%%/PyQt5/QtNetwork.so
+%%PYTHON_SITELIBDIR%%/PyQt5/QtNetwork.pyi
 %%PYQT_SIPDIR%%/QtNetwork/QtNetworkmod.sip
 %%PYQT_SIPDIR%%/QtNetwork/qabstractnetworkcache.sip
 %%PYQT_SIPDIR%%/QtNetwork/qabstractsocket.sip
@@ -38,4 +39,4 @@
 %%PYQT_SIPDIR%%/QtNetwork/qtcpserver.sip
 %%PYQT_SIPDIR%%/QtNetwork/qtcpsocket.sip
 %%PYQT_SIPDIR%%/QtNetwork/qudpsocket.sip
-%%API%%share/qt5/qsci/api/python/QtNetwork.api
+%%API%%%%PYQT_APIDIR%%/api/python/QtNetwork.api

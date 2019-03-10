@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	getdns
-PORTVERSION=	1.3.0
+PORTVERSION=	1.5.1
 CATEGORIES=	dns ipv6
 MASTER_SITES=	https://getdnsapi.net/dist/ \
 		ZI \
@@ -24,8 +24,8 @@ USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--with-libidn=${LOCALBASE} --docdir=${DOCSDIR} \
 		--with-trust-anchor=${LOCALBASE}/etc/unbound/root.key
-SOMAJVER=	6
-SOVERSION=	${SOMAJVER}.${PORTVERSION:C/[0-9].([0-9].[0-9])/\1/1}
+SOMAJVER=	10
+SOVERSION=	${SOMAJVER}.1.${PORTVERSION:C/[0-9].[0-9].([0-9])/\1/1}
 MAKE_JOBS_UNSAFE=yes
 
 PLIST_SUB+=	SOVERSION="${SOVERSION}" SOMAJVER="${SOMAJVER}"
@@ -47,6 +47,7 @@ LIBUV_LIB_DEPENDS=	libuv.so:devel/libuv
 LIBUV_CONFIGURE_WITH=	libuv
 STUBBY_LIB_DEPENDS=	libyaml.so:textproc/libyaml
 STUBBY_CONFIGURE_WITH=	stubby
+STUBBY_VARS=		USE_RC_SUBR="stubby"
 
 post-patch:
 	${REINPLACE_CMD} -Ee 's,^(sharedoc = ).*,\1${WRKDIR}/doc,' \
@@ -54,7 +55,7 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgetdns*.so.*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/getdns_query
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/getdns_*
 
 post-stage-STUBBY-on:
 	${MV} ${STAGEDIR}${PREFIX}/etc/stubby/stubby.yml \

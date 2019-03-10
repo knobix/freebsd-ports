@@ -1,8 +1,7 @@
-# Created by: Nikolai Lifanov <lifanov@mail.lifanov.com>
 # $FreeBSD$
 
 PORTNAME=	winetricks
-PORTVERSION=	20171222
+PORTVERSION=	20181203
 CATEGORIES=	emulators
 
 MAINTAINER=	lifanov@FreeBSD.org

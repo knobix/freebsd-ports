@@ -14,6 +14,7 @@ share/java/zi/Africa/Maputo
 share/java/zi/Africa/Monrovia
 share/java/zi/Africa/Nairobi
 share/java/zi/Africa/Ndjamena
+share/java/zi/Africa/Sao_Tome
 share/java/zi/Africa/Tripoli
 share/java/zi/Africa/Tunis
 share/java/zi/Africa/Windhoek
@@ -210,6 +211,7 @@ share/java/zi/Asia/Oral
 share/java/zi/Asia/Pontianak
 share/java/zi/Asia/Pyongyang
 share/java/zi/Asia/Qatar
+share/java/zi/Asia/Qostanay
 share/java/zi/Asia/Qyzylorda
 share/java/zi/Asia/Riyadh
 share/java/zi/Asia/Sakhalin

@@ -3,7 +3,7 @@
 
 PORTNAME=	tablelog
 PORTVERSION=	0.4.4
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	databases
 MASTER_SITES=	http://pgfoundry.org/frs/download.php/1387/
 
@@ -15,6 +15,7 @@ LICENSE=	PostgreSQL
 WRKSRC=		${WRKDIR}/table_log-${DISTVERSION}
 
 USES=		gmake pgsql
+LLD_UNSAFE=	yes
 MAKE_ARGS=	USE_PGXS=1
 
 OPTIONS_DEFINE=	DOCS

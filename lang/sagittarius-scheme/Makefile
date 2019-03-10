@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	sagittarius
-PORTVERSION=	0.8.8
+PORTVERSION=	0.9.5
 CATEGORIES=	lang
 MASTER_SITES=	https://bitbucket.org/ktakashi/sagittarius-scheme/downloads/ \
 		LOCAL/ashish
@@ -14,13 +14,14 @@ COMMENT=	R6RS/R7RS Scheme system
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+ONLY_FOR_ARCHS=	amd64 i386
+
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/libffi.pc:devel/libffi
 LIB_DEPENDS=	libffi.so:devel/libffi \
 		libgc-threaded.so:devel/boehm-gc-threaded
 
+USES=		cmake pkgconfig ssl
 USE_LDCONFIG=	yes
-USES=		cmake pkgconfig
-ONLY_FOR_ARCHS=	amd64 i386
 MAKE_JOBS_UNSAFE=	yes
 
 OPTIONS_DEFINE=	ODBC SIMD
@@ -51,6 +52,6 @@ post-patch-ODBC-off:
 	@${REINPLACE_CMD} -e '/odbc odbc/d' ${WRKSRC}/ext/CMakeLists.txt
 
 post-install:
-	@${LN} -sf ${PREFIX}/bin/sagittarius ${STAGEDIR}${PREFIX}/bin/sash
+	@${LN} -sf sagittarius ${STAGEDIR}${PREFIX}/bin/sash
 
 .include <bsd.port.post.mk>

@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	w3lib
-PORTVERSION=	1.18.0
+PORTVERSION=	1.20.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -11,10 +11,11 @@ COMMENT=	Library of web-related functions
 
 LICENSE=	BSD3CLAUSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR}
 
-NO_ARCH=	yes
 USES=		python
 USE_PYTHON=	autoplist concurrent distutils
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

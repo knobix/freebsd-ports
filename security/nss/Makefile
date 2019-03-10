@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	nss
-PORTVERSION=	3.34.1
-#DISTVERSIONSUFFIX=	-with-ckbi-1.98
+PORTVERSION=	3.42.1
 CATEGORIES=	security
 MASTER_SITES=	MOZILLA/security/${PORTNAME}/releases/${DISTNAME:tu:C/[-.]/_/g}_RTM/src
 
@@ -13,13 +12,11 @@ COMMENT=	Libraries to support development of security-enabled applications
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BUILD_DEPENDS=	zip:archivers/zip \
-		nspr>=4.12:devel/nspr \
-		sqlite3>=3.7.15:databases/sqlite3
+BUILD_DEPENDS=	zip:archivers/zip
 LIB_DEPENDS=	libnspr4.so:devel/nspr \
 		libsqlite3.so:databases/sqlite3
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/nss
+WRKSRC_SUBDIR=	nss
 
 MAKE_JOBS_UNSAFE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/nss
@@ -41,7 +38,7 @@ DIST=		${WRKSRC:H}/dist
 
 EXTRACT_AFTER_ARGS=--exclude */lib/zlib --exclude */lib/dbm --exclude */lib/sqlite
 
-INSTALL_BINS=	certcgi certutil cmsutil crlutil derdump makepqg \
+INSTALL_BINS=	certutil cmsutil crlutil derdump makepqg \
 		mangle modutil ocspclnt oidcalc p7content p7env p7sign \
 		p7verify pk12util rsaperf shlibsign signtool signver \
 		ssltap strsclnt symkeyutil vfychain vfyserv

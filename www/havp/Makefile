@@ -3,7 +3,7 @@
 
 PORTNAME=	havp
 PORTVERSION=	0.91
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	www
 MASTER_SITES=	http://www.server-side.de/download/ \
 		http://bio3k.softboard.ru/uploads/arch/ \
@@ -11,6 +11,8 @@ MASTER_SITES=	http://www.server-side.de/download/ \
 
 MAINTAINER=	ayu@commun.jp
 COMMENT=	HTTP Antivirus Proxy
+
+BROKEN=		fails to build
 
 LIB_DEPENDS=	libclamav.so:security/clamav
 

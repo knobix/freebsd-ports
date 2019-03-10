@@ -3,7 +3,7 @@
 
 PORTNAME=	pykawari
 PORTVERSION=	8.2.8
-PORTREVISION=	7
+PORTREVISION=	8
 CATEGORIES=	games
 MASTER_SITES=	SF/kawari/kawari/${PORTVERSION}
 DISTNAME=	kawari-${PORTVERSION:S/.//g}
@@ -13,6 +13,8 @@ COMMENT=	Real kawari8 module for ninix-aya
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/license.txt
+
+BROKEN=		fails to build
 
 RUN_DEPENDS=	ninix:games/ninix-aya
 

@@ -7,8 +7,7 @@ PORTVERSION=	${ISCVERSION:S/-P/P/:S/b/.b/:S/a/.a/:S/rc/.rc/}
 # dns/bind-tools here
 PORTREVISION=	0
 .else
-# dns/bind912 here
-PORTREVISION=	1
+PORTREVISION=	0
 .endif
 CATEGORIES=	dns net ipv6
 MASTER_SITES=	ISC/bind9/${ISCVERSION}
@@ -29,10 +28,11 @@ COMMENT=	BIND DNS suite with updated DNSSEC and DNS64
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/COPYRIGHT
 
-# ISC releases things like 9.8.0-P1, which our versioning doesn't like
-ISCVERSION=	9.12.0rc1
+LIB_DEPENDS=	libxml2.so:textproc/libxml2
 
-USES=	cpe libedit
+USES=	compiler:c11 cpe libedit
+# ISC releases things like 9.8.0-P1, which our versioning doesn't like
+ISCVERSION=	9.12.4
 
 CPE_VENDOR=	isc
 CPE_VERSION=	${ISCVERSION:C/-.*//}
@@ -40,46 +40,43 @@ CPE_VERSION=	${ISCVERSION:C/-.*//}
 CPE_UPDATE=	${ISCVERSION:C/.*-//:tl}
 .endif
 
-LIB_DEPENDS=	libxml2.so:textproc/libxml2
-
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--localstatedir=/var --disable-linux-caps \
-		--disable-symtable \
 		--with-randomdev=/dev/random \
 		--with-libxml2=${LOCALBASE} \
 		--with-readline="-L${LOCALBASE}/lib -ledit" \
 		--with-dlopen=yes \
+		--with-gost=no \
 		--sysconfdir=${ETCDIR}
 ETCDIR=		${PREFIX}/etc/namedb
 
-CONFLICTS=	bind99 bind910 bind9-devel
+CONFLICTS=	bind911 bind913 bind914 bind9-devel
 
 .if defined(BIND_TOOLS_SLAVE)
 CONFIGURE_ARGS+=	--disable-shared
-CONFLICTS+=		bind911
+CONFLICTS+=		bind912
 .else
 USE_RC_SUBR=	named
 SUB_FILES=	pkg-message named.conf
 CONFLICTS+=		bind-tools
+
+PORTDOCS=	*
 .endif	# BIND_TOOLS_SLAVE
 
 MAKE_JOBS_UNSAFE=	yes
 
-PORTDOCS=	*
-
 OPTIONS_DEFAULT=	SSL THREADS SIGCHASE IDN GSSAPI_NONE JSON PYTHON
 OPTIONS_DEFINE=		IDN LARGE_FILE PYTHON JSON \
-			FIXED_RRSET SIGCHASE IPV6 THREADS FILTER_AAAA
+			FIXED_RRSET SIGCHASE IPV6 THREADS
 
-OPTIONS_RADIO=	CRYPTO GOSTDEF
+OPTIONS_RADIO=	CRYPTO
 OPTIONS_RADIO_CRYPTO=	SSL NATIVE_PKCS11
-OPTIONS_RADIO_GOSTDEF=	GOST GOST_ASN1
 
 .if !defined(BIND_TOOLS_SLAVE)
-OPTIONS_DEFAULT+=	DLZ_FILESYSTEM LMDB RPZ_NSDNAME RPZ_NSIP
-OPTIONS_DEFINE+=	RPZ_NSIP RPZ_NSDNAME DOCS GEOIP \
+OPTIONS_DEFAULT+=	DLZ_FILESYSTEM LMDB RPZ_NSDNAME RPZ_NSIP TCP_FASTOPEN
+OPTIONS_DEFINE+=	RPZ_NSIP RPZ_NSDNAME DOCS \
 			MINCACHE PORTREVISION QUERYTRACE LMDB DNSTAP \
-			START_LATE
+			START_LATE TUNING_LARGE TCP_FASTOPEN
 OPTIONS_GROUP=		DLZ
 OPTIONS_GROUP_DLZ=	DLZ_POSTGRESQL DLZ_MYSQL DLZ_BDB \
 			DLZ_LDAP DLZ_FILESYSTEM DLZ_STUB
@@ -98,12 +95,7 @@ DLZ_MYSQL_DESC=		DLZ MySQL driver (no threading)
 DLZ_POSTGRESQL_DESC=	DLZ Postgres driver
 DLZ_STUB_DESC=		DLZ stub driver
 DNSTAP_DESC=		Provides fast passive logging of DNS messages
-FILTER_AAAA_DESC=	Enable filtering of AAAA records
 FIXED_RRSET_DESC=	Enable fixed rrset ordering
-GEOIP_DESC=		Allow geographically based ACL.
-GOSTDEF_DESC=		Enable GOST ciphers, needs SSL
-GOST_ASN1_DESC=		GOST using ASN.1
-GOST_DESC=		GOST raw keys (new default)
 GSSAPI_BASE_DESC=	Using Heimdal in base
 GSSAPI_HEIMDAL_DESC=	Using security/heimdal
 GSSAPI_MIT_DESC=	Using security/krb5
@@ -120,6 +112,8 @@ RPZ_NSIP_DESC=		Enable RPZ NSIP trigger rules
 SIGCHASE_DESC=		dig/host/nslookup will do DNSSEC validation
 SSL_DESC=		Build with OpenSSL (Required for DNSSEC)
 START_LATE_DESC=	Start BIND late in the boot process (see help)
+TCP_FASTOPEN_DESC=	RFC 7413 support
+TUNING_LARGE_DESC=	Tune named for large systems (**READ HELP**)
 
 DLZ_BDB_CONFIGURE_ON=	--with-dlz-bdb=yes
 DLZ_BDB_USES=		bdb
@@ -143,44 +137,35 @@ DNSTAP_IMPLIES=		THREADS
 DNSTAP_LIB_DEPENDS=	libfstrm.so:devel/fstrm \
 			libprotobuf-c.so:devel/protobuf-c
 
-FILTER_AAAA_CONFIGURE_ENABLE=	filter-aaaa
-
 FIXED_RRSET_CONFIGURE_ENABLE=	fixed-rrset
 
-GEOIP_CONFIGURE_WITH=	geoip
-GEOIP_LIB_DEPENDS=	libGeoIP.so:net/GeoIP
-
-GOST_ASN1_CONFIGURE_ON=	--with-gost=asn1
-
-GOST_CONFIGURE_ON=	--with-gost
-
-GSSAPI_BASE_CONFIGURE_ON= \
+GSSAPI_BASE_CONFIGURE_ON=\
 	--with-gssapi=${GSSAPIBASEDIR} KRB5CONFIG="${KRB5CONFIG}"
 GSSAPI_BASE_USES=	gssapi
 
-GSSAPI_HEIMDAL_CONFIGURE_ON= \
+GSSAPI_HEIMDAL_CONFIGURE_ON=\
 	--with-gssapi=${GSSAPIBASEDIR} KRB5CONFIG="${KRB5CONFIG}"
 GSSAPI_HEIMDAL_USES=	gssapi:heimdal
 
-GSSAPI_MIT_CONFIGURE_ON= \
+GSSAPI_MIT_CONFIGURE_ON=\
 	--with-gssapi=${GSSAPIBASEDIR} KRB5CONFIG="${KRB5CONFIG}"
 GSSAPI_MIT_USES=	gssapi:mit
 
 GSSAPI_NONE_CONFIGURE_ON=	--without-gssapi
 
-IDN_CONFIGURE_OFF=	--without-idn
-IDN_CONFIGURE_ON=	--with-idn=${LOCALBASE} ${ICONV_CONFIGURE_BASE}
-IDN_LIB_DEPENDS=	libidnkit.so:dns/idnkit
+IDN_CONFIGURE_OFF=	--without-libidn2
+IDN_CONFIGURE_ON=	--with-libidn2=${LOCALBASE} ${ICONV_CONFIGURE_BASE}
+IDN_LIB_DEPENDS=	libidn2.so:dns/libidn2
 IDN_USES=		iconv
 
 IPV6_CONFIGURE_ENABLE=	ipv6
 
-JSON_CONFIGURE_WITH=	libjson
+JSON_CONFIGURE_WITH=	libjson=${LOCALBASE}
 JSON_LIB_DEPENDS=	libjson-c.so:devel/json-c
 
 LARGE_FILE_CONFIGURE_ENABLE=	largefile
 
-LMDB_CONFIGURE_WITH=	lmdb
+LMDB_CONFIGURE_WITH=	lmdb=${LOCALBASE}
 LMDB_LIB_DEPENDS=	liblmdb.so:databases/lmdb
 
 MINCACHE_EXTRA_PATCHES=	${FILESDIR}/extrapatch-bind-min-override-ttl
@@ -188,9 +173,9 @@ MINCACHE_EXTRA_PATCHES=	${FILESDIR}/extrapatch-bind-min-override-ttl
 NATIVE_PKCS11_CONFIGURE_ENABLE=	native-pkcs11
 NATIVE_PKCS11_IMPLIES=	THREADS
 
-PYTHON_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ply>=0:devel/py-ply
+PYTHON_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ply>=0:devel/py-ply@${PY_FLAVOR}
 PYTHON_CONFIGURE_WITH=	python=${PYTHON_CMD}
-PYTHON_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ply>=0:devel/py-ply
+PYTHON_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ply>=0:devel/py-ply@${PY_FLAVOR}
 PYTHON_USES=	python
 
 QUERYTRACE_CONFIGURE_ENABLE=	querytrace
@@ -210,18 +195,26 @@ START_LATE_SUB_LIST=	NAMED_REQUIRE="SERVERS cleanvar" \
 START_LATE_SUB_LIST_OFF=NAMED_REQUIRE="NETWORKING ldconfig syslogd" \
 			NAMED_BEFORE="SERVERS"
 
+TCP_FASTOPEN_CONFIGURE_ENABLE=	tcp-fastopen
+
 THREADS_CONFIGURE_ENABLE=	threads
+
+TUNING_LARGE_IMPLIES=	THREADS
+TUNING_LARGE_CONFIGURE_ON=	--with-tuning=large
+TUNING_LARGE_CONFIGURE_OFF=	--with-tuning=default
 
 .include <bsd.port.pre.mk>
 
-.if !${PORT_OPTIONS:MGOST} && !${PORT_OPTIONS:MGOST_ASN1}
-CONFIGURE_ARGS+=	--without-gost
+.if defined(WITH_DEBUG)
+CONFIGURE_ARGS+=	--enable-symtable
+.else
+CONFIGURE_ARGS+=	--disable-symtable
 .endif
 
-.if ( ${PORT_OPTIONS:MGOST} || ${PORT_OPTIONS:MGOST_ASN1} ) && ${SSL_DEFAULT} == base
-BROKEN=	OpenSSL from the base system does not support GOST, add \
-	DEFAULT_VERSIONS+=ssl=openssl to your /etc/make.conf and rebuild everything \
-	that needs SSL.
+.if ${SSL_DEFAULT} == base
+SUB_LIST+=	ENGINES=/usr/lib/engines
+.else
+SUB_LIST+=	ENGINES=${LOCALBASE}/lib/engines
 .endif
 
 post-patch:

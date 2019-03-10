@@ -14,6 +14,9 @@ COMMENT=	Various sniffing utilities for penetration testing
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BROKEN_SSL=	openssl111
+BROKEN_SSL_REASON_openssl111=	incomplete definition of type 'struct rsa_st'
+
 BUILD_DEPENDS=	${LOCALBASE}/lib/libnids.a:net/libnids
 LIB_DEPENDS=	libnet.so:net/libnet
 

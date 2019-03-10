@@ -2,6 +2,7 @@
 
 PORTNAME=	pc-mixer
 PORTVERSION=	20171212
+PORTREVISION=	2
 CATEGORIES=	audio
 
 MAINTAINER=	jmaloney@ixsystems.com
@@ -9,13 +10,12 @@ COMMENT=	QT5 based audio mixer for FreeBSD
 
 LICENSE=	BSD2CLAUSE
 
-WRKSRC_SUBDIR=	src-qt5
 MAKE_ARGS=	PREFIX=${STAGEDIR}${PREFIX}
 
 MAKE_JOBS_UNSAFE=yes
-USES=		qmake shebangfix tar:xz
+USES=		compiler:c++11-lang gl qmake qt:5 shebangfix tar:xz
 USE_LDCONFIG=	yes
-USE_QT5=	core gui network svg linguist \
+USE_QT=		core gui network svg linguist \
 		buildtools x11extras widgets multimedia
 USE_GL+=	gl
 

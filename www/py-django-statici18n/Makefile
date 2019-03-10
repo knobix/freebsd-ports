@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-statici18n
-PORTVERSION=	1.5.0
-PORTREVISION=	1
+PORTVERSION=	1.8.2
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-appconf>=0.6:www/py-django-appconf@${DJANGO_FLAVOR}
 
-USES=		python:2.7-3.5 django
+USES=		python django
 USE_PYTHON=	autoplist distutils
 NO_ARCH=	yes
 

@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	netsurf
-PORTVERSION=	3.7
+PORTVERSION=	3.8
 CATEGORIES=	www
 MASTER_SITES=	http://download.netsurf-browser.org/netsurf/releases/source/
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	neel@neelc.org
 COMMENT=	Lightweight web browser
 
 LICENSE=	GPLv2 MIT
@@ -31,8 +31,6 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libnspsl.so:dns/libnspsl
 RUN_DEPENDS=	duk:lang/duktape \
 		${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_nss
-
-BROKEN_powerpc64=	fails to compile: dukky.h:40: expected declaration specifiers or '...' before 'dom_string'
 
 USES=		bison desktop-file-utils gettext-runtime gmake iconv jpeg \
 		localbase pkgconfig shebangfix ssl

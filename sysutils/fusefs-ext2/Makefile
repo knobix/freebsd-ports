@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	fusefs-ext2
-PORTVERSION=	0.0.9
+PORTVERSION=	0.0.10
 DISTVERSIONPREFIX=	v
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	sysutils
 
 MAINTAINER=	ehaupt@FreeBSD.org
@@ -24,6 +24,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib/e2fsprogs -Wl,--rpath -Wl,${LOCALBASE}/lib/e2fsprog
 
 GH_PROJECT=	fuse-ext2
 GH_ACCOUNT=	alperakcan
+GH_TAGNAME=	677722d
 
 PLIST_FILES=	bin/fuse-ext2 bin/fuse-ext2.probe \
 		man/man1/fuse-ext2.1.gz

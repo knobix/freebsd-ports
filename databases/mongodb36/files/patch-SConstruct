@@ -1,4 +1,4 @@
---- SConstruct.orig	2017-12-01 17:04:06 UTC
+--- SConstruct.orig	2018-01-04 23:28:55 UTC
 +++ SConstruct
 @@ -922,9 +922,9 @@ if has_option('variables-help'):
      print(env_vars.GenerateHelpText(env))

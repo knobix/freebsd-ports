@@ -1,15 +1,13 @@
 # $FreeBSD$
 
 PORTNAME=	smart
-DISTVERSION=	0.0.6
+DISTVERSION=	0.0.11
 CATEGORIES=	sysutils
 
 MAINTAINER=	jrm@FreeBSD.org
 COMMENT=	Output disk SMART values
 
 LICENSE=	ISCL
-
-IGNORE_FreeBSD_10=	Requires FreeBSD 11
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	ctuffli

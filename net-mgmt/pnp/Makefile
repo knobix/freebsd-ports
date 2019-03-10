@@ -3,6 +3,7 @@
 
 PORTNAME=	pnp
 PORTVERSION=	0.6.26
+PORTREVISION=	1
 CATEGORIES=	net-mgmt
 MASTER_SITES=	SF/pnp4nagios/PNP-0.6
 DISTNAME=	pnp4nagios-${DISTVERSIONPREFIX}${DISTVERSION}${DISTVERSIONSUFFIX}
@@ -19,7 +20,7 @@ RUN_DEPENDS?=	${LOCALBASE}/bin/rrdtool:databases/rrdtool \
 MAKE_JOBS_UNSAFE=	yes
 USES=		dos2unix perl5 php php:web
 
-OPTIONS_DEFINE=	PDF
+OPTIONS_DEFINE=	PDF EXAMPLES
 OPTIONS_DEFAULT=	PDF
 PDF_DESC=	Use built-in fpdf library to produce PDF views
 

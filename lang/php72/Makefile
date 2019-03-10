@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	php72
-DISTVERSION=	7.2.0
-PORTREVISION?=	1
+DISTVERSION=	7.2.16
+PORTREVISION?=	0
 CATEGORIES?=	lang devel www
 MASTER_SITES=	PHP/distributions
 DISTNAME=	php-${DISTVERSION}
@@ -17,53 +17,56 @@ CPE_PRODUCT=	php
 NO_OPTIONS_SORT=yes
 
 .if !defined(PKGNAMESUFFIX)
-USE_AUTOTOOLS=	autoconf
-#NOTE: libtools ends with Version mismatch error
-#USES+=		autoreconf gmake
-#GNU_CONFIGURE=	yes
-
 LIB_DEPENDS=	libpcre.so:devel/pcre \
 		libargon2.so:security/libargon2
 
+GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--with-layout=GNU \
-		--localstatedir=/var \
 		--with-config-file-scan-dir=${PREFIX}/etc/php \
 		--disable-all \
 		--enable-libxml \
-		--enable-mysqlnd \
 		--with-libxml-dir=${LOCALBASE} \
 		--with-pcre-regex=${LOCALBASE} \
 		--with-password-argon2=${LOCALBASE} \
 		--program-prefix=""
-
+USES+=		autoreconf:build
 USE_GNOME=	libxml2
 
-OPTIONS_DEFINE+=CLI CGI FPM EMBED PHPDBG DEBUG DTRACE IPV6 LINKTHR ZTS
-OPTIONS_DEFAULT=CLI CGI FPM EMBED LINKTHR DTRACE
+# PR230207 Allow relocations against read-only segments (override lld default)
+LDFLAGS_i386=	-Wl,-z,notext
 
-# Bug 197128:  No ASM code for MIPS/MIPS64, disable FPM
-OPTIONS_EXCLUDE_mips=FPM
-OPTIONS_EXCLUDE_mips64=FPM
-OPTIONS_SUB=	yes
-
+OPTIONS_DEFINE+=CLI CGI FPM EMBED PHPDBG DEBUG DTRACE IPV6 MYSQLND LINKTHR ZTS
+OPTIONS_DEFAULT=CLI CGI FPM EMBED MYSQLND LINKTHR DTRACE
 OPTIONS_EXCLUDE_DragonFly=	DTRACE
 # ld(1) fails to link probes: Relocations in generic ELF (EM: 0)
 OPTIONS_EXCLUDE_aarch64=	DTRACE
+# dt_modtext:opensolaris/ib/libdtrace/common/dt_link.c: arm not impemented
+OPTIONS_EXCLUDE_armv6=		DTRACE
+OPTIONS_EXCLUDE_armv7=		DTRACE
+# Bug 197128:  No ASM code for MIPS/MIPS64, disable FPM
+OPTIONS_EXCLUDE_mips=		DTRACE FPM
+OPTIONS_EXCLUDE_mips64=		DTRACE FPM
 OPTIONS_EXCLUDE_sparc64=	DTRACE
+OPTIONS_SUB=	yes
 
 CLI_DESC=	Build CLI version
 CGI_DESC=	Build CGI version
 FPM_DESC=	Build FPM version
 EMBED_DESC=	Build embedded library
 PHPDBG_DESC=	Interactive PHP debugger
+MYSQLND_DESC=	Build with MySQL Native Driver
 LINKTHR_DESC=	Link thread lib (for threaded extensions)
 ZTS_DESC=	Force Zend Thread Safety (ZTS) build
 
-CONFLICTS=	php56-* php70-* php71-*
+CONFLICTS=	php56-* php70-* php71-* php73-*
 
 DESTDIRNAME=	INSTALL_ROOT
 
 .include <bsd.port.pre.mk>
+
+.if ${PORT_OPTIONS:MMYSQLND}
+CONFIGURE_ARGS+=--enable-mysqlnd
+.endif
 
 .if ${PORT_OPTIONS:MCLI}
 PHP_SAPI+=	cli
@@ -86,8 +89,8 @@ CONFIGURE_ARGS+=--enable-fpm \
 .endif
 
 .if defined(PKGNAMEPREFIX)
-USE_APACHE=	22+
-.include "${PORTSDIR}/Mk/bsd.apache.mk"
+USES+=		apache:2.2+
+.include "${PORTSDIR}/Mk/Uses/apache.mk"
 .if ${PORT_OPTIONS:MAP2FILTER}
 CONFIGURE_ARGS+=--with-apxs2filter=${APXS}
 .else
@@ -154,12 +157,8 @@ post-patch:
 		${WRKSRC}/sapi/fpm/php-fpm.conf.in
 .endif
 
-# Work around issues with newer (>=2.64) autoconf
 pre-configure:
-	@${REINPLACE_CMD} -E 's:^((m4_)?divert)[(]([0-9]*)[)]:\1(600\3):' \
-		${WRKSRC}/configure.ac `${FIND} ${WRKSRC} -name '*.m4'`
-	@${RM} ${WRKSRC}/configure
-	@${CAT} ${WRKSRC}/acinclude.m4 ${WRKSRC}/build/libtool.m4 > ${WRKSRC}/aclocal.m4
+	@(cd ${WRKSRC} && ${SETENV} MAKE=${MAKE_CMD} ./buildconf --force)
 
 .if !defined(PKGNAMEPREFIX)
 post-build:

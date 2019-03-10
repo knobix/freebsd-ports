@@ -2,20 +2,27 @@
 # $FreeBSD$
 
 PORTNAME=	django-tinymce
-PORTVERSION=	2.0.4
-PORTREVISION=	2
+PORTVERSION=	2.7.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	kozlov.sergey.404@gmail.com
+MAINTAINER=	skozlov@FreeBSD.org
 COMMENT=	Django application to use TinyMCE editor
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
+USES=		python django
+USE_PYTHON=	autoplist concurrent distutils
 NO_ARCH=	yes
 
-USES=		python django zip
-USE_PYTHON=	autoplist distutils
+PORTDOCS=	*.rst
+
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.rst ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

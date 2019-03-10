@@ -3,10 +3,10 @@
 
 PORTNAME=	hiptext
 PORTVERSION=	0.0.s20160621
-PORTREVISION=	6
+PORTREVISION=	10
 CATEGORIES=	graphics
 
-MAINTAINER=	yuri@rawbw.com
+MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Tool for rendering images and videos inside terminals
 
 LICENSE=	NONE

@@ -876,9 +876,13 @@ lib/lib%%RUBY_NAME%%.so.%%RUBY_SHLIBVER%%
 %%RUBY_LIBDIR%%/yaml/dbm.rb
 %%RUBY_LIBDIR%%/yaml/store.rb
 libdata/pkgconfig/ruby-%%RUBY_VER%%.pc
+%%IF_DEFAULT%%man/man1/erb.1.gz
 man/man1/erb%%RUBY_SUFFIX%%.1.gz
+%%IF_DEFAULT%%man/man1/irb.1.gz
 man/man1/irb%%RUBY_SUFFIX%%.1.gz
+%%IF_DEFAULT%%man/man1/ri.1.gz
 man/man1/ri%%RUBY_SUFFIX%%.1.gz
+%%IF_DEFAULT%%man/man1/ruby.1.gz
 man/man1/%%RUBY_NAME%%.1.gz
 %%DOCS%%%%RUBY_DOCDIR%%/COPYING
 %%DOCS%%%%RUBY_DOCDIR%%/COPYING.ja
@@ -4013,6 +4017,7 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d38/symbol_8h__dep__incl.map
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d38/symbol_8h__dep__incl.md5
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d38/symbol_8h__dep__incl.png
+%%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d3c/structselect__set.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d40/structcls__struct__12byte.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d43/group__embed.html
 %%CAPIDOCS%%%%RUBY_DOCDIR%%/capi/html/de/d43/group__embed.map
@@ -6358,6 +6363,7 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%RDOC%%%%RUBY_RIDIR%%/Exception/set_backtrace-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Exception/to_json-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Exception/to_s-i.ri
+%%RDOC%%%%RUBY_RIDIR%%/Exception/to_tty%3f-c.ri
 %%RDOC%%%%RUBY_RIDIR%%/Exception2MessageMapper/E2MM/cdesc-E2MM.ri
 %%RDOC%%%%RUBY_RIDIR%%/Exception2MessageMapper/E2MM/e2mm_message-c.ri
 %%RDOC%%%%RUBY_RIDIR%%/Exception2MessageMapper/Fail-i.ri
@@ -7494,6 +7500,7 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarHeader/header-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarHeader/new-c.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarHeader/oct-i.ri
+%%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarHeader/strict_oct-c.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarHeader/update_checksum-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarInvalidError/cdesc-TarInvalidError.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/TarReader/Entry/bytes_read-i.ri
@@ -7568,8 +7575,10 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/files-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/gzip_to-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/initialize-i.ri
+%%RDOC%%%%RUBY_RIDIR%%/Gem/Package/mkdir_p_safe-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/new-c.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/read_checksums-i.ri
+%%RDOC%%%%RUBY_RIDIR%%/Gem/Package/realpath-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/security_policy-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/setup_signer-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/Gem/Package/spec-i.ri
@@ -17235,8 +17244,10 @@ man/man1/%%RUBY_NAME%%.1.gz
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/%5b%5d%3d-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/%5b%5d-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/ChunkedWrapper/cdesc-ChunkedWrapper.ri
+%%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/InvalidHeader/cdesc-InvalidHeader.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/body-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/cdesc-HTTPResponse.ri
+%%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/check_header-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/chunked%3d-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/chunked%3f-i.ri
 %%RDOC%%%%RUBY_RIDIR%%/WEBrick/HTTPResponse/config-i.ri

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-reversion
-PORTVERSION=	1.6.1
-PORTREVISION=	2
+PORTVERSION=	2.0.13
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -12,8 +11,20 @@ MAINTAINER=	xenophon+fbsdports@irtnog.org
 COMMENT=	Provides comprehensive version control facilities to Django apps
 
 LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python:2.7 django
-USE_PYTHON=	distutils
+USES=		python django
+USE_PYTHON=	autoplist concurrent distutils
+NO_ARCH=	yes
+
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+DOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>=0:textproc/py-sphinx@${PY_FLAVOR}
+DOCS_VARS=		PYDISTUTILS_BUILD_TARGET+="build_sphinx -a -E"
+
+post-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/build/sphinx/html && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR} "! -name .buildinfo -and ! -name objects.inv")
 
 .include <bsd.port.mk>

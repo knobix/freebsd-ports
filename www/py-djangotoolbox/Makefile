@@ -2,13 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	djangotoolbox
-PORTVERSION=	1.6.1
-PORTREVISION=	2
+PORTVERSION=	1.8.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	jhixson@gmail.com
+MAINTAINER=	jhixson@FreeBSD.org
 COMMENT=	Common API for running Django on non-relational/NoSQL databases
 
 LICENSE=	BSD3CLAUSE

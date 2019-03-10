@@ -2,10 +2,9 @@
 
 PORTNAME=	sendmail
 PORTVERSION=	8.15.2
-PORTREVISION=	5
+PORTREVISION=	16
 CATEGORIES=	mail ipv6
 MASTER_SITES=	ftp://ftp.sendmail.org/pub/sendmail/
-PKGNAMESUFFIX?=	${TLS_SUFFIX}${SASL_SUFFIX}${LDAP_SUFFIX}${BDB_SUFFIX}${PKGNAMESUFFIX2}
 DISTNAME=	${PORTNAME}.${PORTVERSION}
 
 MAINTAINER=	dinoex@FreeBSD.org
@@ -21,7 +20,7 @@ CONFLICTS?=	courier-0.* postfix-1.* postfix-2.* smail-3.* zmailer-2.* opensmtpd-
 USERS=		smmsp
 GROUPS=		smmsp
 
-USES=		cpe uidfix
+USES=		cpe uidfix groff
 MAKE_ARGS=	UBINOWN=${UID} UBINGRP=${GID} \
 		SBINOWN=${UID} SBINGRP=${GID} \
 		GBINOWN=${UID} GBINGRP=${GID} \
@@ -49,8 +48,7 @@ OPTIONS_DEFINE?=	SHMEM SEM LA NIS IPV6 TLS SASL SASLAUTHD LDAP BDB \
 			GDBM SOCKETMAP CYRUSLOOKUP BLACKLISTD SMTPUTF8 \
 			PICKY_HELO_CHECK MILTER DOCS
 OPTIONS_DEFAULT?=	SHMEM SEM LA NIS TLS SASL SASLAUTHD BDB1 \
-			BLACKLISTD SMTPUTF8 PICKY_HELO_CHECK MILTER
-OPTIONS_EXCLUDE_FreeBSD_10=	BLACKLISTD
+			BLACKLISTD PICKY_HELO_CHECK MILTER
 NO_OPTIONS_SORT=yes
 SHMEM_DESC=		System V shared memory support
 LA_DESC=		load averages support
@@ -75,6 +73,11 @@ GDBM_CONFIGURE_WITH=	compat
 SMTPUTF8_LIB_DEPENDS=	libidn2.so:dns/libidn2 libicui18n.so:devel/icu
 
 .include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200000
+PKGNAMESUFFIX?=	${TLS_SUFFIX}${SASL_SUFFIX}${LDAP_SUFFIX}${BDB_SUFFIX}${PKGNAMESUFFIX2}
+.endif
+
 .if ${PORT_OPTIONS:MSHMEM} && !defined(BUILDING_INDEX)
 IPCCHECK!=	ipcrm -q 0 2>&1 || true
 .if ${IPCCHECK:Mimplemented}
@@ -145,7 +148,7 @@ NO_PACKAGE=	GPLv3 license conflict
 SITE+=	${FILESDIR}/site.config.m4.gdbm
 .endif
 
-SED_SCRIPT=	-e "s|\`-O\'|\`${CFLAGS}\'|" \
+SED_SCRIPT=	-e "s|\`-O'|\`${CFLAGS}'|" \
 		-e 's|%%CC%%|${CC}|' -e 's|%%LD%%|${LD}|'
 
 .if ! ${PORT_OPTIONS:MNIS}
@@ -162,14 +165,14 @@ do-configure:
 .if ${PORT_OPTIONS:MGDBM}
 	@(if [ ! -e "${LOCALBASE}/lib/libgdbm_compat.so" ] ; then \
 	  ${ECHO_MSG} "===> option COMPAT is missing in databases/gdbm."; \
-          ${FALSE}; \
-          fi)
+	  ${FALSE}; \
+	  fi)
 .endif
 .if ${PORT_OPTIONS:MBLACKLISTD}
 	@(if [ ! -e "${DESTDIR}/usr/lib/libblacklist.so" ] ; then \
 	  ${ECHO_MSG} "===> libblacklist.so not found. Please update to FreeBSD 11"; \
-          ${FALSE}; \
-          fi)
+	  ${FALSE}; \
+	  fi)
 .endif
 	${REINPLACE_CMD} ${SED_SCRIPT} ${WRKSRC}/devtools/OS/FreeBSD
 	${SED} -e "s=%%PREFIX%%=${PREFIX}=g" \

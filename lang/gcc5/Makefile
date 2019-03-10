@@ -3,9 +3,9 @@
 
 PORTNAME=	gcc
 PORTVERSION=	5.5.0
-PORTREVISION=	1
+PORTREVISION=	6
 CATEGORIES=	lang
-MASTER_SITES=	GCC/releases/gcc-${DISTVERSION}
+MASTER_SITES=	GCC
 PKGNAMESUFFIX=	${SUFFIX}
 
 MAINTAINER=	gerald@FreeBSD.org
@@ -14,7 +14,8 @@ COMMENT=	GNU Compiler Collection 5
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
 
-ONLY_FOR_ARCHS=	aarch64 amd64 arm armv6 i386 powerpc powerpc64 sparc64
+DEPRECATED=	Unsupported by upstream. Use GCC 7 or newer instead.
+ONLY_FOR_ARCHS=	aarch64 amd64 arm armv6 i386 powerpc powerpc64 powerpcspe sparc64
 BROKEN_sparc64=	Does not build: bootstrap comparison failure
 
 LIB_DEPENDS=	libgmp.so:math/gmp \
@@ -65,6 +66,9 @@ MAKE_ARGS+=STAGE1_CXXFLAGS=-fbracket-depth=512
 
 .elif ${ARCH} == powerpc64
 CONFIGURE_ENV+=	UNAME_m="powerpc64"
+
+.elif ${ARCH} == powerpcspe
+CONFIGURE_ARGS+=	--with-cpu=8548 --enable-e500_double --without-fp
 .endif
 
 LANGUAGES:=	c,c++,objc,fortran
@@ -97,7 +101,7 @@ CONFIGURE_ARGS+=--disable-nls \
 		--with-system-zlib
 MAKE_ARGS+=	MAKEINFOFLAGS="--no-split"
 USE_LDCONFIG=	${TARGLIB}
-PLIST_SUB=	GCC_VERSION=${GCC_VERSION} \
+PLIST_SUB+=	GCC_VERSION=${GCC_VERSION} \
 		GNU_HOST=${CONFIGURE_TARGET} \
 		SUFFIX=${SUFFIX}
 INFO=		gcc${SUFFIX}/cpp \
@@ -116,6 +120,11 @@ CONFIGURE_ARGS+=--enable-languages=${LANGUAGES}
 
 pre-everything::
 	@${ECHO_MSG} "Making GCC ${PORTVERSION} for ${CONFIGURE_TARGET} [${LANGUAGES}]"
+
+post-patch:
+	@${FIND} ${WRKSRC} -type f \( -name '*.[ch]' -o -name '*.cc' \) | \
+	    ${XARGS} ${EGREP} -l '"(HOST_WIDE|PLUGIN_COND|PRId64)' | \
+	    ${XARGS} ${REINPLACE_CMD} -E -e 's/"(HOST_WIDE|PLUGIN_COND|PRId64)/" \1/g'
 
 pre-configure:
 	cd ${WRKSRC} ; contrib/gcc_update --touch

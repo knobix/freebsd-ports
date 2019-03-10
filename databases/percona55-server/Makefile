@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME?=	percona
-DISTVERSION=	5.5.58-38.10
-PORTREVISION?=	0
+DISTVERSION=	5.5.61-38.13
+PORTREVISION?=	1
 CATEGORIES=	databases ipv6
 MASTER_SITES=	http://www.percona.com/downloads/Percona-Server-5.5/Percona-Server-${DISTVERSION}/source/tarball/
 PKGNAMESUFFIX?=	55-server
@@ -15,7 +15,8 @@ LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 SLAVEDIRS=	databases/percona55-client
-USES=		bison cmake:noninja readline shebangfix
+USES=		bison cmake:insource,noninja readline shebangfix
+USE_CXXSTD=	gnu++98
 
 CXXFLAGS+=	${CPPFLAGS}
 
@@ -28,7 +29,7 @@ DATADIR=	${PREFIX}/share/mysql
 CMAKE_ARGS+=	-DINSTALL_DOCDIR="share/doc/mysql" \
 		-DINSTALL_DOCREADMEDIR="share/doc/mysql" \
 		-DINSTALL_INCLUDEDIR="include/mysql" \
-		-DINSTALL_INFODIR="info" \
+		-DINSTALL_INFODIR="${INFO_PATH}" \
 		-DINSTALL_LIBDIR="lib/mysql" \
 		-DINSTALL_MANDIR="man" \
 		-DINSTALL_MYSQLDATADIR="/var/db/mysql" \
@@ -85,6 +86,15 @@ CMAKE_ARGS+=	-DWITH_EMBEDDED_SERVER="ON"
 
 post-install:
 	@${MKDIR} ${STAGEDIR}/var/db/mysql
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200057
+SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
+.else
+SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
+.endif
+
 .endif
 
 post-patch:

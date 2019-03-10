@@ -7,9 +7,8 @@
     SUBDIR += accrete
     SUBDIR += astrometry
     SUBDIR += boinc-astropulse
-    SUBDIR += boinc-setiathome-v7
+    SUBDIR += boinc-setiathome
     SUBDIR += celestia
-    SUBDIR += celestia-gnome
     SUBDIR += celestia-gtk
     SUBDIR += cfitsio
     SUBDIR += fowsr
@@ -45,6 +44,7 @@
     SUBDIR += nightfall
     SUBDIR += opencpn
     SUBDIR += openuniverse
+    SUBDIR += oskar
     SUBDIR += osmosis
     SUBDIR += p5-Astro
     SUBDIR += p5-Astro-ADS
@@ -74,7 +74,6 @@
     SUBDIR += p5-Misc-Quality
     SUBDIR += p5-Starlink-AST
     SUBDIR += p5-Weather-Underground
-    SUBDIR += p5-ZConf-Weather
     SUBDIR += phoon
     SUBDIR += planets
     SUBDIR += pp3
@@ -84,9 +83,12 @@
     SUBDIR += py-astLib
     SUBDIR += py-astropy
     SUBDIR += py-horoscopegenerator
-    SUBDIR += py-pyfits
+    SUBDIR += py-metar
+    SUBDIR += py-metpy
     SUBDIR += py-pymetar
+    SUBDIR += py-pysofa
     SUBDIR += py-pywapi
+    SUBDIR += py-spacetrack
     SUBDIR += pyephem
     SUBDIR += pyweather
     SUBDIR += qlandkartegt
@@ -97,6 +99,8 @@
     SUBDIR += routino
     SUBDIR += saoimage
     SUBDIR += sextractor
+    SUBDIR += siril
+    SUBDIR += sofa
     SUBDIR += sscalc
     SUBDIR += stardates
     SUBDIR += starplot
@@ -111,7 +115,7 @@
     SUBDIR += viking
     SUBDIR += wcslib
     SUBDIR += weather
-    SUBDIR += weatherspect
+    SUBDIR += wmglobe
     SUBDIR += wmjupiter
     SUBDIR += wmmoonclock
     SUBDIR += wmsolar

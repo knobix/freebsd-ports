@@ -73,6 +73,12 @@ GTK2_USE=	GNOME=gtk20
 GCONF_USE=	GNOME=gconf2,libglade2
 
 post-patch:
+	@${REINPLACE_CMD} -e '/foldable/s,false),0x0),' \
+		${WRKSRC}/FvwmCompositor/desktop/MetisseDesktop.cxx
+	@${REINPLACE_CMD} -e '1296s,opt ==,*&,' \
+		${WRKSRC}/FvwmCompositor/fvwmmodule/FvwmModule.cxx
+	@${REINPLACE_CMD} -e 's,1<<31,1l<<31,' \
+		${WRKSRC}/fvwm-insitu/libs/Module.h
 # Catch up with new <fribidi-types.h> header name
 	@${REINPLACE_CMD} -e 's,fribidi_types\.h,fribidi-types.h,' \
 		${WRKSRC}/fvwm-insitu/libs/FBidi.c

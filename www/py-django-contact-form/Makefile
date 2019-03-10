@@ -2,23 +2,26 @@
 # $FreeBSD$
 
 PORTNAME=	django-contact-form
-PORTVERSION=	1.4.2
+PORTVERSION=	1.6
 PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	rene@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Generic contact-form application for Django
 
 LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mock>=0:devel/py-mock@${PY_FLAVOR}
+
+USES=		python django
+USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
-
 do-test:
-	@cd ${WRKSRC} && ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test
+	@cd ${WRKSRC} && ${PYTHON_CMD} runtests.py
 
 .include <bsd.port.mk>

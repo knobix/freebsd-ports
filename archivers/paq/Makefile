@@ -3,7 +3,7 @@
 
 PORTNAME=	paq
 PORTVERSION=	20140131
-PORTREVISION=	3
+PORTREVISION=	5
 CATEGORIES=	archivers
 MASTER_SITES=	http://mattmahoney.net/dc/ LOCAL/bf/paq/
 DISTFILES=	wbpe110.zip zpaqd633.zip zpaq657.zip zpipe.201.zip
@@ -115,7 +115,7 @@ do-install:
 	cd ${DISTDIR}/${DIST_SUBDIR}; ${INSTALL_DATA} ${PORTDOCS:M*.pdf} ${STAGEDIR}${DOCSDIR}
 .endif
 
-check regression-test test: build
+do-test:
 .for _f in calgarytest.zpaq calgarytest2.zpaq
 .for _c in -list -test
 	${WRKSRC}/zpaq ${_c} ${DISTDIR}/${DIST_SUBDIR}/${_f}

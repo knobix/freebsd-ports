@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pqiv
-PORTVERSION=	2.10.2
+PORTVERSION=	2.11
 CATEGORIES=	graphics
 
 MAINTAINER=	danilo@FreeBSD.org
@@ -10,12 +10,16 @@ COMMENT=	Pretty Quick Image Viewer
 
 LICENSE=	GPLv2
 
+BROKEN_powerpc64=	fails to compile: pqiv.c:1183: \#pragma GCC diagnostic not allowed inside functions
+
 LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2
 BUILD_DEPENDS=	bash:shells/bash
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	phillipberndt
+
+OPTIONS_DEFINE=	DOCS
 
 OPTIONS_SINGLE=		GTK
 OPTIONS_SINGLE_GTK=	GTK2 GTK3
@@ -29,7 +33,7 @@ WAND_DESC=		ImageMagick image processing support
 
 OPTIONS_DEFAULT=	GTK2 PIXBUF
 
-USES=		gettext-runtime gmake pkgconfig
+USES=		gettext-runtime gmake gnome pkgconfig
 USE_XORG=	x11
 USE_GNOME=	cairo gdkpixbuf2
 HAS_CONFIGURE=	yes
@@ -49,7 +53,7 @@ SPECTRE_CONFIGURE_WITH=	spectre
 SPECTRE_LIB_DEPENDS=	libspectre.so:print/libspectre
 
 WAND_CONFIGURE_WITH=	wand
-WAND_LIB_DEPENDS=	libMagickWand-6.so:graphics/ImageMagick
+WAND_LIB_DEPENDS=	libMagickWand-6.so:graphics/ImageMagick6
 
 WEBP_CONFIGURE_WITH=	webp
 WEBP_LIB_DEPENDS=	libwebp.so:graphics/webp

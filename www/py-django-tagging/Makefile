@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-tagging
-PORTVERSION=	0.4.4
+PORTVERSION=	0.4.6
 PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
@@ -18,7 +18,5 @@ LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 NO_ARCH=	yes
 USES=		python django
 USE_PYTHON=	distutils autoplist
-
-DOCSDIR=	${PREFIX}/share/doc/py-${PORTNAME}
 
 .include <bsd.port.mk>

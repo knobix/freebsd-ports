@@ -19,10 +19,10 @@
 
 PORTNAME=	x264
 PORTVERSION=	0.${X264_BUILD}.${X264_REV}
-PORTREVISION?=	0 # 0 in libx264
+PORTREVISION?=	5	# 0 in libx264
 CATEGORIES=	multimedia
-MASTER_SITES=	ftp://ftp.videolan.org/pub/videolan/x264/snapshots/ \
-		http://samples.mplayerhq.hu/yuv4mpeg2/:pgo
+MASTER_SITES=	https://downloads.videolan.org/pub/videolan/x264/snapshots/ \
+		https://samples.mplayerhq.hu/yuv4mpeg2/:pgo
 DISTNAME=	${PORTNAME}-snapshot-${X264_SNAPSHOT}-2245-stable
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 DIST_SUBDIR=	x264
@@ -37,11 +37,11 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	bash:shells/bash
 LIB_DEPENDS?=	libx264.so:multimedia/libx264
 
-X264_BUILD=	152
-X264_REV=	2854
-X264_COMMIT=	e9a5903edf8ca59ef20e6f4894c196f135af735e
+X264_BUILD=	155
+X264_REV=	2917
+X264_COMMIT=	0a84d986e7020f8344f00752e3600b9769cc1e85
 X264_GITVER=	${X264_COMMIT:C/^(.......).*$/\1/g}
-X264_SNAPSHOT=	20171225
+X264_SNAPSHOT=	20180807
 
 USES?=		pkgconfig
 USES+=		gmake localbase shebangfix tar:bzip2

@@ -2,6 +2,7 @@
 
 PORTNAME=	pcdm
 PORTVERSION=	201710031254
+PORTREVISION=	1
 CATEGORIES=	x11
 
 MAINTAINER=	jt@ixsystems.com
@@ -19,9 +20,9 @@ MAKE_ARGS=	PREFIX=${STAGEDIR}${PREFIX}
 
 CONFLICTS=	pcbsd-utils-qt*
 
-USES=		qmake
-USE_QT5=	core gui network svg multimedia imageformats \
-		buildtools_build x11extras concurrent
+USES=		qmake qt:5
+USE_QT=		core gui network svg multimedia imageformats \
+		buildtools_build x11extras concurrent linguisttools_build
 USE_OPENRC_SUBR=pcdm
 
 USE_GITHUB=	yes

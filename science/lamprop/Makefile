@@ -1,32 +1,31 @@
 # $FreeBSD$
 
 PORTNAME=	lamprop
-PORTVERSION=	3.4
+PORTVERSION=	3.8
 CATEGORIES=	science python
-MASTER_SITES=	GH
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	rsmith@xs4all.nl
 COMMENT=	Calculates properties of fiber reinforced composites
 
 LICENSE=	BSD2CLAUSE
 
+BUILD_DEPENDS=	${PYNUMPY}
 RUN_DEPENDS=	${PYNUMPY}
 
-USES=		python:3.4+
-
+USES=		python:3.6+
+USE_PYTHON=	autoplist concurrent distutils
 USE_GITHUB=	yes
 GH_ACCOUNT=	rsmith-nl
 
-PLIST_FILES=	bin/lamprop \
-		man/man1/lamprop.1.gz \
-		man/man5/lamprop.5.gz
+NO_ARCH=	yes
 
-do-build:
-	cd ${WRKSRC} && ${PYTHON_VERSION} build.py
+PORTDOCS=	lamprop-manual.pdf
 
-do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/lamprop ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/doc/lamprop.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
-	${INSTALL_MAN} ${WRKSRC}/doc/lamprop.5 ${STAGEDIR}${MAN5PREFIX}/man/man5
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/lamprop-manual.pdf ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

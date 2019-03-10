@@ -2,7 +2,7 @@
 
 PORTNAME=		ldb
 PORTVERSION=		1.2.3
-PORTREVISION=		0
+PORTREVISION=		1
 PORTEPOCH=		0
 CATEGORIES=		databases
 MASTER_SITES=		SAMBA
@@ -19,14 +19,19 @@ BUILD_DEPENDS=		${LDB_DEPENDS}
 RUN_DEPENDS=		${LDB_DEPENDS}
 
 LDB_DEPENDS=		talloc>=2.1.10:devel/talloc \
-			tevent>=0.9.33:devel/tevent \
+			tevent>=0.9.34:devel/tevent \
 			tdb>=1.3.15:databases/tdb \
 			cmocka>=1.1.1:sysutils/cmocka \
 			popt>=0:devel/popt
 
-CONFLICTS=		ldb-1.1.* ldb13-1.3.*
+CONFLICTS_INSTALL=	ldb-1.1.* ldb13-1.3.*
 
-USES=			compiler pkgconfig waf
+#FLAVORS=		default nopython
+#nopython_PKGNAMESUFFIX=	-nopython
+#nopython_CONFLICTS=	ldb
+#default_CONFLICTS=	ldb-nopython
+
+USES=			compiler:c++11-lang pkgconfig waf
 USE_LDCONFIG=		yes
 WAF_CMD=		buildtools/bin/waf
 CONFIGURE_LOG=		bin/config.log
@@ -40,7 +45,7 @@ CONFIGURE_ARGS+=	--bundled-libraries=!talloc,!tevent,!tdb,!popt,!cmocka \
 			--with-privatelibdir=${PREFIX}/lib/ldb
 
 CONFIGURE_ARGS+=	--mandir=${MANPREFIX}/man \
-			--infodir=${PREFIX}/${INFO_PATH}/${INFO_SUBDIR} \
+			--with-openldap=${LOCALBASE} \
 			--disable-rpath \
 			--without-gettext
 
@@ -76,7 +81,7 @@ PLIST_FILES=		include/ldb_version.h \
 			include/ldb_module.h \
 			${LDB_BINS} \
 			${LDB_LIBS} \
-			%%PKGCONFIGDIR%%/ldb.pc
+			${PKGCONFIGDIR}/ldb.pc
 
 .if defined(NO_PYTHON)
 USES+=			python:2.7,build
@@ -87,15 +92,15 @@ USES+=			python:2.7
 PLIST_FILES+=		include/pyldb.h \
 			lib/libpyldb-util.so \
 			lib/libpyldb-util.so.1 \
-			%%PYTHON_SITELIBDIR%%/ldb.so \
-			%%PYTHON_SITELIBDIR%%/_ldb_text.py \
-			%%PKGCONFIGDIR%%/pyldb-util.pc
+			${PYTHON_SITELIBDIR}/ldb.so \
+			${PYTHON_SITELIBDIR}/_ldb_text.py \
+			${PKGCONFIGDIR}/pyldb-util.pc
 # XXX: This is a gross hack to make port use both Python 2.7+ and 3.3+
 # This is not officially supported, use at your own risk
-.if defined(WITH_SAMBA4_PYTHON3) && ${WITH_SAMBA4_PYTHON3:Mpython3\.[0-9]}
-SAMBA4_PYTHON3=		${WITH_SAMBA4_PYTHON3}
-SAMBA4_PYTHON3_VERSION:=${SAMBA4_PYTHON3:S/^python//}
-SAMBA4_PYTHON3_VER:=	${SAMBA4_PYTHON3_VERSION:C/\.//}
+.if defined(WITH_SAMBA4_PYTHON3) && ${WITH_SAMBA4_PYTHON3:M3\.[0-9]}
+SAMBA4_PYTHON3_VERSION=	${WITH_SAMBA4_PYTHON3}
+SAMBA4_PYTHON3=		python${SAMBA4_PYTHON3_VERSION}
+SAMBA4_PYTHON3_VER=	${SAMBA4_PYTHON3_VERSION:C/\.//}
 .if !exists(${PORTSDIR}/lang/python${SAMBA4_PYTHON3_VER})
 .error			unsupported or unknown Python version ${SAMBA4_PYTHON3_VERSION}
 .endif
@@ -111,11 +116,11 @@ CONFIGURE_ARGS+=	--extra-python=${LOCALBASE}/bin/${SAMBA4_PYTHON3}
 PLIST_SUB+=		SAMBA4_PYTHON3_SO_ABI=${SAMBA4_PYTHON3_SO_ABI} \
 			SAMBA4_PYTHON3_SITELIBDIR=${SAMBA4_PYTHON3_SITELIBDIR}
 
-PLIST_FILES+=		lib/libpyldb-util.%%SAMBA4_PYTHON3_SO_ABI%%.so \
-			lib/libpyldb-util.%%SAMBA4_PYTHON3_SO_ABI%%.so.1 \
-			%%SAMBA4_PYTHON3_SITELIBDIR%%/ldb.so \
-			%%SAMBA4_PYTHON3_SITELIBDIR%%/_ldb_text.py  \
-			%%PKGCONFIGDIR%%/pyldb-util.%%SAMBA4_PYTHON3_SO_ABI%%.pc
+PLIST_FILES+=		lib/libpyldb-util.${SAMBA4_PYTHON3_SO_ABI}.so \
+			lib/libpyldb-util.${SAMBA4_PYTHON3_SO_ABI}.so.1 \
+			${SAMBA4_PYTHON3_SITELIBDIR}/ldb.${SAMBA4_PYTHON3_SO_ABI}.so \
+			${SAMBA4_PYTHON3_SITELIBDIR}/_ldb_text.py  \
+			${PKGCONFIGDIR}/pyldb-util.${SAMBA4_PYTHON3_SO_ABI}.pc
 .endif
 .endif
 
@@ -128,7 +133,7 @@ BUILD_DEPENDS+=		${LOCALBASE}/share/xsl/docbook/manpages/docbook.xsl:textproc/do
 			xsltproc:textproc/libxslt
 .endif
 # No fancy color error messages
-.if ${COMPILER_TYPE} == "clang"
+.if ${CHOSEN_COMPILER_TYPE} == clang
 CFLAGS+=		-fno-color-diagnostics
 .endif
 CONFIGURE_ENV+=		NOCOLOR=yes
@@ -173,7 +178,7 @@ post-install:
 			${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/ldb.so
 .if defined(SAMBA4_PYTHON3)
 			${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpyldb-util.${SAMBA4_PYTHON3_SO_ABI}.so
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SAMBA4_PYTHON3_SITELIBDIR}/ldb.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SAMBA4_PYTHON3_SITELIBDIR}/ldb.${SAMBA4_PYTHON3_SO_ABI}.so
 .endif
 .endif
 

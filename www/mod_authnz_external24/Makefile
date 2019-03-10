@@ -13,13 +13,15 @@ COMMENT=	Allows users authentication based on external mechanisms on apache 2.4
 
 LICENSE=	APACHE20
 
-USE_APACHE=	24
+USES=		apache:2.4
 AP_FAST_BUILD=	yes
 AP_GENPLIST=	yes
 SHORTMODNAME=	authnz_external
 
 PORTDOCS=	AUTHENTICATORS INSTALL README	\
 		CHANGES UPGRADE INSTALL.HARDCODE
+
+OPTIONS_DEFINE=	DOCS
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}

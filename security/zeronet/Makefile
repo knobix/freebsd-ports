@@ -2,18 +2,18 @@
 # $FreeBSD$
 
 PORTNAME=	zeronet
-PORTVERSION=	0.6.0
 DISTVERSIONPREFIX=	v
+DISTVERSION=	0.6.4
 CATEGORIES=	security net-p2p
 
-MAINTAINER=	yuri@rawbw.com
+MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Decentralized websites using Bitcoin crypto and BitTorrent network
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}msgpack-python>0:devel/py-msgpack-python@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}gevent>=1.0.2:devel/py-gevent@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}msgpack>0:devel/py-msgpack@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}gevent>0:devel/py-gevent@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}stem>0:security/py-stem@${PY_FLAVOR}
 
 SUB_FILES=	zeronet-service zeronet-cmd pkg-message
@@ -37,12 +37,15 @@ DEBUG_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}werkzeug>0:www/py-werkzeug@${PY_FLAVOR
 USER=		nobody
 GROUP=		nobody
 
+post-patch:
+	@${REINPLACE_CMD} -i '' -e 's|msgpack-python|msgpack|' ${WRKSRC}/requirements.txt
+
 do-build:
-	@(cd ${WRKSRC} && \
+	@cd ${WRKSRC} && \
 	${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
 		-d ${WRKSRC} -f ${WRKSRC} && \
 	${PYTHON_CMD} -O ${PYTHON_LIBDIR}/compileall.py \
-		-d ${WRKSRC} -f ${WRKSRC})
+		-d ${WRKSRC} -f ${WRKSRC}
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}
 	@${CP} -R ${WRKSRC}/* ${STAGEDIR}${DATADIR}/

@@ -3,16 +3,20 @@
 
 PORTNAME=	appleseed
 DISTVERSION=	1.7.1-beta
+PORTREVISION=	5
 CATEGORIES=	graphics
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Modern, physically-based production renderer
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+BROKEN=		fails to build
 
 LIB_DEPENDS=	libboost_thread.so:devel/boost-libs \
 		libpng.so:graphics/png \
-		libIlmImf.so:graphics/OpenEXR \
+		libIlmImf.so:graphics/openexr \
 		libxerces-c.so:textproc/xerces-c3 \
 		liboslexec.so:graphics/openshadinglanguage
 
@@ -22,7 +26,7 @@ GH_ACCOUNT=	${PORTNAME}hq
 ONLY_FOR_ARCHS=	i386 amd64
 ONLY_FOR_ARCHS_REASON=	not ported to it yet
 
-USES=		cmake:outsource compiler:env
+USES=		cmake compiler:env
 
 LDFLAGS+=	-lboost_atomic
 CMAKE_ARGS=	-DUSE_STATIC_BOOST:BOOL=OFF -DUSE_STATIC_OIIO:BOOL=OFF \
@@ -56,8 +60,16 @@ EXAMPLES_CMAKE_OFF=	-DWITH_SAMPLES:BOOL=OFF
 DISNEY_LIB_DEPENDS=	libSeExpr.so:graphics/seexpr
 DISNEY_CMAKE_ON=	-DWITH_DISNEY_MATERIAL:BOOL=ON
 
-STUDIO_USE=	QT4=moc_build,qmake_build,rcc_build,uic_build,opengl
+STUDIO_USES=	qt:4
+STUDIO_USE=	QT=moc_build,qmake_build,rcc_build,uic_build,opengl
 STUDIO_CMAKE_OFF=	-DWITH_STUDIO:BOOL=OFF
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MSTUDIO}
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
+.endif
 
 .include <bsd.port.pre.mk>
 

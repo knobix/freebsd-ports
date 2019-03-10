@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	unit
-PORTVERSION=	0.2
-PORTREVISION=	1
+PORTVERSION=	1.7.1
 CATEGORIES=	www
 MASTER_SITES=	https://unit.nginx.org/download/
 
@@ -13,7 +12,7 @@ COMMENT?=	Dynamic web application server
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES+=		cpe
+USES+=		compiler:c11 cpe
 
 CPE_VENDOR=	nginx
 CPE_PRODUCT=	unit
@@ -22,10 +21,9 @@ OPTIONS_DEFINE?=	\
 	DEBUG \
 	IPV6 \
 	UNIXSOCK
-OPTIONS_DEFAULT?=IPV6 UNIXSOCK
+OPTIONS_DEFAULT?=UNIXSOCK
 
 DEBUG_DESC=	Enable debug logging
-IPV6_DESC=	Enable IPv6
 UNIXSOCK_DESC=	Enable unix sockets
 
 .include <bsd.port.options.mk>
@@ -71,6 +69,10 @@ CONFIGURE_ARGS+=--control=unix:${UNIT_SOCK}
 
 .if !target(post-install)
 post-install:
+	${MKDIR} ${STAGEDIR}${UNIT_LOGDIR}
+	${MKDIR} ${STAGEDIR}${UNIT_RUNDIR}
+	${ECHO_CMD} @dir ${UNIT_LOGDIR} >> ${TMPPLIST}
+	${ECHO_CMD} @dir ${UNIT_RUNDIR} >> ${TMPPLIST}
 	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/unit/modules
 .endif
 

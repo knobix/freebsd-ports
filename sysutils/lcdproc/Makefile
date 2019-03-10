@@ -2,12 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	lcdproc
-PORTVERSION=	0.5.7
-PORTREVISION=	2
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.5.9
 CATEGORIES=	sysutils
-MASTER_SITES=	SF
 
-MAINTAINER=	bsdfan@nurfuerspam.de
+MAINTAINER=	daniel@shafer.cc
 COMMENT=	Client/server suite for LCD devices
 
 LICENSE=	GPLv2
@@ -15,9 +14,10 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 ONLY_FOR_ARCHS=	i386 amd64
 
+USES=		autoreconf pkgconfig
 GNU_CONFIGURE=	yes
 USE_RC_SUBR=	LCDd lcdproc lcdexec
-USES=		autoreconf pkgconfig
+USE_GITHUB=	yes
 
 CONFIGURE_ARGS=	--enable-drivers="${LCDPROC_DRIVERS}" \
 		--disable-dependency-tracking \
@@ -94,7 +94,7 @@ LCDPROC_DRIVERS+=IOWarrior \
 		shuttleVFD
 
 . if ${PORT_OPTIONS:MFTDI}
-LIB_DEPENDS+=		libftdi.so:devel/libftdi
+LIB_DEPENDS+=		libftdi1.so:devel/libftdi1
 PLIST_SUB+=		FTDI=""
 LCDPROC_DRIVERS+=i2500vfd \
 		lis \

@@ -8,14 +8,15 @@ CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	rene@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Reusable JSONField model for Django to store validated JSON
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		python django:111+
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	autoplist concurrent distutils
+
 NO_ARCH=	yes
 
 .include <bsd.port.mk>

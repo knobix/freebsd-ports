@@ -13,8 +13,11 @@ COMMENT=	Displays a view of the Earth (like xearth) with a rendered photo map
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		gmake
-USE_QT4=	corelib gui qt3support moc_build
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
+
+USES=		gmake qt:4
+USE_QT=		corelib gui qt3support moc_build
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}

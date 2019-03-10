@@ -3,6 +3,7 @@
 
 PORTNAME=	mumps
 DISTVERSION=	5.1.1-aster2
+PORTREVISION=	4
 CATEGORIES=	math
 PKGNAMESUFFIX=	-edf
 
@@ -14,10 +15,9 @@ LICENSE_NAME=	CeCILL-C
 LICENSE_FILE=	${WRKSRC}/LICENSE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-BUILD_DEPENDS=	${LOCALBASE}/lib/libGKlib.a:math/metis-edf
 LIB_DEPENDS=	libblas.so:math/blas		\
 		liblapack.so:math/lapack	\
-		libmetis.so:math/metis-edf
+		libmetis.so:math/metis
 
 USES=		fortran
 

@@ -2,10 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	django-constance
-PORTVERSION=	2.0.0
-PORTREVISION=	1
+PORTVERSION=	2.3.1
 CATEGORIES=	www python
-MASTER_SITES=	GH
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ultima@FreeBSD.org
@@ -16,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}redis>=0:databases/py-redis@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}coverage>=0:devel/py-coverage@${PY_FLAVOR} \
-		${DJANGO_PKGNAMEPREFIX}picklefield>=0:www/py-django-picklefield@${DJANGO_FLAVOR}
+		${DJANGO_PKGNAMEPREFIX}django-picklefield>=0:www/py-django-picklefield@${DJANGO_FLAVOR}
 
 USES=		python django
 USE_PYTHON=	autoplist distutils

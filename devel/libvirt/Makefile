@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libvirt
-PORTVERSION=	3.10.0
+PORTVERSION=	5.0.0
 CATEGORIES=	devel
 MASTER_SITES=	http://libvirt.org/sources/ \
 		ftp://libvirt.org/libvirt/
@@ -52,7 +52,7 @@ GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
 
 NLS_USES=	gettext
 NLS_CONFIGURE_ENABLE=	nls
-NLS_CONFIGURE_ON=	--with-libintl-prefix=${LOCALBASE}
+NLS_CFLAGS=	-I${LOCALBASE}/include
 
 NSS_CONFIGURE_WITH=	nss-plugin
 
@@ -64,7 +64,7 @@ SASL_LIB_DEPENDS=	libsasl2.so:security/cyrus-sasl2
 
 XEN_CONFIGURE_WITH=	libxl
 XEN_CFLAGS=	-I${LOCALBASE}/include
-XEN_LIB_DEPENDS=	libxenlight.so:sysutils/xen-tools
+XEN_LIB_DEPENDS=	libxenlight.so:sysutils/xen-tools47
 
 LIBSSH_CONFIGURE_WITH=	libssh
 LIBSSH_LIB_DEPENDS=	libssh.so:security/libssh
@@ -75,8 +75,6 @@ LIBSSH2_LIB_DEPENDS=	libssh2.so:security/libssh2
 ZFS_CONFIGURE_WITH=	storage-zfs
 
 VARDIR=		/var
-
-USE_RC_SUBR=	libvirtd virtlogd
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--without-avahi \
@@ -99,13 +97,15 @@ PORTSCOUT=	limit:\d+\.\d+\.\d+$$
 
 LDFLAGS+=	-L${LOCALBASE}/lib -fstack-protector
 
-USES=		charsetfix cpe gettext-runtime gmake libtool pathfix \
-		perl5 python:2.7,build pkgconfig shebangfix tar:xz
+USES=		charsetfix compiler:c++0x cpe gettext-runtime gmake libtool pathfix \
+		perl5 python:build pkgconfig shebangfix tar:xz
+USE_RC_SUBR=	libvirtd virtlogd
 CPE_VENDOR=	redhat
 USE_PERL5=	build
 USE_LDCONFIG=	yes
 INSTALL_TARGET=	install-strip
-SHLIB_VER=	0.3010.0
+TEST_TARGET=	check
+SHLIB_VER=	0.5000.0
 PLIST_SUB+=	PORTVERSION="-${PORTVERSION}" \
 		SHLIB_VER=${SHLIB_VER}
 PORTDOCS=	*
@@ -118,7 +118,9 @@ SUB_LIST+=	PORTVERSION="-${PORTVERSION}"
 
 .if ${PORT_OPTIONS:MQEMU} || ${PORT_OPTIONS:MNSS}
 LIB_DEPENDS+=		libyajl.so:devel/yajl
-CONFIGURE_ARGS+=	--with-yajl=${LOCALBASE}
+CONFIGURE_ARGS+=	--with-yajl
+.else
+CONFIGURE_ARGS+=	--without-yajl
 .endif
 
 .if !${PLIST_SUB:MXEN}
@@ -173,9 +175,6 @@ post-install:
 		${MV} ${STAGEDIR}${ETCDIR}/${file} \
 		${STAGEDIR}${ETCDIR}/${file}.sample; fi
 .endfor
-
-regression-test: build
-	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check
 
 .include <bsd.port.pre.mk>
 

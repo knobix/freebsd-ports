@@ -3,21 +3,22 @@
 
 PORTNAME=	django-overextends
 PORTVERSION=	0.4.3
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	rene@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Django reusable app enabling circular template inheritance
 
 LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx-me>=0.1.2:textproc/py-sphinx-me@${PY_FLAVOR}
 
-NO_ARCH=	yes
-
 USES=		python django
-USE_PYTHON=	autoplist distutils
+USE_PYTHON=	autoplist concurrent distutils
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

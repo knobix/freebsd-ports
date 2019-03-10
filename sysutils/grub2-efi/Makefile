@@ -3,13 +3,13 @@
 
 PORTNAME=	grub2-efi
 PORTVERSION=	2.02
-PORTREVISION=	17
+PORTREVISION=	20
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.pcbsd.org/~kris/software/ \
 		ftp://ftp.pcbsd.org/pub/software/
 DISTNAME=	grub-${PORTVERSION}_7
 
-MAINTAINER=	kmoore@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Multiboot EFI boot loader
 
 LICENSE=	GPLv3

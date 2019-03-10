@@ -9,7 +9,7 @@ MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 DISTNAME=	django-${PORTNAME}-${PORTVERSION}
 
-MAINTAINER=	tj@FreeBSD.org
+MAINTAINER=	python@FreeBSD.org
 COMMENT=	Library to make writing templatetags in Django sweet
 
 USES=		python django

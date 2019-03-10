@@ -5,7 +5,7 @@ PORTNAME=	ldns
 PORTVERSION=	1.7.0
 PORTREVISION=	1
 CATEGORIES=	dns
-MASTER_SITES=	http://www.nlnetlabs.nl/downloads/ldns/ \
+MASTER_SITES=	https://www.nlnetlabs.nl/downloads/ldns/ \
 		LOCAL/ehaupt
 
 MAINTAINER=	jaap@NLnetLabs.nl
@@ -101,7 +101,7 @@ INSTALL_TARGET=	install-lib install-h install-config
 
 .include <bsd.port.pre.mk>
 
-.if ${PORT_OPTIONS:MDANETAUSAGE} && ${SSL_DEFAULT} != openssl-devel
+.if ${PORT_OPTIONS:MDANETAUSAGE} && ${SSL_DEFAULT} != openssl111
 BROKEN=		this option requires openssl >= 1.1.0
 .endif
 

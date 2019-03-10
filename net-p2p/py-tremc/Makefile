@@ -1,44 +1,33 @@
 # $FreeBSD$
 
 PORTNAME=	tremc
-DISTVERSION=	g20171202
+DISTVERSION=	0.9.1-11
+DISTVERSIONSUFFIX=	-g54a873f
+PORTREVISION=	1
 CATEGORIES=	net-p2p python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	lbdm@privacychain.ch
+MAINTAINER=	rigoletto@FreeBSD.org
 COMMENT=	Console client for the BitTorrent client Transmission
 
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		python:3.4+ shebangfix
-
 USE_GITHUB=	yes
-GH_ACCOUNT=	louipc
-GH_TAGNAME=	e06d08d
-
 NO_ARCH=	yes
 NO_BUILD=	yes
 SHEBANG_FILES=	${PORTNAME}
 
-PLIST_FILES=	bin/${PORTNAME} \
-		man/man1/${PORTNAME}.1.gz \
-		share/bash-completion/completions/${PORTNAME}
-SUB_FILES=	pkg-message
+OPTIONS_DEFINE=	ADNS IPY PYPERCLIP
+OPTIONS_DEFAULT=	ADNS IPY PYPERCLIP
 
-OPTIONS_DEFINE=	GEOIP XEROX
+ADNS_DESC=	Resolve IPs to host names
+IPY_DESC=	Extract ipv4 from ipv6 addresses
+PYPERCLIP_DESC=	Copy magnet links to the system clipboard
 
-XEROX_DESC=	Copy magnet links to the system clipboard
-
-GEOIP_RUN_DEPENDS=	${PYTHON_SITELIBDIR}/GeoIP.so:net/py-GeoIP@${PY_FLAVOR}
-XEROX_RUN_DEPENDS=	${PYTHON_SITELIBDIR}/xerox/__init__.py:devel/py-xerox@${PY_FLAVOR}
-
-do-install:
-
-	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.1 ${STAGEDIR}${MANPREFIX}/man/man1
-	${INSTALL} -d ${STAGEDIR}${PREFIX}/share/bash-completion/completions
-	${INSTALL_DATA} ${WRKSRC}/completion/bash/transmission-remote-cli-bash-completion.sh \
-		${STAGEDIR}${PREFIX}/share/bash-completion/completions/${PORTNAME}
+ADNS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}adns>=:dns/py-adns@${PY_FLAVOR}
+IPY_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ipy>=:net-mgmt/py-ipy@${PY_FLAVOR}
+PYPERCLIP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyperclip>=0:devel/py-pyperclip@${PY_FLAVOR}
 
 .include <bsd.port.mk>

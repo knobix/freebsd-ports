@@ -4,8 +4,7 @@
 # Remember to update www/py-django along with this port.
 
 PORTNAME=	django
-PORTVERSION=	${DJANGO_PORTVERSION}
-PORTREVISION=	1
+PORTVERSION=	1.11.20
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP \
 		https://www.djangoproject.com/m/releases/${PORTVERSION}/
@@ -20,15 +19,15 @@ COMMENT=	High-level Python Web Framework
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${PY_FLAVOR}
 
 NO_ARCH=	yes
-USES=		cpe python shebangfix
+USES=		cpe python${PY_MYSQL} shebangfix
 USE_PYTHON=	autoplist distutils
 SHEBANG_FILES=	django/bin/django-admin.py \
 		django/conf/project_template/manage.py-tpl
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django-devel ${PYTHON_PKGNAMEPREFIX}django18 ${PYTHON_PKGNAMEPREFIX}django110 ${PYTHON_PKGNAMEPREFIX}django20
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django2[01]
 CPE_VENDOR=		djangoproject
 
 DOCSDIR=	${PREFIX}/share/doc/py-django
@@ -44,11 +43,12 @@ HTMLDOCS_DESC=	Install HTML documentation (requires Sphinx)
 
 PLIST_FILES=	man/man1/django-admin.1.gz
 
-HTMLDOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>0:textproc/py-sphinx@${FLAVOR}
+HTMLDOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>0:textproc/py-sphinx@${PY_FLAVOR}
 HTMLDOCS_IMPLIES=	DOCS
-PGSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psycopg2>0:databases/py-psycopg2@${FLAVOR}
-MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}MySQLdb>=1.2.2:databases/py-MySQLdb@${FLAVOR}
-SQLITE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${FLAVOR}
+PGSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psycopg2>0:databases/py-psycopg2@${PY_FLAVOR}
+MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}MySQLdb>=1.2.2:databases/py-MySQLdb@${PY_FLAVOR}
+MYSQL_VARS=	PY_MYSQL=:2.7
+SQLITE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
 
 post-build-HTMLDOCS-on:
 	cd ${WRKSRC}/docs && ${MAKE} html SPHINXBUILD=sphinx-build-${PYTHON_VER}

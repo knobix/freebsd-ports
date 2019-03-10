@@ -66,8 +66,6 @@ Gecko_Pre_Include=	bsd.gecko.mk
 # MOZ_TOOLKIT			A variable for the --enable-default-toolkit= in
 # 						CONFIGURE_ARGS. The default is cairo-gtk2.
 #
-# MOZ_EXTENSIONS		A list of extensions to build
-#
 # PORT_MOZCONFIG		Defaults to ${FILESDIR}/mozconfig.in, but can be
 # 						set to a generic mozconfig included with the port
 #
@@ -83,58 +81,52 @@ MOZILLA_VER?=	${PORTVERSION}
 MOZILLA_BIN?=	${PORTNAME}-bin
 MOZILLA_EXEC_NAME?=${MOZILLA}
 MOZ_RPATH?=	${MOZILLA}
-USES+=		cpe gmake iconv localbase perl5 pkgconfig \
+USES+=		compiler:c++17-lang cpe gl gmake iconv localbase perl5 pkgconfig \
 			python:2.7,build desktop-file-utils
 CPE_VENDOR?=mozilla
+USE_GL=		gl
 USE_PERL5=	build
-USE_XORG=	x11 xcomposite xdamage xext xfixes xrender xt
+USE_XORG=	x11 xcb xcomposite xdamage xext xfixes xrender xt
+HAS_CONFIGURE=	yes
+CONFIGURE_OUTSOURCE=	yes
 
-.if ${MOZILLA} != "libxul"
 BUNDLE_LIBS=	yes
-.endif
-
-.if ${MOZILLA_VER:R:R} >= 49
-USES+=		compiler:c++14-lang
-CPPFLAGS+=	-D_GLIBCXX_USE_C99 -D_GLIBCXX_USE_C99_MATH_TR1 \
-			-D_DECLARE_C99_LDBL_MATH # XXX ports/193528
-.else
-USES+=		compiler:c++11-lang
-.endif
-
-.if ${MOZILLA_VER:R:R} >= 50
-USE_XORG+=	xcb
-.endif
 
 .if ${MOZILLA_VER:R:R} >= 56
-MESA_LLVM_VER?=	50
-BUILD_DEPENDS+=	llvm${MESA_LLVM_VER}>0:devel/llvm${MESA_LLVM_VER}
-MOZ_EXPORT+=	LLVM_CONFIG=llvm-config${MESA_LLVM_VER}
-MOZ_EXPORT+=	BINDGEN_CFLAGS="${BINDGEN_CFLAGS}"
-# XXX bug 1341234
-. if ! ${USE_MOZILLA:M-nspr}
-BINDGEN_CFLAGS+=-isystem${LOCALBASE}/include/nspr
-. endif
-. if ! ${USE_MOZILLA:M-pixman}
-BINDGEN_CFLAGS+=-isystem${LOCALBASE}/include/pixman-1
+BUILD_DEPENDS+=	llvm${LLVM_DEFAULT}>0:devel/llvm${LLVM_DEFAULT}
+MOZ_EXPORT+=	LLVM_CONFIG=llvm-config${LLVM_DEFAULT}
+# Require newer Clang than what's in base system unless user opted out
+. if ${CC} == cc && ${CXX} == c++ && exists(/usr/lib/libc++.so)
+BUILD_DEPENDS+=	${LOCALBASE}/bin/clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
+CPP=			${LOCALBASE}/bin/clang-cpp${LLVM_DEFAULT}
+CC=				${LOCALBASE}/bin/clang${LLVM_DEFAULT}
+CXX=			${LOCALBASE}/bin/clang++${LLVM_DEFAULT}
+USES:=			${USES:Ncompiler\:*} # XXX avoid warnings
 . endif
 .endif
 
-.if ${OPSYS} == FreeBSD && ${OSREL} == 11.1
-LLD_UNSAFE=	yes
+.if ${MOZILLA_VER:R:R} >= 61
+BUILD_DEPENDS+=	${LOCALBASE}/bin/python${PYTHON3_DEFAULT}:lang/python${PYTHON3_DEFAULT:S/.//g}
+MOZ_EXPORT+=	PYTHON3="${LOCALBASE}/bin/python${PYTHON3_DEFAULT}"
+.endif
+
+.if ${MOZILLA_VER:R:R} >= 63
+BUILD_DEPENDS+=	rust-cbindgen>=0.6.2:devel/rust-cbindgen \
+				node:www/node
+.endif
+
+.if ${MOZILLA_VER:R:R} < 64
+MOZ_OPTIONS+=	--enable-pie
 .endif
 
 MOZILLA_SUFX?=	none
 MOZSRC?=	${WRKSRC}
 PLISTF?=	${WRKDIR}/plist_files
 
-MOZ_OBJDIR?=	${WRKSRC}/obj-${ARCH:C/amd64/x86_64/}-unknown-${OPSYS:tl}${OSREL}
-
 MOZ_PIS_DIR?=		lib/${MOZILLA}/init.d
 
 PORT_MOZCONFIG?=	${FILESDIR}/mozconfig.in
 MOZCONFIG?=		${WRKSRC}/.mozconfig
-# XXX Not ?= because fmake uses MAKEFILE internally
-MAKEFILE=		${WRKSRC}/client.mk
 MOZILLA_PLIST_DIRS?=	bin lib share/pixmaps share/applications
 PKGINSTALL?=	${WRKDIR}/pkg-install
 PKGDEINSTALL?=	${WRKDIR}/pkg-deinstall
@@ -144,13 +136,12 @@ PKGDEINSTALL_INC?=	${.CURDIR}/../../www/firefox/files/pkg-deinstall.in
 MOZ_PKGCONFIG_FILES?=	${MOZILLA}-gtkmozembed ${MOZILLA}-js \
 			${MOZILLA}-xpcom ${MOZILLA}-plugin
 
-ALL_TARGET?=	build
-
 MOZ_EXPORT+=	${CONFIGURE_ENV} \
 				RUSTFLAGS="${RUSTFLAGS}" \
-				PERL="${PERL}"
+				PERL="${PERL}" \
+				ac_cv_clock_monotonic=
 MOZ_OPTIONS+=	--prefix="${PREFIX}"
-MOZ_MK_OPTIONS+=MOZ_OBJDIR="${MOZ_OBJDIR}"
+MOZ_MK_OPTIONS+=MOZ_OBJDIR="${BUILD_WRKSRC}"
 
 LDFLAGS+=		-Wl,--as-needed
 
@@ -161,31 +152,8 @@ RUSTFLAGS+=	${CFLAGS:M-march=*:S/-march=/-C target-cpu=/}
 RUSTFLAGS+=	${CFLAGS:M-mcpu=*:S/-mcpu=/-C target-cpu=/}
 .endif
 
-.if ${MOZILLA_VER:R:R} < 55 && ${OPSYS} == FreeBSD && ${OSVERSION} < 1200032
-# use jemalloc 3.0.0 (4.0 for firefox 43+) API for stats/tuning
-MOZ_EXPORT+=	MOZ_JEMALLOC4=1
-.if ${MOZILLA_VER:R:R} >= 48
-MOZ_OPTIONS+=	--enable-jemalloc=4
-.elif ${OSVERSION} < 1100079
-MOZ_OPTIONS+=	--enable-jemalloc
-.endif # Mozilla >= 48
-.endif # Mozilla < 55
-
 # Standard depends
-_ALL_DEPENDS=	cairo event ffi graphite harfbuzz hunspell icu jpeg nspr nss png pixman soundtouch sqlite vpx
-
-.if ${PORT_OPTIONS:MINTEGER_SAMPLES}
-MOZ_EXPORT+=	MOZ_INTEGER_SAMPLES=1
-_ALL_DEPENDS+=	tremor
-.else
-_ALL_DEPENDS+=	vorbis
-.endif
-
-.if ! ${PORT_OPTIONS:MBUNDLED_CAIRO}
-cairo_BUILD_DEPENDS=cairo>=1.12.16_1,2:graphics/cairo
-cairo_LIB_DEPENDS=	libcairo.so:graphics/cairo
-cairo_MOZ_OPTIONS=	--enable-system-cairo
-.endif
+_ALL_DEPENDS=	event ffi graphite harfbuzz hunspell icu jpeg nspr nss png pixman sqlite vpx webp
 
 event_LIB_DEPENDS=	libevent.so:devel/libevent
 event_MOZ_OPTIONS=	--with-system-libevent
@@ -201,14 +169,13 @@ harfbuzz_LIB_DEPENDS=	libharfbuzz.so:print/harfbuzz
 harfbuzz_MOZ_OPTIONS=	--with-system-harfbuzz
 .endif
 
-hunspell_LIB_DEPENDS=	libhunspell-1.6.so:textproc/hunspell
+hunspell_LIB_DEPENDS=	libhunspell-1.7.so:textproc/hunspell
 hunspell_MOZ_OPTIONS=	--enable-system-hunspell
 
 icu_LIB_DEPENDS=		libicui18n.so:devel/icu
 icu_MOZ_OPTIONS=		--with-system-icu --with-intl-api
 
 -jpeg_BUILD_DEPENDS=yasm:devel/yasm
-# XXX Remove files/patch-ijg-libjpeg once -turbo is default
 jpeg_USES=		jpeg
 jpeg_MOZ_OPTIONS=	--with-system-jpeg=${LOCALBASE}
 
@@ -224,29 +191,15 @@ pixman_MOZ_OPTIONS=	--enable-system-pixman
 png_LIB_DEPENDS=	libpng.so:graphics/png
 png_MOZ_OPTIONS=	--with-system-png=${LOCALBASE}
 
-.if exists(${FILESDIR}/patch-z-bug517422)
-soundtouch_LIB_DEPENDS=	libSoundTouch.so:audio/soundtouch
-soundtouch_MOZ_OPTIONS=	--with-system-soundtouch
-.endif
-
 sqlite_LIB_DEPENDS=	libsqlite3.so:databases/sqlite3
 sqlite_MOZ_OPTIONS=	--enable-system-sqlite
-
-.if exists(${FILESDIR}/patch-z-bug517422)
-# XXX disabled: update to 1.2.x or review backported fixes
-theora_LIB_DEPENDS=	libtheora.so:multimedia/libtheora
-theora_MOZ_OPTIONS=	--with-system-theora
-
-tremor_LIB_DEPENDS=	libogg.so:audio/libogg libvorbisidec.so:audio/libtremor
-tremor_MOZ_OPTIONS=	--with-system-tremor --with-system-ogg
-
-vorbis_LIB_DEPENDS=	libogg.so:audio/libogg libvorbis.so:audio/libvorbis
-vorbis_MOZ_OPTIONS=	--with-system-vorbis --with-system-ogg
-.endif
 
 -vpx_BUILD_DEPENDS=	yasm:devel/yasm
 vpx_LIB_DEPENDS=	libvpx.so:multimedia/libvpx
 vpx_MOZ_OPTIONS=	--with-system-libvpx
+
+webp_LIB_DEPENDS=	libwebp.so:graphics/webp
+webp_MOZ_OPTIONS=	--with-system-webp
 
 .for use in ${USE_MOZILLA}
 ${use:S/-/_WITHOUT_/}=	${TRUE}
@@ -275,15 +228,7 @@ MOZ_OPTIONS+=	\
 		--enable-chrome-format=${MOZ_CHROME} \
 		--enable-default-toolkit=${MOZ_TOOLKIT} \
 		--enable-update-channel=${MOZ_CHANNEL} \
-		--disable-updater \
-		--enable-pie \
-		--with-pthreads
-# Configure options for install
-.if !defined(MOZ_EXTENSIONS)
-MOZ_OPTIONS+=	--enable-extensions=default
-.else
-MOZ_OPTIONS+=	--enable-extensions=${MOZ_EXTENSIONS}
-.endif
+		--disable-updater
 # others
 MOZ_OPTIONS+=	--with-system-zlib		\
 		--with-system-bz2
@@ -296,9 +241,12 @@ MOZ_EXPORT+=	MOZ_GOOGLE_API_KEY=AIzaSyBsp9n41JLW8jCokwn7vhoaMejDFRd1mp8
 
 .if ${PORT_OPTIONS:MGTK2}
 MOZ_TOOLKIT=	cairo-gtk2
+.elif ${PORT_OPTIONS:MWAYLAND}
+MOZ_TOOLKIT=	cairo-gtk3-wayland
 .endif
 
-.if ${MOZ_TOOLKIT:Mcairo-gtk3}
+USES+=		gnome
+.if ${MOZ_TOOLKIT:Mcairo-gtk3*}
 BUILD_DEPENDS+=	gtk3>=3.14.6:x11-toolkits/gtk30
 USE_GNOME+=	gdkpixbuf2 gtk20 gtk30
 .else # gtk2, cairo-gtk2
@@ -337,10 +285,6 @@ MOZ_OPTIONS+=	--disable-dbus
 .if ${PORT_OPTIONS:MFFMPEG}
 # dom/media/platforms/ffmpeg/FFmpegRuntimeLinker.cpp
 RUN_DEPENDS+=	ffmpeg>=0.8,1:multimedia/ffmpeg
-.endif
-
-.if ${MOZILLA_VER:R:R} < 46
-MOZ_OPTIONS+=	--disable-gstreamer
 .endif
 
 .if ${PORT_OPTIONS:MGCONF}
@@ -385,18 +329,21 @@ post-patch-SNDIO-on:
 . for tests in tests gtest
 	@if [ -f "${MOZSRC}/media/libcubeb/${tests}/moz.build" ]; then \
 		${REINPLACE_CMD} -e 's|OpenBSD|${OPSYS}|g' \
-			 ${MOZSRC}/media/libcubeb/${tests}/moz.build \
-	; fi
+			 ${MOZSRC}/media/libcubeb/${tests}/moz.build; \
+	fi
 . endfor
-	@${REINPLACE_CMD} -e 's|OS==\"openbsd\"|OS==\"${OPSYS:tl}\"|g' \
-		${MOZSRC}/media/webrtc/trunk/webrtc/build/common.gypi
-	@${ECHO_CMD} "OS_LIBS += ['sndio']" >> \
-		${MOZSRC}/media/webrtc/signaling/test/common.build
+	@if [ -f "${MOZSRC}/media/webrtc/trunk/webrtc/build/common.gypi" ]; then \
+		${REINPLACE_CMD} -e 's|OS==\"openbsd\"|OS==\"${OPSYS:tl}\"|g' \
+			${MOZSRC}/media/webrtc/trunk/webrtc/build/common.gypi; \
+	fi
+	@if [ -f "${MOZSRC}/media/webrtc/signaling/test/common.build" ]; then \
+		${ECHO_CMD} "OS_LIBS += ['sndio']" >> \
+			${MOZSRC}/media/webrtc/signaling/test/common.build; \
+	fi
 .endif
 
 .if ${PORT_OPTIONS:MRUST} || ${MOZILLA_VER:R:R} >= 54
-BUILD_DEPENDS+=	${RUST_PORT:T}>=1.19.0_2:${RUST_PORT}
-RUST_PORT?=		lang/rust
+BUILD_DEPENDS+=	${RUST_DEFAULT}>=1.30:lang/${RUST_DEFAULT}
 . if ${MOZILLA_VER:R:R} < 54
 MOZ_OPTIONS+=	--enable-rust
 . endif
@@ -409,20 +356,9 @@ MOZ_OPTIONS+=	--enable-debug --disable-release
 STRIP=	# ports/184285
 .else
 MOZ_OPTIONS+=	--disable-debug --disable-debug-symbols --enable-release
-. if ${MOZILLA_VER:R:R} >= 56 && (${ARCH:Maarch64} || ${MACHINE_CPU:Msse2})
+. if ${MOZILLA_VER:R:R} >= 67 && (${ARCH:Maarch64} || ${MACHINE_CPU:Msse2})
 MOZ_OPTIONS+=	--enable-rust-simd
 . endif
-.endif
-
-.if ${PORT_OPTIONS:MDTRACE}
-MOZ_OPTIONS+=	--enable-dtrace \
-		--disable-gold
-. if ${OPSYS} == FreeBSD && ${OSVERSION} < 1100061
-LIBS+=			-lelf
-. endif
-STRIP=
-.else
-MOZ_OPTIONS+=	--disable-dtrace
 .endif
 
 .if ${PORT_OPTIONS:MPROFILE}
@@ -537,31 +473,12 @@ gecko-post-patch:
 		${PATCH} ${PATCH_ARGS} -d ${MOZSRC}/security/nss < $$i; \
 	done
 .endif
-	@for f in \
-			${WRKSRC}/directory/c-sdk/config/FreeBSD.mk \
-			${WRKSRC}/directory/c-sdk/configure \
-			${MOZSRC}/security/coreconf/FreeBSD.mk \
-			${MOZSRC}/js/src/Makefile.in \
-			${MOZSRC}/js/src/configure \
-			${MOZSRC}/configure \
-			${WRKSRC}/configure; do \
-		if [ -f $$f ] ; then \
-			${REINPLACE_CMD} -Ee 's|-lc_r|-pthread|g ; \
-				s|-l?pthread|-pthread|g ; \
-				s|echo aout|echo elf|g ; \
-				s|/usr/X11R6|${LOCALBASE}|g' \
-				$$f; \
-		fi; \
-	done
 	@if [ -f ${WRKSRC}/config/baseconfig.mk ] ; then \
 		${REINPLACE_CMD} -e 's|%%MOZILLA%%|${MOZILLA}|g' \
 			${WRKSRC}/config/baseconfig.mk; \
 	fi
 	@${REINPLACE_CMD} -e 's|%%MOZILLA%%|${MOZILLA}|g' \
 			${MOZSRC}/config/baseconfig.mk
-	@${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g ; \
-		s|%%LOCALBASE%%|${LOCALBASE}|g' \
-			${MOZSRC}/build/unix/run-mozilla.sh
 	@${REINPLACE_CMD} -e 's|/usr/local/netscape|${LOCALBASE}|g ; \
 		s|/usr/local/lib/netscape|${LOCALBASE}/lib|g' \
 		${MOZSRC}/xpcom/io/SpecialSystemDirectory.cpp
@@ -572,14 +489,27 @@ gecko-post-patch:
 		-e 's|share/mozilla/extensions|lib/xpi|g' \
 		${MOZSRC}/xpcom/io/nsAppFileLocationProvider.cpp \
 		${MOZSRC}/toolkit/xre/nsXREDirProvider.cpp
+.if ${MOZILLA_VER:R:R} < 61
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${MOZSRC}/extensions/spellcheck/hunspell/*/mozHunspell.cpp
+.endif
 
 # handles mozilla pis scripts.
 gecko-moz-pis-patch:
 .for moz in ${MOZ_PIS_SCRIPTS}
 	@${MOZCONFIG_SED} < ${FILESDIR}/${moz} > ${WRKDIR}/${moz}
 .endfor
+
+pre-configure: gecko-pre-configure
+
+gecko-pre-configure:
+.if ${PORT_OPTIONS:MWAYLAND}
+# .if !exists() evaluates too early before gtk3 has a chance to be installed
+	@if ! pkg-config --exists gtk+-wayland-3.0; then \
+		${ECHO_MSG} "${PKGNAME}: Needs gtk3 with WAYLAND support enabled."; \
+		${FALSE}; \
+	fi
+.endif
 
 pre-install: gecko-moz-pis-pre-install
 post-install-script: gecko-create-plist

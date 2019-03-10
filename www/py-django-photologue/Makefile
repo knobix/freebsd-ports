@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	django-photologue
-PORTVERSION=	3.5.1
-PORTREVISION=	2
+PORTVERSION=	3.8.1
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -14,9 +14,9 @@ COMMENT=	Powerful image management and gallery application for Django
 LICENSE=	BSD3CLAUSE
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pip>0:devel/py-pip@${PY_FLAVOR}
-RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-sortedm2m>0:www/py-django-sortedm2m@${DJANGO_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pillow>0:graphics/py-pillow@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${PY_FLAVOR}
+RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-sortedm2m>=1.5.0:www/py-django-sortedm2m@${DJANGO_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}ExifRead>=2.1.2:graphics/py-exifread@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pillow>=4.3.0:graphics/py-pillow@${PY_FLAVOR}
 
 NO_ARCH=	yes
 USES=		python django

@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	wayland
-PORTVERSION=	1.14.0
+PORTVERSION=	1.16.0
+PORTREVISION=	1
 CATEGORIES=	graphics wayland
-MASTER_SITES=	http://wayland.freedesktop.org/releases/
+MASTER_SITES=	https://wayland.freedesktop.org/releases/
 
 MAINTAINER=	x11@FreeBSD.org
 COMMENT=	Wayland composite "server"
@@ -18,9 +19,7 @@ LIB_DEPENDS=	libexpat.so:textproc/expat2 \
 
 CFLAGS+=	"-I${LOCALBASE}/include/libepoll-shim"
 
-WITH_DEBUG=	1
-
-USES=		autoreconf gmake libtool localbase pathfix pkgconfig tar:xz
+USES=		autoreconf gmake gnome libtool localbase pathfix pkgconfig tar:xz
 USE_GNOME=	libxslt:build
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes

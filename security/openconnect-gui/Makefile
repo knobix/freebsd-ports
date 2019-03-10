@@ -3,7 +3,7 @@
 
 PORTNAME=	openconnect-gui
 PORTVERSION=	1.4.1
-PORTREVISION=	1
+PORTREVISION=	2
 DISTVERSIONPREFIX=v
 CATEGORIES=	security
 
@@ -21,8 +21,8 @@ RUN_DEPENDS=	openconnect:security/openconnect \
 USE_GITHUB=	yes
 GH_ACCOUNT=	${PORTNAME:C/-gui//}
 
-USES=		cmake pkgconfig
-USE_QT5=	buildtools_build concurrent core gui network qmake_build widgets
+USES=		cmake:insource pkgconfig qt:5
+USE_QT=		buildtools_build concurrent core gui network qmake_build widgets
 CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 PLIST_FILES=	bin/openconnect-gui
 

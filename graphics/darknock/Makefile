@@ -12,10 +12,13 @@ COMMENT=	Program that can detect edges in images
 
 LICENSE=	GPLv2+
 
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
+
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-USES=		qmake
-USE_QT4=	gui linguisttools_build moc_build rcc_build uic_build
+USES=		qmake qt:4
+USE_QT=		gui linguisttools_build moc_build rcc_build uic_build
 
 PORTDOCS=	changelog
 PLIST_FILES=	bin/darknock share/pixmaps/darknock.png

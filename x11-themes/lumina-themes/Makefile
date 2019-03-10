@@ -2,7 +2,7 @@
 
 PORTNAME=	lumina-themes
 PORTVERSION=	201710311100
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	x11-themes
 
 MAINTAINER=	jt@ixsystems.com
@@ -11,8 +11,8 @@ COMMENT=	Lumina desktop wallpapers/colors
 LICENSE=	BSD2CLAUSE CC0-1.0
 LICENSE_COMB=	multi
 
-USES=	qmake
-USE_QT5=	qmake_build
+USES=	qmake qt:5
+USE_QT=		qmake_build
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	trueos

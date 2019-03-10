@@ -9,10 +9,11 @@ MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 DISTNAME=	django-${PORTNAME}-${PORTVERSION}
 
-MAINTAINER=	tj@FreeBSD.org
+MAINTAINER=	python@FreeBSD.org
 COMMENT=	Paging module for Django
 
-USES=		python django
+# FIXME syntax error in __init__.py on Python 3.6
+USES=		python:2.7 django
 USE_PYTHON=	distutils autoplist
 NO_ARCH=	yes
 

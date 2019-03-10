@@ -2,10 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	tcllib
-DISTVERSIONPREFIX=	${PORTNAME}_
-DISTVERSION=	1_18
-PORTREVISION=	1
+PORTVERSION=	1.19
 CATEGORIES=	devel tcl
+MASTER_SITES=	https://core.tcl.tk/tcllib/uv/
 
 MAINTAINER=	tcltk@FreeBSD.org
 COMMENT=	Collection of utility modules for Tcl
@@ -18,15 +17,16 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 OPTIONS_DEFINE?=DOCS MANPAGES
 OPTIONS_SUB=	yes
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	tcltk
-USES+=		tcl
+USES+=		tcl tar:xz
 USE_LOCALE=	en_US.UTF-8
 GNU_CONFIGURE=	yes
 CONFIGURE_ENV+=	ac_cv_path_tclsh="${TCLSH}"
 TEST_TARGET=	test
 TEST_ENV=	${MAKE_ENV} DISPLAY= TZ=utc
+
+.if ${OPTIONS_DEFINE:MDOCS}
 PORTDOCS=	*
+.endif
 
 INSTALL_ARGS=	-pkgs -pkg-path ${STAGEDIR}${PREFIX}/lib/tcllib \
 		-apps -app-path ${STAGEDIR}${PREFIX}/bin \
@@ -37,7 +37,7 @@ INSTALL_ARGS=	-pkgs -pkg-path ${STAGEDIR}${PREFIX}/lib/tcllib \
 #
 # Man pages
 #
-.if ${PORT_OPTIONS:MMANPAGES} && !(defined(ALL_TARGET) && !empty(${ALL_TARGET:Mcritcl}))
+.if ${PORT_OPTIONS:MMANPAGES} && !(defined(ALL_TARGET) && !empty(ALL_TARGET:Mcritcl))
 ALL_TARGET+=	nroff-doc
 INSTALL_ARGS+=	-nroff-path ${STAGEDIR}${PREFIX}/man/mann
 .else
@@ -47,7 +47,7 @@ INSTALL_ARGS+=	-no-nroff
 #
 # HTML documentation
 #
-.if ${PORT_OPTIONS:MDOCS} && !(defined(ALL_TARGET) && !empty(${ALL_TARGET:Mcritcl}))
+.if ${PORT_OPTIONS:MDOCS} && !(defined(ALL_TARGET) && !empty(ALL_TARGET:Mcritcl))
 ALL_TARGET+=	html-doc
 INSTALL_ARGS+=	-html-path ${STAGEDIR}${DOCSDIR}
 .else
@@ -97,7 +97,7 @@ post-patch:
 #
 #	remove all .orig files
 #
-	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
+#	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
 .endif
 
 .if !target(do-install)

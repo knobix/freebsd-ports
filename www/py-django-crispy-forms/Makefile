@@ -2,18 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	django-crispy-forms
-PORTVERSION=	1.6.1
-PORTREVISION=	1
+PORTVERSION=	1.7.2
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	johannes@perceivon.net
-COMMENT=	The best way to have Django DRY forms
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Best way to have Django DRY forms
 
 LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
+NO_ARCH=	yes
 USES=		python django
-USE_PYTHON=	distutils autoplist concurrent
+USE_PYTHON=	autoplist concurrent distutils
 
 .include <bsd.port.mk>

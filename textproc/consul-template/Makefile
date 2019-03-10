@@ -2,9 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	consul-template
-PORTVERSION=	0.19.4
+PORTVERSION=	0.19.5
 DISTVERSIONPREFIX=	v
-PORTREVISION=	1
 CATEGORIES=	textproc
 
 MAINTAINER=	swills@FreeBSD.org
@@ -24,7 +23,7 @@ USE_RC_SUBR=	consul-template
 
 do-build:
 	@cd ${WRKSRC}/src/github.com/hashicorp/consul-template ; \
-		${SETENV} GOPATH=${WRKSRC} go build
+		${SETENV} ${MAKE_ENV} GOPATH=${WRKSRC} go build
 
 do-install:
 	${INSTALL_PROGRAM} \

@@ -7,7 +7,7 @@ PORTREVISION=	1
 CATEGORIES=	benchmarks databases
 MASTER_SITES=	LOCAL/vg
 
-MAINTAINER=	vg@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Micro-benchmarking NoSQL storage
 
 LICENSE=	BSD2CLAUSE
@@ -16,7 +16,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 LIB_DEPENDS=	libleveldb.so:databases/leveldb
 
 DATE=		20151214
-USES=		cmake tar:bzip2
+USES=		cmake:insource tar:bzip2
 
 CONFLICTS=	tarantool-c
 

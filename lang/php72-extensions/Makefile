@@ -10,7 +10,7 @@ COMMENT=	"meta-port" to install PHP extensions
 
 USES=		metaport php
 PHP_VER=	72
-IGNORE_WITH_PHP=	56 70 71
+IGNORE_WITH_PHP=	71 73
 
 OPTIONS_DEFINE=	BCMATH BZ2 CALENDAR CTYPE CURL DBA \
 		DOM ENCHANT EXIF FILEINFO FILTER FTP GD GETTEXT \
@@ -71,7 +71,7 @@ SIMPLEXML_DESC=		simplexml support
 SNMP_DESC=		SNMP support
 SOAP_DESC=		SOAP support
 SOCKETS_DESC=		sockets support
-SODIUM_DESC=		Sodium encyrption support
+SODIUM_DESC=		Sodium encryption support
 SQLITE3_DESC=		sqlite3 support
 SYSVMSG_DESC=		System V message support
 SYSVSEM_DESC=		System V semaphore support

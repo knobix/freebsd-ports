@@ -23,9 +23,9 @@
     SUBDIR += abuse_sdl
     SUBDIR += ace-of-penguins
     SUBDIR += acm
-    SUBDIR += adgali
     SUBDIR += adom
     SUBDIR += adonthell
+    SUBDIR += adonthell-wastesedge
     SUBDIR += aestats
     SUBDIR += affenspiel
     SUBDIR += afternoonstalker
@@ -60,6 +60,7 @@
     SUBDIR += assaultcube
     SUBDIR += asteroid
     SUBDIR += asteroids3d
+    SUBDIR += astromenace
     SUBDIR += asylum
     SUBDIR += atanks
     SUBDIR += atomix
@@ -72,10 +73,10 @@
     SUBDIR += awale
     SUBDIR += awele
     SUBDIR += balazar
-    SUBDIR += balazarbrothers
     SUBDIR += ballerburg
     SUBDIR += banihstypos
     SUBDIR += barbie_seahorse_adventures
+    SUBDIR += barony
     SUBDIR += barrage
     SUBDIR += bass
     SUBDIR += bastet
@@ -94,7 +95,6 @@
     SUBDIR += blinken
     SUBDIR += blinkensisters
     SUBDIR += blobby
-    SUBDIR += bloboats
     SUBDIR += blobwars
     SUBDIR += block
     SUBDIR += blockade
@@ -126,6 +126,7 @@
     SUBDIR += bsdrain
     SUBDIR += bsdtris
     SUBDIR += bsp
+    SUBDIR += bstone
     SUBDIR += bubble-chains
     SUBDIR += bubbros
     SUBDIR += bugsquish
@@ -151,7 +152,6 @@
     SUBDIR += cgoban
     SUBDIR += chanta
     SUBDIR += chapping
-    SUBDIR += cheech
     SUBDIR += chessx
     SUBDIR += childsplay
     SUBDIR += chocolate-doom
@@ -160,6 +160,8 @@
     SUBDIR += circuslinux
     SUBDIR += cleanq3
     SUBDIR += cockatrice
+    SUBDIR += coffeebreak
+    SUBDIR += colobot
     SUBDIR += colorcode
     SUBDIR += columns
     SUBDIR += concentration
@@ -167,7 +169,6 @@
     SUBDIR += connectfive
     SUBDIR += conquest
     SUBDIR += construo
-    SUBDIR += corewars
     SUBDIR += corsix-th
     SUBDIR += cosmo
     SUBDIR += cosmosmash
@@ -175,9 +176,6 @@
     SUBDIR += crack-attack
     SUBDIR += craft
     SUBDIR += crafty
-    SUBDIR += crafty-open-enormous
-    SUBDIR += crafty-open-large
-    SUBDIR += crafty-open-medium
     SUBDIR += crafty-tablebase-no-pawn
     SUBDIR += crashtest
     SUBDIR += cre
@@ -221,7 +219,6 @@
     SUBDIR += doom-wolfendoom
     SUBDIR += doomlegacy
     SUBDIR += doomsday
-    SUBDIR += dopewars
     SUBDIR += drcreep
     SUBDIR += drm
     SUBDIR += duckmaze
@@ -230,6 +227,7 @@
     SUBDIR += dungeon
     SUBDIR += dungeoncrawl
     SUBDIR += dustrac
+    SUBDIR += dxx-rebirth
     SUBDIR += easyrpg-player
     SUBDIR += eboard
     SUBDIR += edge
@@ -282,6 +280,7 @@
     SUBDIR += flightgear-aircraft
     SUBDIR += flightgear-data
     SUBDIR += flightgear-mb339-pan
+    SUBDIR += flightgear-terragear
     SUBDIR += flobopuyo
     SUBDIR += flukz
     SUBDIR += flyhard
@@ -307,6 +306,7 @@
     SUBDIR += freedroidrpg
     SUBDIR += freeminer
     SUBDIR += freeminer-default
+    SUBDIR += freeorion
     SUBDIR += freera
     SUBDIR += freesweep
     SUBDIR += freesynd
@@ -323,13 +323,13 @@
     SUBDIR += galaxis
     SUBDIR += galaxyhack
     SUBDIR += garden-of-coloured-lights
-    SUBDIR += garith
     SUBDIR += gbottler
     SUBDIR += gbrainy
     SUBDIR += gcompris
-    SUBDIR += gdado
+    SUBDIR += gcompris-qt
     SUBDIR += gemdropx
     SUBDIR += gemrb
+    SUBDIR += genact
     SUBDIR += ggz-client-libs
     SUBDIR += ggz-gtk-client
     SUBDIR += ggz-gtk-games
@@ -337,7 +337,6 @@
     SUBDIR += ggz-txt-client
     SUBDIR += gigalomania
     SUBDIR += gillo
-    SUBDIR += gish-demo
     SUBDIR += gl-117
     SUBDIR += glaxium
     SUBDIR += glbsp
@@ -364,10 +363,6 @@
     SUBDIR += gnome-sudoku
     SUBDIR += gnome-taquin
     SUBDIR += gnome-tetravex
-    SUBDIR += gnomeattacks
-    SUBDIR += gnomebreakout
-    SUBDIR += gnomekiss
-    SUBDIR += gnono
     SUBDIR += gnubg
     SUBDIR += gnubik
     SUBDIR += gnuchess
@@ -390,21 +385,16 @@
     SUBDIR += granatier
     SUBDIR += greed
     SUBDIR += gretools
-    SUBDIR += grhino
     SUBDIR += griels-quest
     SUBDIR += gru
     SUBDIR += grubik
     SUBDIR += gshisen
-    SUBDIR += gtetrinet
     SUBDIR += gti
     SUBDIR += gtkatlantic
     SUBDIR += gtkballs
     SUBDIR += gtkevemon
-    SUBDIR += gtklife
     SUBDIR += gtkpool
     SUBDIR += gtkradiant
-    SUBDIR += gtktetcolor
-    SUBDIR += gturing
     SUBDIR += gtypist
     SUBDIR += gunfudeadlands
     SUBDIR += gzdoom
@@ -458,12 +448,12 @@
     SUBDIR += joequake
     SUBDIR += jools
     SUBDIR += jtans
+    SUBDIR += julius
     SUBDIR += jumpnbump
     SUBDIR += jutils
     SUBDIR += jvgs
     SUBDIR += jzip
     SUBDIR += kajaani-kombat
-    SUBDIR += kajongg
     SUBDIR += kanagram
     SUBDIR += kapman
     SUBDIR += kardsgt
@@ -475,8 +465,9 @@
     SUBDIR += kbounce
     SUBDIR += kbreakout
     SUBDIR += kcheckers
-    SUBDIR += kdegames4
+    SUBDIR += kdegames
     SUBDIR += kdiamond
+    SUBDIR += keeperrl
     SUBDIR += kevedit
     SUBDIR += kfourinline
     SUBDIR += kgoldrunner
@@ -494,7 +485,7 @@
     SUBDIR += kmines
     SUBDIR += knavalbattle
     SUBDIR += knetwalk
-    SUBDIR += knights-kde4
+    SUBDIR += knights
     SUBDIR += kobodeluxe
     SUBDIR += kolf
     SUBDIR += kollision
@@ -524,7 +515,6 @@
     SUBDIR += lexter
     SUBDIR += lgeneral
     SUBDIR += lianliankan
-    SUBDIR += libdungeonmaker
     SUBDIR += libggz
     SUBDIR += libgnome-games-support
     SUBDIR += libkdegames
@@ -532,7 +522,6 @@
     SUBDIR += liblcf
     SUBDIR += libmaitretarot
     SUBDIR += libmt_client
-    SUBDIR += libretro-cores
     SUBDIR += libshhcards
     SUBDIR += lightsoff
     SUBDIR += lightyears
@@ -574,7 +563,6 @@
     SUBDIR += lm-solve
     SUBDIR += lmarbles
     SUBDIR += lmpc
-    SUBDIR += lolcat
     SUBDIR += lordsawar
     SUBDIR += lpairs
     SUBDIR += lskat
@@ -604,7 +592,6 @@
     SUBDIR += meqcc
     SUBDIR += meritous
     SUBDIR += mindfocus
-    SUBDIR += mindguard
     SUBDIR += minecraft-client
     SUBDIR += minecraft-server
     SUBDIR += minerbold
@@ -613,10 +600,8 @@
     SUBDIR += minilens
     SUBDIR += mirrormagic
     SUBDIR += miscom
-    SUBDIR += mkgichessclub
     SUBDIR += mkhexgrid
     SUBDIR += moagg
-    SUBDIR += monkeybubble
     SUBDIR += monster-masher
     SUBDIR += monsterz
     SUBDIR += moon-buggy
@@ -629,7 +614,7 @@
     SUBDIR += mt_dolphin_ia
     SUBDIR += mt_gtk_client
     SUBDIR += mtaserver
-    SUBDIR += mudmagic
+    SUBDIR += multimc
     SUBDIR += mvdsv
     SUBDIR += nInvaders
     SUBDIR += nadar
@@ -651,7 +636,6 @@
     SUBDIR += netradiant
     SUBDIR += netrek-BRMH-bin
     SUBDIR += netrek-client-cow
-    SUBDIR += netspades
     SUBDIR += nettoe
     SUBDIR += netwalk
     SUBDIR += neverball
@@ -678,15 +662,17 @@
     SUBDIR += oneisenough
     SUBDIR += oneko
     SUBDIR += oneko-sakura
+    SUBDIR += onscripter
+    SUBDIR += onscripter-1byte
     SUBDIR += oolite
     SUBDIR += oonsoo
     SUBDIR += open-adventure
+    SUBDIR += openage
     SUBDIR += openalchemist
     SUBDIR += openarena
     SUBDIR += openarena-data
     SUBDIR += openarena-oax
     SUBDIR += openarena-server
-    SUBDIR += openastromenace
     SUBDIR += openbor
     SUBDIR += openbor3482
     SUBDIR += openbor3711
@@ -696,6 +682,7 @@
     SUBDIR += opencity
     SUBDIR += openclaw
     SUBDIR += openclonk
+    SUBDIR += opendungeons
     SUBDIR += opengfx
     SUBDIR += openglad
     SUBDIR += openjazz
@@ -716,7 +703,6 @@
     SUBDIR += opentyrian
     SUBDIR += openxcom
     SUBDIR += openyahtzee
-    SUBDIR += optimax
     SUBDIR += orbital_eunuchs_sniper
     SUBDIR += osgg
     SUBDIR += outerspace
@@ -735,7 +721,6 @@
     SUBDIR += pachi
     SUBDIR += pacmanarena
     SUBDIR += paintown
-    SUBDIR += pairs
     SUBDIR += palapeli
     SUBDIR += palomino
     SUBDIR += pangzero
@@ -760,7 +745,6 @@
     SUBDIR += pipenightdreams
     SUBDIR += pipepanic
     SUBDIR += pipewalker
-    SUBDIR += plutocracy
     SUBDIR += pmars
     SUBDIR += pmars-sdl
     SUBDIR += poker-engine
@@ -768,13 +752,13 @@
     SUBDIR += pokerth
     SUBDIR += polyglot
     SUBDIR += pongix
+    SUBDIR += ponscripter-sekai
     SUBDIR += popstar
     SUBDIR += pouetchess
     SUBDIR += powder
     SUBDIR += powder-toy
     SUBDIR += powermanga
     SUBDIR += powwow
-    SUBDIR += ppracer
     SUBDIR += prboom
     SUBDIR += prboom-plus
     SUBDIR += primateplunge
@@ -852,12 +836,15 @@
     SUBDIR += redeclipse-data
     SUBDIR += redorblack
     SUBDIR += reminiscence
+    SUBDIR += renpy
+    SUBDIR += renpy6
     SUBDIR += rescue
     SUBDIR += residualvm
     SUBDIR += retroarch
     SUBDIR += rezerwar
     SUBDIR += rfksay
     SUBDIR += ri-li
+    SUBDIR += rlvm
     SUBDIR += rnd_jue
     SUBDIR += robocode
     SUBDIR += robocode-naval
@@ -869,6 +856,7 @@
     SUBDIR += rtb
     SUBDIR += rubix
     SUBDIR += rubygem-fortune_gem
+    SUBDIR += rubygem-lolcat
     SUBDIR += rubygem-vimgolf
     SUBDIR += sampsvr
     SUBDIR += sarien
@@ -914,7 +902,6 @@
     SUBDIR += slashem-tty
     SUBDIR += slump
     SUBDIR += slune
-    SUBDIR += smashbattle
     SUBDIR += sokoban
     SUBDIR += sol
     SUBDIR += solarconquest
@@ -955,7 +942,6 @@
     SUBDIR += supertuxkart
     SUBDIR += swell-foop
     SUBDIR += sxsame
-    SUBDIR += syobon
     SUBDIR += tads
     SUBDIR += taipan
     SUBDIR += taisei
@@ -966,7 +952,6 @@
     SUBDIR += tbe
     SUBDIR += tecnoballz
     SUBDIR += teeworlds
-    SUBDIR += teg
     SUBDIR += tenebrae
     SUBDIR += tesseract
     SUBDIR += tesseract-data
@@ -978,7 +963,6 @@
     SUBDIR += thegrind
     SUBDIR += thudboard
     SUBDIR += tileworld
-    SUBDIR += timeseal
     SUBDIR += tinymux
     SUBDIR += tkmoo
     SUBDIR += tomatoes
@@ -992,7 +976,6 @@
     SUBDIR += toycars
     SUBDIR += trackballs
     SUBDIR += tractorgen
-    SUBDIR += traindirector
     SUBDIR += traingame
     SUBDIR += tremulous
     SUBDIR += trenchbroom
@@ -1013,7 +996,6 @@
     SUBDIR += tuxpaint-config
     SUBDIR += tuxpaint-fonts
     SUBDIR += tuxpaint-stamps
-    SUBDIR += tuxpuck
     SUBDIR += tuxracer
     SUBDIR += tuxtype
     SUBDIR += twind
@@ -1043,6 +1025,7 @@
     SUBDIR += violetland
     SUBDIR += viruskiller
     SUBDIR += vitetris
+    SUBDIR += vkquake
     SUBDIR += vms-empire
     SUBDIR += vodovod
     SUBDIR += volleyball
@@ -1063,7 +1046,6 @@
     SUBDIR += wmeyes
     SUBDIR += wmpuzzle
     SUBDIR += wmqstat
-    SUBDIR += wmquake
     SUBDIR += wmshuffle
     SUBDIR += wmtictactoe
     SUBDIR += wolfpack
@@ -1079,8 +1061,6 @@
     SUBDIR += xasteroids
     SUBDIR += xataxx
     SUBDIR += xbat
-    SUBDIR += xbattle
-    SUBDIR += xbill
     SUBDIR += xbl
     SUBDIR += xblackjack
     SUBDIR += xblast
@@ -1110,7 +1090,6 @@
     SUBDIR += xgalaga++
     SUBDIR += xgalaga-sdl
     SUBDIR += xglk
-    SUBDIR += xgospel
     SUBDIR += xhexagons
     SUBDIR += xhime
     SUBDIR += xinfocom
@@ -1156,13 +1135,14 @@
     SUBDIR += xpipeman
     SUBDIR += xpired
     SUBDIR += xptools
-    SUBDIR += xpuyopuyo
     SUBDIR += xpuzzletama
     SUBDIR += xpyraminx
     SUBDIR += xqf
     SUBDIR += xrally
+    SUBDIR += xray_re-tools
     SUBDIR += xrick
     SUBDIR += xrisk
+    SUBDIR += xroach
     SUBDIR += xrobots
     SUBDIR += xrot
     SUBDIR += xrubik
@@ -1202,7 +1182,6 @@
     SUBDIR += zdoom
     SUBDIR += zephulor
     SUBDIR += zhlt
-    SUBDIR += znibbles
     SUBDIR += zoom
     SUBDIR += ztrack
 

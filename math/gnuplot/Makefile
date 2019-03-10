@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	gnuplot
-PORTVERSION=	5.2.2
+PORTVERSION=	5.2.6
 CATEGORIES=	math graphics
 MASTER_SITES=	SF
 
@@ -15,13 +15,14 @@ LICENSE_PERMS=	dist-mirror pkg-mirror auto-accept
 
 CONFLICTS_INSTALL?=	gnuplot-lite-[0-9]*
 
-USES+=		groff iconv pkgconfig readline
+USES+=		compiler:c++11-lang groff iconv pkgconfig readline
 GNU_CONFIGURE=	yes
 LDFLAGS+=	-L${LOCALBASE}/lib ${ICONV_LIB}
 CONFIGURE_ARGS+=--with-readline=gnu \
 		--without-linux-vga \
 		--without-lisp-files \
 		--without-tutorial \
+		--with-bitmap-terminals \
 		--with-qt=no
 
 .if defined(LITE)
@@ -33,7 +34,6 @@ CONFIGURE_ARGS+=--disable-x11-mbfonts \
 		--without-gd \
 		--without-caca \
 		--without-wx \
-		--without-bitmap-terminals \
 		--without-gpic \
 		--without-mif \
 		--without-cairo \
@@ -52,8 +52,7 @@ LIB_DEPENDS+=	libfontconfig.so:x11-fonts/fontconfig \
 		libgd.so:graphics/gd \
 		libpng.so:graphics/png \
 		libtiff.so:graphics/tiff
-CONFIGURE_ARGS+=--with-bitmap-terminals \
-		--with-gd=${LOCALBASE} \
+CONFIGURE_ARGS+=--with-gd=${LOCALBASE} \
 		--with-gpic \
 		--with-mif \
 		--with-kpsexpand \
@@ -99,5 +98,10 @@ post-install-DOCS-on:
 	cd ${WRKSRC}/docs && ${INSTALL_DATA} gnuplot.txt gnuplot.dvi \
 		gnuplot.ps ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC}/docs/psdoc && ${INSTALL_DATA} README ps_* ${STAGEDIR}${DOCSDIR}/psdoc
+
+.if defined(LITE)
+post-stage:
+	@cd ${STAGEDIR}${PREFIX} && ${RMDIR} libexec/gnuplot/5.2 libexec/gnuplot
+.endif
 
 .include <bsd.port.mk>

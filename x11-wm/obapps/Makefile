@@ -3,7 +3,7 @@
 
 PORTNAME=	obapps
 PORTVERSION=	0.1.7
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	x11-wm
 MASTER_SITES=	SF/${PORTNAME}/ \
 		SF/nemysisfreebsdp/:icons
@@ -16,7 +16,7 @@ COMMENT=	Graphical editor for Openbox application settings
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}xlib>=0:x11-toolkits/py-xlib@${FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}xlib>=0:x11-toolkits/py-xlib@${PY_FLAVOR}
 
 USES=		python:2.7
 USE_PYTHON=	distutils

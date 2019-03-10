@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	charlock_holmes
-DISTVERSION=	0.7.5
-PORTREVISION=	1
+DISTVERSION=	0.7.6
 CATEGORIES=	textproc rubygems
 MASTER_SITES=	RG
 
@@ -11,8 +10,7 @@ COMMENT=	Gems for character encoding detection
 
 LICENSE=	MIT
 
-LIB_DEPENDS=	libicui18n.so:devel/icu \
-		libunwind.so:devel/libunwind
+LIB_DEPENDS=	libicui18n.so:devel/icu
 
 USES=		gem
 USE_RUBY=	yes

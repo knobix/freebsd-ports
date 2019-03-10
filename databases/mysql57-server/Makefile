@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME?=	mysql
-PORTVERSION=	5.7.20
-PORTREVISION=	2
+PORTVERSION=	5.7.25
+PORTREVISION?=	0
 CATEGORIES=	databases ipv6
 MASTER_SITES=	MYSQL/MySQL-5.7
 PKGNAMESUFFIX?=	57-server
@@ -17,7 +17,7 @@ LICENSE=	GPLv2
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 SLAVEDIRS=	databases/mysql57-client
-USES=		bison:build cmake:outsource,noninja compiler:c11 compiler:c++11-lib \
+USES=		bison:build cmake:noninja compiler:c11 compiler:c++11-lib \
 		cpe libedit localbase perl5 shebangfix ssl
 
 USE_PERL5=	run
@@ -39,7 +39,7 @@ CMAKE_ARGS+=	-DINSTALL_LAYOUT=FREEBSD \
 		-DINSTALL_DOCDIR="share/doc/mysql" \
 		-DINSTALL_DOCREADMEDIR="share/doc/mysql" \
 		-DINSTALL_INCLUDEDIR="include/mysql" \
-		-DINSTALL_INFODIR="info" \
+		-DINSTALL_INFODIR="${INFO_PATH}" \
 		-DINSTALL_LIBDIR="lib/mysql" \
 		-DINSTALL_MANDIR="man" \
 		-DINSTALL_MYSQLDATADIR="${MY_DBDIR}" \
@@ -96,6 +96,7 @@ SUB_FILES=	my.cnf.sample
 USERS=		mysql
 GROUPS=		mysql
 
+USE_CXXSTD=	c++11
 USE_LDCONFIG+=	${PREFIX}/lib/mysql/plugin
 
 MMAN1=		my_print_defaults.1 myisam_ftdump.1 myisamchk.1 myisamlog.1 myisampack.1 \
@@ -142,12 +143,24 @@ FEDERATED_SUB_LIST_OFF+=	FEDER=""
 CMAKE_ARGS+=	-DWITH_AUTHENTICATION_LDAP=0
 .endif
 
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200057
+SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
+.else
+SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
+.endif
+
 .include <bsd.port.pre.mk>
 
 .if ${SSL_DEFAULT} == base
 CMAKE_ARGS+=		-DWITH_SSL=system
 .else
 CMAKE_ARGS+=		-DWITH_SSL=${OPENSSLBASE}
+.endif
+
+.if ${CHOSEN_COMPILER_TYPE} == gcc
+CXXFLAGS+=	-fpermissive
 .endif
 
 post-extract:
@@ -157,7 +170,7 @@ post-patch:
 	@${REINPLACE_CMD} 's/*.1/${MMAN1}/' ${WRKSRC}/man/CMakeLists.txt
 	# issue 220865: MySQL developers forgot that FreeBSD != Linux
 	@${REINPLACE_CMD} -e 's|%%FREEBSD_LOCAL_LIB%%|${LOCALBASE}/lib|g' \
-	    ${WRKSRC}/cmake/plugin.cmake
+	    ${WRKSRC}/configure.cmake
 
 .if !defined(CLIENT_ONLY)
 post-install:

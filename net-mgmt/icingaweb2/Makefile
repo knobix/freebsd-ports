@@ -2,7 +2,7 @@
 
 PORTNAME=	icingaweb2
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.5.0
+DISTVERSION=	2.6.2
 PORTREVISION=	1
 CATEGORIES=	net-mgmt www
 
@@ -31,7 +31,7 @@ SUB_LIST=	WWWDIR=${WWWDIR} \
 PLIST_SUB=	WWWOWN=${WWWOWN} \
 		WWWGRP=${WWWGRP}
 
-OPTIONS_DEFINE=		NLS LDAP MYSQL PGSQL PDF
+OPTIONS_DEFINE=		NLS LDAP MYSQL PGSQL PDF EXAMPLES
 OPTIONS_DEFAULT=	LDAP MYSQL PGSQL
 
 PDF_DESC=	Export graphs as PDF
@@ -41,7 +41,7 @@ NLS_USE=	php=intl
 PGSQL_USE=	PHP=pdo_pgsql,pgsql
 MYSQL_USE=	PHP=pdo_mysql
 LDAP_USE=	PHP=ldap
-PDF_RUN_DEPENDS=	${PHPBASE}/lib/php/${PHP_EXT_DIR}/imagick.so:graphics/pecl-imagick
+PDF_RUN_DEPENDS=	${PHPBASE}/lib/php/${PHP_EXT_DIR}/imagick.so:graphics/pecl-imagick@${PHP_FLAVOR}
 
 post-patch:
 	${REINPLACE_CMD} 's%\(/etc/icingaweb2\)%${PREFIX}\1%g' \
@@ -54,6 +54,7 @@ do-install:
 		${STAGEDIR}${EXAMPLESDIR}/bash_completion.d
 	(cd ${WRKSRC} && ${RM} -r .mailmap changelog.py icingaweb2.spec \
 		bin/license_writer.py packages test)
+	(${FIND} ${WRKSRC} -name "*.bak" -delete)
 	${MKDIR} ${STAGEDIR}${WWWDIR}
 	(cd ${WRKSRC} && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${WWWDIR})

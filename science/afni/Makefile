@@ -1,4 +1,3 @@
-# Created by: Jason W. Bacon <bacon4000@gmail.com>
 # $FreeBSD$
 
 ############################################################################
@@ -11,11 +10,11 @@
 
 PORTNAME=	afni
 PORTVERSION=	2015.11.13
-PORTREVISION=	5
+PORTREVISION=	8
 CATEGORIES=	science biology graphics
 MASTER_SITES=	http://www.acadix.biz/Ports/distfiles/
 
-MAINTAINER=	bacon4000@gmail.com
+MAINTAINER=	jwb@FreeBSD.org
 COMMENT=	Advanced Functional Neuro Imaging
 
 LICENSE=	GPLv2
@@ -48,6 +47,8 @@ SHEBANG_FILES=	suma_change_spec \
 		pkundu/meica.libs/*.py \
 		pkundu/meica.libs/mdp/test/run_tests.py
 USE_GNOME=	glib20
+
+OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.options.mk>
 

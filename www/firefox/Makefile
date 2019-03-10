@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	firefox
-DISTVERSION=	57.0.3
+DISTVERSION=	65.0.2
 PORTEPOCH=	1
 CATEGORIES=	www ipv6
 MASTER_SITES=	MOZILLA/${PORTNAME}/releases/${DISTVERSION}/source \
@@ -12,31 +12,27 @@ DISTFILES=	${DISTNAME}.source${EXTRACT_SUFX}
 MAINTAINER=	gecko@FreeBSD.org
 COMMENT=	Web browser based on the browser portion of Mozilla
 
-BUILD_DEPENDS=	nspr>=4.17:devel/nspr \
-		nss>=3.33:security/nss \
+BUILD_DEPENDS=	nspr>=4.19:devel/nspr \
+		nss>=3.41:security/nss \
 		icu>=59.1,1:devel/icu \
 		libevent>=2.1.8:devel/libevent \
-		harfbuzz>=1.5.1:print/harfbuzz \
-		graphite2>=1.3.10:graphics/graphite2 \
-		png>=1.6.31:graphics/png \
-		libvorbis>=1.3.5,3:audio/libvorbis \
+		harfbuzz>=1.9.0:print/harfbuzz \
+		graphite2>=1.3.12:graphics/graphite2 \
+		png>=1.6.34:graphics/png \
+		libvorbis>=1.3.6,3:audio/libvorbis \
 		libvpx>=1.5.0:multimedia/libvpx \
-		sqlite3>=3.20.1:databases/sqlite3 \
+		sqlite3>=3.25.3:databases/sqlite3 \
 		${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR} \
 		v4l_compat>0:multimedia/v4l_compat \
 		autoconf-2.13:devel/autoconf213 \
 		yasm:devel/yasm \
 		zip:archivers/zip
-#		soundtouch>=1.9.0:audio/soundtouch \
-
-LIB_DEPENDS=	libv4l2.so:multimedia/libv4l
 
 USE_GECKO=	gecko
 CONFLICTS_INSTALL=	firefox-esr
 MOZ_PKGCONFIG_FILES=	# empty
-USE_MOZILLA=	-soundtouch
+USE_MOZILLA=	-hunspell -vpx
 
-USE_GL=		gl
 USES=		tar:xz
 
 FIREFOX_ICON=		${MOZILLA}.png
@@ -45,12 +41,13 @@ FIREFOX_DESKTOP=	${MOZSRC}/taskcluster/docker/${MOZILLA}-snap/${MOZILLA}.desktop
 MOZ_OPTIONS=	--enable-application=browser \
 		--enable-official-branding
 
-OPTIONS_DEFAULT=	BUNDLED_CAIRO
+OPTIONS_EXCLUDE=	WAYLAND
 
 .include "${.CURDIR}/../../www/firefox/Makefile.options"
 
 post-patch:
 	@${REINPLACE_CMD} -e 's/%u/%U/' -e '/X-MultipleArgs/d' \
+		-e '/^Icon/s/=.*/=${FIREFOX_ICON:R}/' \
 		${FIREFOX_DESKTOP}
 	@${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/browser/app/nsBrowserApp.cpp

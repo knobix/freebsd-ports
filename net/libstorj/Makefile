@@ -1,14 +1,21 @@
 # $FreeBSD$
 
 PORTNAME=	libstorj
-PORTVERSION=	1.0.2
+PORTVERSION=	1.0.3
+PORTREVISION=	1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net
 
-MAINTAINER=	jhixson@gmail.com
+MAINTAINER=	jhixson@FreeBSD.org
 COMMENT=	C library and CLI for encrypted file transfer on the Storj network
 
 LICENSE=	LGPL21+
+
+BROKEN_aarch64=		fails to build: invokes x86 assembler
+BROKEN_armv6=		fails to build: invokes x86 assembler
+BROKEN_armv7=		fails to build: invokes x86 assembler
+BROKEN_mips=		fails to build: invokes x86 assembler
+BROKEN_mips64=		fails to build: invokes x86 assembler
 
 LIB_DEPENDS=	libjson-c.so:devel/json-c \
 		libuv.so:devel/libuv \
@@ -16,10 +23,11 @@ LIB_DEPENDS=	libjson-c.so:devel/json-c \
 		libnettle.so:security/nettle \
 		libmicrohttpd.so:www/libmicrohttpd
 
+USES=		autoreconf gmake libtool localbase pkgconfig
+USE_CSTD=	gnu99
+
 USE_GITHUB=	yes
 GH_ACCOUNT=	Storj
-
-USES=		autoreconf gmake libtool localbase pkgconfig
 
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes

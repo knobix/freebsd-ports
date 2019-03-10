@@ -12,11 +12,13 @@ COMMENT=	Traffic simulation suite for road vehicles, public transportation, etc
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BROKEN_powerpc64=	fails to configure: xerces-lib not found in /usr/local/lib
+
 LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libFOX-1.6.so:x11-toolkits/fox16 \
 		libfreetype.so:print/freetype2 \
 		libgdal.so:graphics/gdal \
-		libpng16.so:graphics/png \
+		libpng.so:graphics/png \
 		libproj.so:graphics/proj \
 		libtiff.so:graphics/tiff \
 		libxerces-c.so:textproc/xerces-c3
@@ -42,12 +44,4 @@ do-install-DOCS-on:
 	@cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}
 	@${FIND} ${STAGEDIR}${DOCSDIR} -d -empty -delete
 
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1100000
-BUILD_DEPENDS+=	clang40:devel/llvm40
-CC=		clang40
-CXX=		clang++40 # fails to build with the default compiler on 10
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

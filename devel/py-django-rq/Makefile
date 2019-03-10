@@ -2,28 +2,35 @@
 # $FreeBSD$
 
 PORTNAME=	django-rq
-PORTVERSION=	1.0.1
-PORTREVISION=	1
+PORTVERSION=	1.3
 DISTVERSIONPREFIX=	v
 CATEGORIES=	devel python
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	rene@FreeBSD.org
+MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Provides Django integration for RQ (Redis Queue)
 
 LICENSE=	MIT
 
-TEST_DEPENDS=	redis-server:databases/redis
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}rq>=0.5.5:devel/py-rq@${PY_FLAVOR}
+USES=		python django
+USE_PYTHON=	autoplist distutils
+USE_GITHUB=	yes
+GH_ACCOUNT=	rq
+
+TEST_DEPENDS=	redis-server:databases/redis \
+		${PYTHON_PKGNAMEPREFIX}coverage>=0:devel/py-coverage@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}docutils>=0:textproc/py-docutils@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}mock>=0:devel/py-mock@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}yaml>=0:devel/py-yaml@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}rq>=0.12.0:devel/py-rq@${PY_FLAVOR}
 
 NO_ARCH=	yes
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+post-patch:
+	${REINPLACE_CMD} 's/coverage/coverage-${PYTHON_VERSION:S/python//}/' \
+	    ${WRKSRC}/Makefile
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	ui
-
-TEST_TARGET=	test
+do-test:
+	cd ${WRKSRC} && ${TEST_ENV} ${MAKE} ${TEST_ARGS}
 
 .include <bsd.port.mk>

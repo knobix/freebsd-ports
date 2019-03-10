@@ -2,6 +2,7 @@
 
 PORTNAME=	qmmp-plugin-pack
 PORTVERSION=	0.11.0
+PORTREVISION=	3
 CATEGORIES=	multimedia
 MASTER_SITES=	http://qmmp.ylsoftware.com/files/plugins/ \
 	SF/qmmp-dev/${PORTNAME}/
@@ -12,14 +13,17 @@ COMMENT=	Additional plug-ins for QMMP (Qt4)
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
+
 LIB_DEPENDS=	libqmmpui.so:multimedia/qmmp
 BUILD_DEPENDS=	qmmp>=0.11.0:multimedia/qmmp
 
 CONFLICTS=	${PORTNAME}-qt5-1.*
 PORTSCOUT=	limit:^0.*
 
-USES=		cmake:outsource localbase pkgconfig tar:bzip2
-USE_QT4=	corelib gui linguisttools_build moc_build qmake_build rcc_build
+USES=		cmake localbase pkgconfig qt:4 tar:bzip2
+USE_QT=		corelib gui linguisttools_build moc_build qmake_build rcc_build
 USE_LDCONFIG=	yes
 
 OPTIONS_SUB=	yes
@@ -50,12 +54,14 @@ GOOMASM_BUILD_DEPENDS=	yasm:devel/yasm
 GOOMASM_CMAKE_BOOL=	GOOM_ASM
 
 HISTORY_DESC=	Information about listened tracks
-HISTORY_USE=	QT4=sql,uic_build
+HISTORY_USES=	qt:4
+HISTORY_USE=	QT=sql,uic_build
 HISTORY_CMAKE_BOOL=	USE_HISTORY
 
 MPG123_LIB_DEPENDS=	libmpg123.so:audio/mpg123 \
 		libtag.so:audio/taglib
-MPG123_USE=	QT4=uic_build
+MPG123_USES=	qt:4
+MPG123_USE=	QT=uic_build
 MPG123_CMAKE_BOOL=	USE_MPG123
 
 SRCONV_DESC=	Support the sample rate converter

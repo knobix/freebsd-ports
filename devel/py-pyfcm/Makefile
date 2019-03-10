@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	pyfcm
-PORTVERSION=	1.4.3
+PORTVERSION=	1.4.5
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,7 +12,7 @@ COMMENT=	Python client for Firebase Cloud Messaging
 
 LICENSE=	MIT
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	distutils autoplist

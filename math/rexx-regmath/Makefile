@@ -18,10 +18,9 @@ BUILD_DEPENDS=	${LOCALBASE}/include/rexxsaa.h:lang/rexx-regina
 
 USES=		zip
 
-CFLAGS+=	-Wno-incompatible-pointer-types
-
 WRKSRC=		${WRKDIR}/math
 USE_LDCONFIG=	yes
+LLD_UNSAFE=	yes
 MAKEFILE=	Makefile.bsd
 
 PLIST_FILES=	lib/librexxmath.so lib/librxmath.so man/man1/regmath.1.gz
@@ -32,6 +31,10 @@ PORTDOCS=	regmath.pdf
 PORTEXAMPLES=	README testrxmath testrexxmath
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+.if !exists(/usr/lib/libstdc++.so)
+CFLAGS+=	-Wno-incompatible-pointer-types
+.endif
 
 do-install:
 		${INSTALL_LIB} ${WRKSRC}/librexxmath.so ${STAGEDIR}${PREFIX}/lib/

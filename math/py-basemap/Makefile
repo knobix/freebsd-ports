@@ -3,6 +3,7 @@
 
 PORTNAME=	basemap
 PORTVERSION=	1.0.7
+PORTREVISION=	2
 CATEGORIES=	math python
 MASTER_SITES=	SF/matplotlib/matplotlib-toolkits/${PORTNAME}-${PORTVERSION}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -14,7 +15,7 @@ LICENSE=	GPLv2 LGPL21 MIT
 LICENSE_COMB=	multi
 
 BUILD_DEPENDS=	${PYNUMPY}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}matplotlib>0:math/py-matplotlib@${PY_FLAVOR}
 LIB_DEPENDS=	libgeos.so:graphics/geos
 
 USES=		python:2.7

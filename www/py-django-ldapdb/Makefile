@@ -2,20 +2,28 @@
 # $FreeBSD$
 
 PORTNAME=	django-ldapdb
-PORTVERSION=	0.3.2
-PORTREVISION=	3
+PORTVERSION=	1.0.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	avk@vl.ru
-COMMENT=	Support for django models over LDAP
+COMMENT=	LDAP database backend for Django
 
 LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ldap>=2.0:net/py-ldap@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ldap>=2.4.25:net/py-ldap@${PY_FLAVOR}
 
-USES=		python:2.7 django
-USE_PYTHON=	distutils autoplist
+USES=		python django
+USE_PYTHON=	distutils concurrent autoplist
+NO_ARCH=	yes
+PORTDOCS=	README.rst
+
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.rst ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>

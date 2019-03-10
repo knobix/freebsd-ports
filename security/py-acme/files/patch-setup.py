@@ -1,15 +1,15 @@
---- setup.py.orig	2017-12-07 17:15:47 UTC
+--- setup.py.orig	2019-02-07 21:20:31 UTC
 +++ setup.py
-@@ -12,7 +12,6 @@ install_requires = [
-     # rsa_recover_prime_factors (>=0.8)
-     'cryptography>=0.8',
+@@ -13,7 +13,6 @@ install_requires = [
+     # formerly known as acme.jose:
+     'josepy>=1.0.0',
      # Connection.set_tlsext_host_name (>=0.13)
 -    'mock',
-     'PyOpenSSL>=0.13',
+     'PyOpenSSL>=0.13.1',
      'pyrfc3339',
      'pytz',
-@@ -31,6 +30,7 @@ if sys.version_info < (2, 7):
-     ])
+@@ -24,6 +23,7 @@ install_requires = [
+ ]
  
  dev_extras = [
 +    'mock',

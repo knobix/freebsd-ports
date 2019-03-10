@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	hedgewars
-PORTVERSION=	0.9.23
+PORTVERSION=	0.9.25
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	http://www.hedgewars.org/download/releases/ \
 		http://mirror.amdmi3.ru/distfiles/
@@ -17,15 +18,15 @@ LICENSE_COMB=	multi
 LIB_DEPENDS=	libphysfs.so:devel/physfs \
 		libpng.so:graphics/png
 
-USES=		cmake:noninja desktop-file-utils lua:51 tar:bzip2
+USES=		cmake:noninja desktop-file-utils fpc gl lua:51 qt:5 tar:bzip2 pkgconfig
 USE_SDL=	sdl2 mixer2 image2 ttf2 net2
 USE_FPC=	opengl libpng rtl-objpas
-USE_QT4=	corelib gui moc_build network \
-		qmake_build rcc_build svg xml \
-		uic_build linguisttools_build
+USE_QT=		core gui widgets network \
+		qmake_build buildtools_build \
+		linguisttools_build
+USE_GL=		gl glu glew
+LLD_UNSAFE=	yes
 USE_LDCONFIG=	yes
-
-WRKSRC=		${WRKDIR}/${DISTNAME:C/\.[0-9]$//}
 
 PLIST_FILES=	bin/${PORTNAME} bin/hwengine \
 		share/appdata/hedgewars.appdata.xml \
@@ -38,6 +39,7 @@ PORTDATA=	*
 
 OPTIONS_DEFINE=	SERVER VIDEOREC
 OPTIONS_DEFAULT=SERVER VIDEOREC
+OPTIONS_EXCLUDE_i386=	VIDEOREC  # some pascal issues preventing to use it
 
 SERVER_DESC=	Build server (requires haskell)
 VIDEOREC_DESC=	Enable video recording (requires ffmpeg)

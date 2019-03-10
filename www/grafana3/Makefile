@@ -7,7 +7,7 @@ PORTREVISION=	3
 PKGNAMESUFFIX=	3
 CATEGORIES=	www
 
-MAINTAINER=	jhixson@gmail.com
+MAINTAINER=	jhixson@FreeBSD.org
 COMMENT=	Dashboard and graph editor for Graphite, InfluxDB & OpenTSDB
 
 LICENSE=	APACHE20
@@ -116,7 +116,7 @@ post-extract:
 
 do-build:
 	cd ${WRKSRC}/src/github.com/${GH_ACCOUNT}/grafana; \
-		${SETENV} ${BUILD_ENV} GOPATH=${WRKSRC} go run build.go build
+		${SETENV} ${MAKE_ENV} ${BUILD_ENV} GOPATH=${WRKSRC} go run build.go build
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/github.com/grafana/grafana/bin/grafana-server \

@@ -1,9 +1,8 @@
-# Created by: Dmitri Goutnik <dg@syrec.org>
 # $FreeBSD$
 
 PORTNAME=	awless
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.1.8
+DISTVERSION=	0.1.11
 CATEGORIES=	devel
 
 MAINTAINER=	dg@syrec.org
@@ -24,10 +23,12 @@ PLIST_FILES=	bin/awless
 PORTDOCS=	README.md CHANGELOG.md
 
 do-build:
-	@(cd ${WRKSRC} && ${SETENV} GOPATH=${WRKSRC} go build -o ${PORTNAME} )
+	@(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} GOPATH=${WRKSRC} go build -o ${PORTNAME} )
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+
+do-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
 

@@ -1,10 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	cwm
-DISTVERSIONPREFIX=	v
-DISTVERSION=	6.2-9
-DISTVERSIONSUFFIX=	-ga0774f4
+DISTVERSION=	6.3
 CATEGORIES=	x11-wm
+MASTER_SITES=	http://chneukirchen.org/releases/
 
 MAINTAINER=	tobik@FreeBSD.org
 COMMENT=	Minimalistic window manager for X11 based on evilwm
@@ -15,8 +14,6 @@ LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2
 
 USES=		pkgconfig shebangfix
-USE_GITHUB=	yes
-GH_ACCOUNT=	chneukirchen
 USE_XORG=	x11 xft xinerama xrandr
 
 PLIST_FILES=	bin/cwm \
@@ -31,7 +28,7 @@ post-patch:
 	@${REINPLACE_CMD} 's@/usr/X11R6@${LOCALBASE}@' ${WRKSRC}/cwmrc.5
 	@${REINPLACE_CMD} -e 's@strlcpy.o strlcat.o@@' \
 		-e 's@strtonum.o@@' ${WRKSRC}/Makefile
-.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1100072
+.if ${OPSYS} == FreeBSD
 	@${REINPLACE_CMD} 's@reallocarray.o@@' ${WRKSRC}/Makefile
 .endif
 

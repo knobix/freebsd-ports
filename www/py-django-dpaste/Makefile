@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	dpaste
-PORTVERSION=	2.10
-PORTREVISION=	1
+PORTVERSION=	2.13
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}django-
@@ -14,9 +13,7 @@ COMMENT=	Django based pastebin
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-mptt>=0.8.3:www/py-django-mptt@${DJANGO_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pygments>=1.6:textproc/py-pygments@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}requests>=2.0.0:www/py-requests@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pygments>=1.6:textproc/py-pygments@${PY_FLAVOR}
 
 OPTIONS_DEFINE=		MIGRATIONS
 
@@ -25,7 +22,7 @@ MIGRATIONS_DESC=	Schema and data migration support (via south)
 MIGRATIONS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}south>=0.8.2:databases/py-south@${PY_FLAVOR}
 
 USES=		python django
-USE_PYTHON=	autoplist distutils
+USE_PYTHON=	distutils autoplist
 
 NO_ARCH=	yes
 

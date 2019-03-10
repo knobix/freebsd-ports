@@ -12,6 +12,4 @@ USE_XORG+=	ice sm x11 xext
 
 MASTERDIR=	${.CURDIR}/../remmina-plugins
 
-PLIST_SUB+=	ICONS="" SSH=""
-
 .include "${MASTERDIR}/Makefile"

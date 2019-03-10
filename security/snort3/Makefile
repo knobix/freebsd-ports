@@ -2,22 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	snort
-DISTVERSION=	3.0.0-a4
+DISTVERSION=	3.0.0-250
+PORTEPOCH=	1
 CATEGORIES=	security
-MASTER_SITES=	https://snort.org/downloads/snortplus/
 PKGNAMESUFFIX=	3
-DISTNAME=	${PORTNAME}-3.0.0-239-auto
 
-MAINTAINER=	feld@FreeBSD.org
+MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	Lightweight network intrusion detection system
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BROKEN_FreeBSD_11=	Segmentation Fault
-BROKEN_FreeBSD_12=	Segmentation Fault
-
-BUILD_DEPENDS=	daq>=2.2.2:net/daq
+BUILD_DEPENDS=	daq>=2.2.2:net/daq \
+		bash>0:shells/bash
 LIB_DEPENDS=	libpcre.so:devel/pcre \
 		libdnet.so:net/libdnet \
 		libpcap.so:net/libpcap \
@@ -25,29 +22,44 @@ LIB_DEPENDS=	libpcre.so:devel/pcre \
 		libhwloc.so:devel/hwloc
 RUN_DEPENDS=	daq>=2.2.2:net/daq
 
-OPTIONS_DEFINE=		DEBUG LRGPCAP
+USES=		cmake compiler:c++11-lang cpe libtool pathfix pkgconfig shebangfix ssl iconv
 
-OPTIONS_SUB=		yes
+USE_GITHUB=	yes
+GH_ACCOUNT=	snort3
+GH_PROJECT=	snort3
 
-LRGPCAP_DESC=		Pcaps larger than 2GB
-DEBUG_DESC=		Enable debugging symbols+core dumps
+SHEBANG_FILES=	tools/appid_detector_builder.sh
 
-DEBUG_CONFIGURE_ENABLE=	debug debug-msgs
-DEBUG_CONFIGURE_DISABLE=	corefiles
-DEBUG_MAKE_ENV=		DONTSTRIP="yes"
-LRGPCAP_CONFIGURE_ENABLE=	large-pcap
-
-.include <bsd.port.options.mk>
-
-USES=		cpe libtool pathfix pkgconfig ssl
-
-GNU_CONFIGURE=	yes
+LDFLAGS+=	-L${LOCALBASE}/lib ${ICONV_LIB}
 USE_LDCONFIG=	yes
 
-CFLAGS+=	-I${LOCALBASE}/include
+OPTIONS_DEFINE=		ADDRESSSANITIZER DEBUG DOCS LARGEPCAP PIE THREADSANITIZER STATICDAQ
+OPTIONS_DEFINE_amd64=	HYPERSCAN TSC
+OPTIONS_DEFAULT=	STATICDAQ
+
+ADDRESSSANITIZER_DESC=	Enable address sanitizer
+DEBUG_DESC=		Enable debug
+DOCS_DESC=		Enable documentation
+# FLATBUFFERS_DESC=	Enable flatbuffers support      // Doesn't get detected
+HYPERSCAN_DESC=		Enable high-performance regular expression lib
+LARGEPCAP_DESC=		Enable support for pcaps larger than 2 GB
+PIE_DESC=		Enable PIE (Broken)
+STATICDAQ_DESC=		Link static DAQ modules
+THREADSANITIZER_DESC=	Enable thread sanitizer
+TSC_DESC=		Use timestamp counter register clock (x86 only)
+
+ADDRESSSANITIZER_CMAKE_BOOL=	ENABLE_ADDRESS_SANITIZER
+DEBUG_CMAKE_BOOL=	ENABLE_COREFILES ENABLE_GDB
+DOCS_CMAKE_BOOL=	MAKE_HTML_DOC MAKE_PDF_DOC MAKE_TEXT_DOC
+LARGEPCAP_CMAKE_BOOL=	ENABLE_LARGE_PCAP
+PIE_CMAKE_BOOL=		ENABLE_PIE
+STATICDAQ_CMAKE_BOOL=	ENABLE_STATIC_DAQ
+THREADSANITIZER_CMAKE_BOOL=	ENABLE_THREAD_SANITIZER
+TSC_CMAKE_BOOL=		ENABLE_TSC_CLOCK
+
+# FLATBUFFERS_LIB_DEPENDS=	libflatbuffers.so:devel/flatbuffers
+HYPERSCAN_LIB_DEPENDS=	libhs.so:devel/hyperscan
 
 CONFLICTS=	snort-2*
-
-WRKSRC=	${WRKDIR}/snort-3.0.0-a4
 
 .include <bsd.port.mk>

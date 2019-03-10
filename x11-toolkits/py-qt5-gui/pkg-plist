@@ -1,4 +1,5 @@
 %%PYTHON_SITELIBDIR%%/PyQt5/QtGui.so
+%%PYTHON_SITELIBDIR%%/PyQt5/QtGui.pyi
 %%PYQT_SIPDIR%%/QtGui/QtGuimod.sip
 %%PYQT_SIPDIR%%/QtGui/opengl_types.sip
 %%PYQT_SIPDIR%%/QtGui/qabstracttextdocumentlayout.sip
@@ -93,4 +94,4 @@
 %%PYQT_SIPDIR%%/QtGui/qvector4d.sip
 %%PYQT_SIPDIR%%/QtGui/qwindow.sip
 %%PYQT_SIPDIR%%/QtGui/qwindowdefs.sip
-%%API%%share/qt5/qsci/api/python/QtGui.api
+%%API%%%%PYQT_APIDIR%%/api/python/QtGui.api

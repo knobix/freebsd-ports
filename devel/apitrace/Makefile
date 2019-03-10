@@ -2,6 +2,7 @@
 
 PORTNAME=	apitrace
 DISTVERSION=	7.1-455
+PORTREVISION=	3
 DISTVERSIONSUFFIX=	-g7c76b90
 CATEGORIES=	devel
 
@@ -13,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libpng.so:graphics/png
 
-USES=		cmake:outsource compiler:c++11-lang pkgconfig python:2.7 shebangfix
+USES=		cmake compiler:c++11-lang pkgconfig python:2.7 shebangfix
 USE_GITHUB=	yes
 USE_XORG=	x11
 
@@ -24,7 +25,8 @@ OPTIONS_DEFAULT=	QT5
 OPTIONS_SUB=	yes
 
 QT5_CMAKE_BOOL=	ENABLE_GUI
-QT5_USE=	qt5=core,gui,network,widgets,buildtools_build,qmake_build
+QT5_USES=	qt:5
+QT5_USE=	qt=core,gui,network,widgets,buildtools_build,qmake_build
 
 post-install:
 	${RM} ${STAGEDIR}${DOCSDIR}/LICENSE.txt

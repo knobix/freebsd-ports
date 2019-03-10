@@ -1,3 +1,3 @@
-TIMESTAMP = 1511185045
-SHA256 (rubygem/gstreamer-3.2.1.gem) = b3e5767e854bc0e34f6b0075c57aa25426cd5af870648d0c666a9e7e8857f3eb
-SIZE (rubygem/gstreamer-3.2.1.gem) = 21504
+TIMESTAMP = 1550388865
+SHA256 (rubygem/gstreamer-3.3.2.gem) = 2f401734d51845cf8de785310e5641d8d27a6d3246927560b20d3f5579b65874
+SIZE (rubygem/gstreamer-3.3.2.gem) = 30208

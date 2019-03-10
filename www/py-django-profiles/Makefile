@@ -15,7 +15,7 @@ COMMENT=	User-profile application for Django
 
 LICENSE=	BSD3CLAUSE
 
-WRKSRC=		${WRKDIR}/${PORTNAME}
+WRKSRC=	${WRKDIR}/${PORTNAME}
 USES=		python django
 USE_PYTHON=	distutils autoplist
 DOCSDIR=	${PREFIX}/share/doc/${DJANGO_PKGNAMEPREFIX}-${PORTNAME}

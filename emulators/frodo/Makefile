@@ -11,12 +11,16 @@ MAINTAINER=	dinoex@FreeBSD.org
 COMMENT=	Emulates a Commodore 64
 
 USES=		shebangfix tk:run
+USE_CXXSTD=	gnu++98
+CXXFLAGS+=	-std=gnu++98
 USE_XORG=	x11 xt xext sm ice
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	CXXFLAGS='${CXXFLAGS}'
+MAKE_ENV=	LDFLAGS='${LDFLAGS}'
 ALL_TARGET=	Frodo
 INSTALL_WRKSRC=	${WRKDIR}/Frodo-4.1b
-WRKSRC=		${INSTALL_WRKSRC}/Src
-GNU_CONFIGURE=	yes
 SHEBANG_FILES=	../TkGui.tcl
+WRKSRC=		${INSTALL_WRKSRC}/Src
 
 ROM=		1541 Basic Char Kernal
 

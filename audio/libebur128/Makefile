@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libebur128
-PORTVERSION=	1.2.3
+PORTVERSION=	1.2.4
 DISTVERSIONPREFIX=	v
 CATEGORIES=	audio
 
@@ -17,7 +17,7 @@ LIB_DEPENDS=	libspeexdsp.so:audio/speexdsp
 USE_GITHUB=	yes
 GH_ACCOUNT=	jiixyj
 
-USES=		cmake:outsource localbase:ldflags pkgconfig
+USES=		cmake localbase:ldflags pkgconfig
 USE_LDCONFIG=	yes
 
 .include <bsd.port.mk>

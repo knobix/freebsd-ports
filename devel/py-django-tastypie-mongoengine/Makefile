@@ -3,7 +3,7 @@
 
 PORTNAME=		django-tastypie-mongoengine
 PORTVERSION=		0.4.6
-PORTREVISION=		2
+PORTREVISION=	3
 DISTVERSIONPREFIX=	v
 CATEGORIES=		devel
 PKGNAMEPREFIX=		${DJANGO_PKGNAMEPREFIX}
@@ -15,7 +15,7 @@ LICENSE=	AGPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS?=	${DJANGO_PKGNAMEPREFIX}django-tastypie>=0.9.12:www/py-django-tastypie@${DJANGO_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}mongoengine>=0.8.7:devel/py-mongoengine@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}mongoengine>=0.8.7:databases/py-mongoengine@${PY_FLAVOR}
 
 USE_GITHUB=		yes
 GH_ACCOUNT=		wlanslovenija

@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	django-registration-redux
-PORTVERSION=	1.4
+PORTVERSION=	2.4
+DISTVERSIONPREFIX=	v
 PORTREVISION=	1
 CATEGORIES=	www python
-MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
@@ -18,6 +18,10 @@ NO_ARCH=	yes
 USES=		python django
 USE_PYTHON=	distutils autoplist
 
-CONFLICTS_INSTALL=	pootle-[0-9]* py??-django*-django-registration-[0-9]*
+USE_GITHUB=	yes
+GH_ACCOUNT=	macropin
+GH_PROJECT=	django-registration
+
+CONFLICTS_INSTALL=	pootle ${DJANGO_PKGNAMEPREFIX}django-registration
 
 .include <bsd.port.mk>

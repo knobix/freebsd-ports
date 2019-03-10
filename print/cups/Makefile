@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	cups
-PORTVERSION=	2.2.6
+PORTVERSION=	2.2.10
 DISTVERSIONPREFIX=v
 CATEGORIES=	print
 
@@ -84,6 +84,10 @@ PLIST_SUB+=	USB=""
 PLIST_SUB+=	USB="@comment "
 .endif
 
+.if defined(WITH_DEBUG)
+CONFIGURE_ARGS+=--enable-debug --enable-debug-printfs
+.endif
+
 .include <bsd.port.pre.mk>
 
 .if empty(ICONV_LIB)
@@ -103,6 +107,9 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|\.default|.sample|'\
 		${WRKSRC}/cgi-bin/admin.c\
 		${WRKSRC}/conf/Makefile
+.if !empty(ARCH:Mpowerpc*)
+	@${REINPLACE_CMD} -e 's|@PIEFLAGS@||g' ${WRKSRC}/Makedefs.in
+.endif
 
 post-patch-DOCS-off:
 # Link to online documentation.

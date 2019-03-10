@@ -1,11 +1,19 @@
---- meson.build.orig	2017-09-20 17:08:27 UTC
+--- meson.build.orig	2018-12-22 14:33:52 UTC
 +++ meson.build
-@@ -58,15 +58,10 @@ executable('sshfs', sshfs_sources,
- if rst2man.found()
-     custom_target('manpages', input: [ 'sshfs.rst' ], output: [ 'sshfs.1' ],
-                   command: [rst2man, '@INPUT@', '@OUTPUT@'], install: true,
--                  install_dir: join_paths(get_option('mandir'), '1'))
-+                  install_dir: join_paths(get_option('mandir'), 'man1'))
+@@ -19,12 +19,7 @@ int main(void) {
+     (void) get_4();
+     return 0;
+ }'''
+-if not cc.compiles(code, args: [ '-O0', '-Werror=unused-result' ])
+-     message('Compiler warns about unused result even when casting to void')
+-     add_global_arguments('-Wno-unused-result', language: 'c')
+-endif
+ 
+-
+ rst2man = find_program('rst2man', 'rst2man.py', required: false)
+   
+ cfg = configuration_data()
+@@ -62,11 +57,6 @@ if rst2man.found()
  else
      message('rst2man not found, not building manual page.')
  endif

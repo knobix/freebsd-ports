@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	rpcalc
-PORTVERSION=	0.7.1
+PORTVERSION=	0.8.2
+PORTREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	SF/${PORTNAME}/${PORTVERSION}
 
@@ -12,20 +13,15 @@ COMMENT=	Simple RPN calculator
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/doc/LICENSE
 
-USES=		pyqt:4 python:3.3+
-USE_PYQT=	core gui
+USES=		pyqt:5 python:3.4+ shebangfix
+USE_PYQT=	core gui widgets sip
+
+SHEBANG_FILES=	source/rpcalc.py
 
 CONFIGURE_ARGS=	-p ${PREFIX} -d ${DOCSDIR} -i ${DATADIR}/icons -b ${STAGEDIR}
 NO_ARCH=	yes
 NO_BUILD=	yes
 WRKSRC=		${WRKDIR}/rpCalc
-
-DESKTOP_ENTRIES="rpCalc" \
-		"RPN Calculator" \
-		"${DATADIR}/icons/calc_lg.png" \
-		"${PORTNAME}" \
-		"Qt;Utility;Calculator;" \
-		false
 
 do-install:
 	(cd ${WRKSRC} && ${PYTHON_CMD} install.py ${CONFIGURE_ARGS})

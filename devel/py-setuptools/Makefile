@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	setuptools
-PORTVERSION=	38.2.5
+PORTVERSION=	40.8.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -10,7 +10,8 @@ DIST_SUBDIR=	python
 MAINTAINER=	python@FreeBSD.org
 COMMENT=	Python packages installer
 
-LICENSE=	PSFL
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 NO_ARCH=	yes
 USES=		python zip
@@ -25,16 +26,16 @@ PLIST_FILES=	"@sample %%PYTHON_SITELIBDIR%%/easy-install.pth.dist %%PYTHON_SITEL
 
 .include <bsd.port.pre.mk>
 
-.if ${PYTHON_VERSION} != ${PYTHON_DEFAULT_VERSION}
+.if ${FLAVOR} != ${FLAVORS:[1]}
 SUB_FILES+=	pkg-message
 SUB_LIST+=	PYTHON_VER=${PYTHON_VER}
 .endif
 
 # These create dependency loops in redports/poudriere, because setuptools
 # is currently an explicit BUILD & RUN dependency in Uses/python.mk.
-#TEST_DEPENDS=  ${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${FLAVOR}
+#TEST_DEPENDS=  ${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR}
 #.if ${PYTHON_REL} < 3300
-#TEST_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}mock>0:devel/py-mock@${FLAVOR}
+#TEST_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}mock>0:devel/py-mock@${PY_FLAVOR}
 #.endif
 
 post-install:

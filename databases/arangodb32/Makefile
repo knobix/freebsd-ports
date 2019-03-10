@@ -3,19 +3,20 @@
 
 PORTNAME=	arangodb
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.2.9
+DISTVERSION=	3.2.13
+PORTREVISION=	1
 CATEGORIES=	databases net
 PKGNAMESUFFIX=	32
 
-MAINTAINER=	galu@packetdam.com
+MAINTAINER=	dev@dudu.ro
 COMMENT=	ArangoDB is a distributed NoSQL database with multiple data models
 
 LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 ONLY_FOR_ARCHS=	amd64
 ONLY_FOR_ARCHS_REASON=	"Only builds on amd64"
-BROKEN_FreeBSD_10=	libc++ is too old
-USES=		gmake ssl cmake:outsource,noninja python:2.7 compiler
+USES=		gmake ssl cmake:noninja python:2.7 compiler
 USE_GITHUB=	yes
 
 CMAKE_ARGS=	-DUSE_JEMALLOC:BOOL=off \
@@ -25,6 +26,16 @@ CMAKE_ARGS=	-DUSE_JEMALLOC:BOOL=off \
 USERS=		arangodb
 GROUPS=		arangodb
 USE_RC_SUBR=	arangod
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200057
+SUB_LIST+=	LEGACY_LIMITS="@comment " MODERN_LIMITS=""
+.else
+SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
+.endif
 
 post-install:
 .for section in 1 8

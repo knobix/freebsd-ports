@@ -1,4 +1,7 @@
 bin/liteide
+libexec/liteide/gocode
+libexec/liteide/gotools
+libexec/liteide/liteide
 lib/liteide/libliteapp.so
 lib/liteide/libliteapp.so.1
 lib/liteide/libliteapp.so.1.0
@@ -26,7 +29,6 @@ lib/liteide/plugins/liblitetty.so
 lib/liteide/plugins/libmarkdown.so
 lib/liteide/plugins/libquickopen.so
 lib/liteide/plugins/librustedit.so
-%%QT4%%lib/liteide/plugins/libwebkithtmlwidget.so
 lib/liteide/plugins/libwelcome.so
 share/applications/liteide.desktop
 share/icons/hicolor/128x128/apps/liteide.png
@@ -43,13 +45,13 @@ share/icons/hicolor/64x64/apps/liteide.png
 %%DATADIR%%/liteapp/qss/black.qss
 %%DATADIR%%/liteapp/qss/carbon.qss
 %%DATADIR%%/liteapp/qss/coffee.qss
-%%DATADIR%%/liteapp/qss/default.qss
 %%DATADIR%%/liteapp/qss/default_macos.qss
+%%DATADIR%%/liteapp/qss/default.qss
 %%DATADIR%%/liteapp/qss/evilworks.qss
 %%DATADIR%%/liteapp/qss/gray.qss
 %%DATADIR%%/liteapp/qss/sublime.qss
-%%DATADIR%%/liteapp/qss/vs-dark.qss
 %%DATADIR%%/liteapp/qss/vs-dark-hdpi.qss
+%%DATADIR%%/liteapp/qss/vs-dark.qss
 %%DATADIR%%/liteapp/template/empty/root
 %%DATADIR%%/liteapp/template/empty/setup.inf
 %%DATADIR%%/liteapp/template/file.sub
@@ -64,6 +66,9 @@ share/icons/hicolor/64x64/apps/liteide.png
 %%DATADIR%%/liteapp/template/gopkg/doc.go
 %%DATADIR%%/liteapp/template/gopkg/root.go
 %%DATADIR%%/liteapp/template/gopkg/setup.inf
+%%DATADIR%%/liteapp/template/gopkgex/doc.go
+%%DATADIR%%/liteapp/template/gopkgex/root.go
+%%DATADIR%%/liteapp/template/gopkgex/setup.inf
 %%DATADIR%%/liteapp/template/goslide/root.slide
 %%DATADIR%%/liteapp/template/goslide/setup.inf
 %%DATADIR%%/liteapp/template/gosrc/root.go
@@ -75,18 +80,22 @@ share/icons/hicolor/64x64/apps/liteide.png
 %%DATADIR%%/liteapp/template/project.sub
 %%DATADIR%%/litebuild/build.md
 %%DATADIR%%/litebuild/command/go.api
+%%DATADIR%%/litebuild/gomod.xml
 %%DATADIR%%/litebuild/gosrc.xml
 %%DATADIR%%/litebuild/lua.xml
 %%DATADIR%%/litebuild/python.xml
 %%DATADIR%%/litebuild/qlang.xml
 %%DATADIR%%/litebuild/rust.xml
+%%DATADIR%%/litebuild/tcl.xml
 %%DATADIR%%/liteeditor/color/carbon.xml
 %%DATADIR%%/liteeditor/color/clearday.xml
 %%DATADIR%%/liteeditor/color/cobalt black.xml
 %%DATADIR%%/liteeditor/color/cobalt blue.xml
 %%DATADIR%%/liteeditor/color/colorhelp.md
+%%DATADIR%%/liteeditor/color/dark.xml
 %%DATADIR%%/liteeditor/color/darktango.xml
 %%DATADIR%%/liteeditor/color/darkvim.xml
+%%DATADIR%%/liteeditor/color/default-func.xml
 %%DATADIR%%/liteeditor/color/default.xml
 %%DATADIR%%/liteeditor/color/evilworks.xml
 %%DATADIR%%/liteeditor/color/gist-github.xml
@@ -98,8 +107,8 @@ share/icons/hicolor/64x64/apps/liteide.png
 %%DATADIR%%/liteeditor/color/sublime-bold.xml
 %%DATADIR%%/liteeditor/color/sublime.xml
 %%DATADIR%%/liteeditor/color/visualstudio.xml
-%%DATADIR%%/liteeditor/kate/alert.xml
 %%DATADIR%%/liteeditor/kate/alert_indent.xml
+%%DATADIR%%/liteeditor/kate/alert.xml
 %%DATADIR%%/liteeditor/kate/awk.xml
 %%DATADIR%%/liteeditor/kate/bash.xml
 %%DATADIR%%/liteeditor/kate/c.xml
@@ -107,6 +116,7 @@ share/icons/hicolor/64x64/apps/liteide.png
 %%DATADIR%%/liteeditor/kate/cpp.xml
 %%DATADIR%%/liteeditor/kate/css.xml
 %%DATADIR%%/liteeditor/kate/go.xml
+%%DATADIR%%/liteeditor/kate/gomod.xml
 %%DATADIR%%/liteeditor/kate/gopresent.xml
 %%DATADIR%%/liteeditor/kate/html.xml
 %%DATADIR%%/liteeditor/kate/java.xml
@@ -123,6 +133,7 @@ share/icons/hicolor/64x64/apps/liteide.png
 %%DATADIR%%/liteeditor/kate/qlang.xml
 %%DATADIR%%/liteeditor/kate/ruby.xml
 %%DATADIR%%/liteeditor/kate/rust.xml
+%%DATADIR%%/liteeditor/kate/tcl.xml
 %%DATADIR%%/liteeditor/kate/toml.xml
 %%DATADIR%%/liteeditor/kate/xml.xml
 %%DATADIR%%/liteeditor/kate/yacc.xml

@@ -6,6 +6,9 @@
 %%DOCSDIR%%/%%DOCLANG%%/articles/committers-guide/imagelib/callouts/1.png
 %%DOCSDIR%%/%%DOCLANG%%/articles/committers-guide/imagelib/callouts/2.png
 %%DOCSDIR%%/%%DOCLANG%%/articles/committers-guide/imagelib/callouts/3.png
+%%DOCSDIR%%/%%DOCLANG%%/articles/committers-guide/imagelib/callouts/4.png
+%%DOCSDIR%%/%%DOCLANG%%/articles/committers-guide/imagelib/callouts/5.png
+%%DOCSDIR%%/%%DOCLANG%%/articles/committers-guide/imagelib/callouts/6.png
 %%DOCSDIR%%/%%DOCLANG%%/articles/contributing/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/articles/contributors/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/articles/cups/docbook.css
@@ -37,7 +40,6 @@
 %%DOCSDIR%%/%%DOCLANG%%/articles/nanobsd/imagelib/callouts/3.png
 %%DOCSDIR%%/%%DOCLANG%%/articles/nanobsd/imagelib/callouts/4.png
 %%DOCSDIR%%/%%DOCLANG%%/articles/new-users/docbook.css
-%%DOCSDIR%%/%%DOCLANG%%/articles/p4-primer/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/articles/pam/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/articles/pgpkeys/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/articles/port-mentor-guidelines/docbook.css
@@ -274,7 +276,6 @@
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/virtualization/vmware-freebsd10.png
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/virtualization/vmware-freebsd11.png
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/virtualization/vmware-freebsd12.png
-%%DOCSDIR%%/%%DOCLANG%%/books/pmake/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/books/porters-handbook/docbook.css
 %%DOCSDIR%%/%%DOCLANG%%/books/porters-handbook/imagelib/callouts/1.png
 %%DOCSDIR%%/%%DOCLANG%%/books/porters-handbook/imagelib/callouts/10.png

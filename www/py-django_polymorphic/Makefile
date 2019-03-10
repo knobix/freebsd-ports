@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	django_polymorphic
-PORTVERSION=	0.9.2
-PORTREVISION=	1
+PORTVERSION=	2.0.3
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
+DISTNAME=	django-polymorphic-${PORTVERSION}
 
 MAINTAINER=	ports@caomhin.org
 COMMENT=	Seamless Polymorphic Inheritance for Django Models
@@ -16,5 +16,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		python django
 USE_PYTHON=	distutils autoplist
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

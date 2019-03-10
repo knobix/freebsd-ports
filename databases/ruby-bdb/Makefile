@@ -9,13 +9,14 @@ MASTER_SITES=	ftp://ftp.idaemons.org/pub/distfiles/ruby/ \
 		http://idaemons.org/distfiles/ruby/ \
 		LOCAL/knu
 PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
-PKGNAMESUFFIX=	${WITH_BDB_VER}
 DIST_SUBDIR=	ruby
 
 MAINTAINER=	knu@FreeBSD.org
 COMMENT=	Ruby interface to Oracle Berkeley DB revision 2 or later
 
 LICENSE=	RUBY
+
+BROKEN_RUBY25=	yes
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
 
@@ -70,9 +71,9 @@ post-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/
 	(cd ${WRKSRC}/examples/ && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR} "! -empty")
 
-regression-test: build
+do-test:
 	@${MKDIR} ${BUILD_WRKSRC}/tmp
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE} \
-	${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} test)
+		${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} test)
 
 .include <bsd.port.mk>

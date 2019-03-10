@@ -2,14 +2,14 @@
 # $FreeBSD$
 
 PORTNAME=	django-sortedm2m
-PORTVERSION=	1.4.0
+PORTVERSION=	1.5.0
 PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
-COMMENT=	Replacement for Django's many to many field
+COMMENT=	Replacement for Django's many to many field #'
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt

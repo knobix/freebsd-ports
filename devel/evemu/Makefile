@@ -3,6 +3,7 @@
 
 PORTNAME=	evemu
 PORTVERSION=	2.6.0
+PORTREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	http://www.freedesktop.org/software/${PORTNAME}/
 
@@ -11,7 +12,7 @@ COMMENT=	Records and replays EVDEV descriptions and events
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	v4l_compat>=0:multimedia/v4l_compat
+BUILD_DEPENDS=	${LOCALBASE}/include/linux/input.h:devel/evdev-proto
 LIB_DEPENDS=	libevdev.so:devel/libevdev
 
 USES=		tar:xz pathfix libtool pkgconfig localbase
@@ -25,8 +26,8 @@ MANPAGES_BUILD_DEPENDS=		minixmlto:textproc/minixmlto \
 MANPAGES_CONFIGURE_ENV=		XMLTO=${LOCALBASE}/bin/minixmlto
 MANPAGES_CONFIGURE_ENV_OFF=	ac_cv_path_XMLTO="" \
 				ac_cv_path_ASCIIDOC=""
-PYTHON_USES=			python:2
-PYTHON_USES_OFF=		python:2,build
+PYTHON_USES=			python:2.7
+PYTHON_USES_OFF=		python:2.7,build
 PYTHON_CONFIGURE_ENABLE=	python-bindings
 
 GNU_CONFIGURE=  yes

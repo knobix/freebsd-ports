@@ -1,9 +1,9 @@
 # Created by: Marc G. Fournier <scrappy@FreeBSD.org>
 # $FreeBSD$
 
-DISTVERSION?=	10.1
-PKGNAMESUFFIX?= ${PORTVERSION:R}${COMPONENT}
-PORTREVISION?=	1
+DISTVERSION?=	10.7
+PORTREVISION=	1
+PKGNAMESUFFIX?=	${DISTVERSION:R:S/.//}${COMPONENT}
 
 MAINTAINER?=	pgsql@FreeBSD.org
 
@@ -22,10 +22,4 @@ PG_USER?=	postgres
 PG_GROUP?=	postgres
 PG_UID?=	770
 
-.if defined(SERVER_ONLY)
-CONFIGURE_ARGS+=--with-icu
-LIB_DEPENDS+=	libicudata.so:devel/icu
-USES+=		pkgconfig
-.endif
-
-.include "${.CURDIR}/../postgresql92-server/Makefile"
+.include "${.CURDIR}/../postgresql11-server/Makefile"

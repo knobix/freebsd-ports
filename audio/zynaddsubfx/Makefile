@@ -11,11 +11,15 @@ COMMENT=	Realtime software synthesizer
 
 LICENSE=	GPLv2
 
+BROKEN_aarch64=		fails to compile: argument unused during compilation: '-msse'
+BROKEN_armv6=		fails to compile: unknown argument: '-mvectorize-with-neon-quad'
+BROKEN_armv7=		fails to compile: unknown argument: '-mvectorize-with-neon-quad'
+
 LIB_DEPENDS=	libfftw3.so:math/fftw3 \
 		libmxml.so:textproc/mxml \
 		liblo.so:audio/liblo
 
-USES=		tar:bzip2 cmake pkgconfig
+USES=		cmake:insource compiler:c++11-lang pkgconfig tar:bzip2
 USE_LDCONFIG=	yes
 
 OPTIONS_DEFINE=		OSS JACK GUI PORTAUDIO LASH DOCS EXAMPLES
@@ -37,13 +41,13 @@ DSSI_CFLAGS=			-I${LOCALBASE}/include/dssi
 DSSI_CMAKE_OFF=			-DDssiEnable:BOOL=OFF
 
 GUI_LIB_DEPENDS=		libfltk.so:x11-toolkits/fltk \
-				libpng16.so:graphics/png \
+				libpng.so:graphics/png \
 				libfontconfig.so:x11-fonts/fontconfig
 GUI_ON=				-DGuiModule:STRING=fltk
 GUI_CMAKE_OFF=			-DGuiModule:STRING=OFF
 GUI_USE+=			XORG=x11,xext,xfixes,xcursor,xrender,ice,sm,xpm,xinerama,xft
 GUI_USE+=			GL=gl,glu
-GUI_USES=			jpeg
+GUI_USES=			gl jpeg
 
 OSS_CMAKE_ON=			-DOssEnable:BOOL=ON
 OSS_CMAKE_OFF=			-DOssEnable:BOOL=OFF
@@ -76,13 +80,6 @@ PORTEXAMPLES=	*
 
 CMAKE_ARGS+=	-DZYN_DATADIR:STRING=${DATADIR}
 CMAKE_ARGS+=	-DZYN_EXAMPLESDIR:STRING=${EXAMPLESDIR}
-
-.include <bsd.port.options.mk>
-
-# Build fix for ZynAddSubFx
-BUILD_DEPENDS+=	clang40:devel/llvm40
-CC=		clang40
-CXX=		clang++40
 
 .include <bsd.port.pre.mk>
 

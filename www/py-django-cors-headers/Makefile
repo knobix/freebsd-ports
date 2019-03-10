@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-cors-headers
-PORTVERSION=	2.1.0
-PORTREVISION=	1
+PORTVERSION=	2.4.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -14,5 +13,7 @@ LICENSE=	MIT
 
 USES=		python django
 USE_PYTHON=	distutils autoplist
+
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-cors-headers
 
 .include <bsd.port.mk>

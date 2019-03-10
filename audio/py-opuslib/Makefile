@@ -7,14 +7,14 @@ CATEGORIES=	audio python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	yuri@rawbw.com
+MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Python bindings to the libopus, IETF low-delay audio codec
 
 LICENSE=	BSD3CLAUSE
 
 RUN_DEPENDS=	${LOCALBASE}/lib/libopus.so:audio/opus
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coverage>=4.4.1:devel/py-coverage \
-		${PYTHON_PKGNAMEPREFIX}nose>=1.3.7:devel/py-nose
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coverage>=4.4.1:devel/py-coverage@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}nose>=1.3.7:devel/py-nose@${PY_FLAVOR}
 
 USES=		python:-2.7
 USE_PYTHON=	autoplist distutils

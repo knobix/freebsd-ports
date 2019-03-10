@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	six
-PORTVERSION=	1.11.0
+PORTVERSION=	1.12.0
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,7 +13,7 @@ COMMENT=	Python 2 and 3 compatibility utilities
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:devel/py-pytest@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	autoplist concurrent distutils

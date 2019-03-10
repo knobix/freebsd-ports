@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=		talloc
-PORTVERSION=		2.1.10
-PORTREVISION=		1
+PORTVERSION=		2.1.14
+PORTREVISION=		0
 CATEGORIES=		devel
 MASTER_SITES=		SAMBA
 
@@ -13,6 +13,11 @@ LICENSE=		LGPL3
 
 IGNORE_NONTHREAD_PYTHON=needs port lang/python${PYTHON_SUFFIX} to be build with THREADS support
 
+#FLAVORS=		default nopython
+#nopython_PKGNAMESUFFIX=	-nopython
+#nopython_CONFLICTS=	talloc
+#default_CONFLICTS=	talloc-nopython
+
 USES=			compiler pkgconfig waf
 USE_LDCONFIG=		yes
 WAF_CMD=		buildtools/bin/waf
@@ -22,7 +27,6 @@ PKGCONFIGDIR?=		${PREFIX}/libdata/pkgconfig
 PLIST_SUB+=		PKGCONFIGDIR=${PKGCONFIGDIR:S;${PREFIX}/;;}
 
 CONFIGURE_ARGS+=	--mandir=${MANPREFIX}/man \
-			--infodir=${PREFIX}/${INFO_PATH}/${INFO_SUBDIR} \
 			--disable-rpath \
 			--without-gettext
 
@@ -34,7 +38,7 @@ MANPAGES_DESC=		Build and install manpages (requires textproc/docbook-xsl)
 PLIST_FILES+=		include/talloc.h \
 			lib/libtalloc.so \
 			lib/libtalloc.so.2 \
-			%%PKGCONFIGDIR%%/talloc.pc
+			${PKGCONFIGDIR}/talloc.pc
 
 .if defined(NO_PYTHON)
 USES+=			python:2.7,build
@@ -45,14 +49,14 @@ USES+=			python:2.7
 PLIST_FILES+=		include/pytalloc.h \
 			lib/libpytalloc-util.so \
 			lib/libpytalloc-util.so.2 \
-			%%PYTHON_SITELIBDIR%%/talloc.so \
-			%%PKGCONFIGDIR%%/pytalloc-util.pc
+			${PYTHON_SITELIBDIR}/talloc.so \
+			${PKGCONFIGDIR}/pytalloc-util.pc
 # XXX: This is a gross hack to make port use both Python 2.7+ and 3.3+
 # This is not officially supported, use at your own risk
-.if defined(WITH_SAMBA4_PYTHON3) && ${WITH_SAMBA4_PYTHON3:Mpython3\.[0-9]}
-SAMBA4_PYTHON3=		${WITH_SAMBA4_PYTHON3}
-SAMBA4_PYTHON3_VERSION:=${SAMBA4_PYTHON3:S/^python//}
-SAMBA4_PYTHON3_VER:=	${SAMBA4_PYTHON3_VERSION:C/\.//}
+.if defined(WITH_SAMBA4_PYTHON3) && ${WITH_SAMBA4_PYTHON3:M3\.[0-9]}
+SAMBA4_PYTHON3_VERSION=	${WITH_SAMBA4_PYTHON3}
+SAMBA4_PYTHON3=		python${SAMBA4_PYTHON3_VERSION}
+SAMBA4_PYTHON3_VER=	${SAMBA4_PYTHON3_VERSION:C/\.//}
 .if !exists(${PORTSDIR}/lang/python${SAMBA4_PYTHON3_VER})
 .error			unsupported or unknown Python version ${SAMBA4_PYTHON3_VERSION}
 .endif
@@ -68,16 +72,11 @@ CONFIGURE_ARGS+=	--extra-python=${LOCALBASE}/bin/${SAMBA4_PYTHON3}
 PLIST_SUB+=		SAMBA4_PYTHON3_SO_ABI=${SAMBA4_PYTHON3_SO_ABI} \
 			SAMBA4_PYTHON3_SITELIBDIR=${SAMBA4_PYTHON3_SITELIBDIR}
 
-PLIST_FILES+=		lib/libpytalloc-util.%%SAMBA4_PYTHON3_SO_ABI%%.so \
-			lib/libpytalloc-util.%%SAMBA4_PYTHON3_SO_ABI%%.so.2 \
-			%%SAMBA4_PYTHON3_SITELIBDIR%%/talloc.so \
-			%%PKGCONFIGDIR%%/pytalloc-util.%%SAMBA4_PYTHON3_SO_ABI%%.pc
+PLIST_FILES+=		lib/libpytalloc-util.${SAMBA4_PYTHON3_SO_ABI}.so \
+			lib/libpytalloc-util.${SAMBA4_PYTHON3_SO_ABI}.so.2 \
+			${SAMBA4_PYTHON3_SITELIBDIR}/talloc.${SAMBA4_PYTHON3_SO_ABI}.so \
+			${PKGCONFIGDIR}/pytalloc-util.${SAMBA4_PYTHON3_SO_ABI}.pc
 .endif
-.endif
-
-# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=219455
-.if ${ARCH} == powerpc64 || ${ARCH} == powerpc
-.info EXTRA_PATCHES+=		${FILESDIR}/powerpc-patch-lib_replace_wscript
 .endif
 
 .include <bsd.port.pre.mk>
@@ -125,7 +124,7 @@ post-install:
 			${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/talloc.so
 .if defined(SAMBA4_PYTHON3)
 			${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpytalloc-util.${SAMBA4_PYTHON3_SO_ABI}.so
-			${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SAMBA4_PYTHON3_SITELIBDIR}/talloc.so
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SAMBA4_PYTHON3_SITELIBDIR}/talloc.${SAMBA4_PYTHON3_SO_ABI}.so
 .endif
 .endif
 

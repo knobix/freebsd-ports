@@ -1,0 +1,15 @@
+TIMESTAMP = 1551822680
+SHA256 (llvm-8.0.0rc3.src.tar.xz) = 8363f5d9524416e41749a935004b4c1c50297954ba266ed4c89a84849e8a6aa4
+SIZE (llvm-8.0.0rc3.src.tar.xz) = 30507604
+SHA256 (cfe-8.0.0rc3.src.tar.xz) = 20ec4c1fe9c2b36932a6c9d13a65ae4ce32ae2296bf6ac6d5459eb78029a8a44
+SIZE (cfe-8.0.0rc3.src.tar.xz) = 12863708
+SHA256 (compiler-rt-8.0.0rc3.src.tar.xz) = 31dac9d47775eb883b0d0c4df29de88888290b35a1bb4f2be2f270c51b1dfb01
+SIZE (compiler-rt-8.0.0rc3.src.tar.xz) = 1904692
+SHA256 (clang-tools-extra-8.0.0rc3.src.tar.xz) = 46ed676c6abbae9e0570bc13986d5582d03416d1ffdbbc4b7fd40d0671ee191c
+SIZE (clang-tools-extra-8.0.0rc3.src.tar.xz) = 1996500
+SHA256 (lld-8.0.0rc3.src.tar.xz) = a4a0f0ecaa47768f7980cfc21ffa512255520a6510742253a386745fe2bb9a6d
+SIZE (lld-8.0.0rc3.src.tar.xz) = 999892
+SHA256 (lldb-8.0.0rc3.src.tar.xz) = fe9bfd13a8ea54798229bdd081e21f66cb52a6b53e2983750870f9a7418f10c0
+SIZE (lldb-8.0.0rc3.src.tar.xz) = 19605220
+SHA256 (openmp-8.0.0rc3.src.tar.xz) = a5506758d5db9e33a57a1638f7cf187e80309e5c7daf0502ea3fcdf5d4a864a9
+SIZE (openmp-8.0.0rc3.src.tar.xz) = 934392

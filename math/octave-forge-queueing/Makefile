@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	octave-forge-queueing
-PORTVERSION=	1.2.5
-PORTREVISION=	1
+PORTVERSION=	1.2.6
+PORTREVISION=	2
 CATEGORIES=	math
 
 MAINTAINER=	stephen@FreeBSD.org
@@ -20,6 +20,8 @@ OCTSRC=		${OCTAVE_PKGNAME}
 
 do-build:
 	@${DO_NADA}
+
+NO_ARCH=	yes
 
 post-build:
 	${RM} ${WRKSRC}/Makefile ${WRKSRC}/configure

@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	cppcheck
-PORTVERSION=	1.81
+PORTVERSION=	1.87
+PORTREVISION?=	0	# devel/cppcheck-gui
 CATEGORIES=	devel
-MASTER_SITES=	SF
 
 MAINTAINER=	amdmi3@FreeBSD.org
 COMMENT?=	Static analysis of C/C++ code
@@ -12,7 +12,9 @@ COMMENT?=	Static analysis of C/C++ code
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=			compiler:c++11-lib cmake tar:bzip2
+USES=		compiler:c++11-lib cmake:insource tar:bzip2
+USE_GITHUB=	yes
+GH_ACCOUNT=	danmar
 
 .if defined(GUI_ONLY)
 COMMENT=		Static analysis of C/C++ code (GUI)
@@ -20,7 +22,8 @@ COMMENT=		Static analysis of C/C++ code (GUI)
 RUN_DEPENDS=		cppcheck:devel/cppcheck
 
 CMAKE_ARGS=		-DBUILD_GUI=TRUE
-USE_QT5=		core gui widgets printsupport qmake_build buildtools_build linguisttools_build
+USES+=			qt:5
+USE_QT=			core gui widgets printsupport qmake_build buildtools_build linguisttools_build
 
 BUILD_WRKSRC=		${WRKSRC}/gui
 INSTALL_WRKSRC=		${WRKSRC}/gui
@@ -56,6 +59,9 @@ MATCHCOMPILER_DESC=	Build-time optimizations via Python
 MATCHCOMPILER_CMAKE_BOOL=	USE_MATCHCOMPILER
 MATCHCOMPILER_USES=	python:${PYUSE:C/ /,/W}
 MATCHCOMPILER_VARS=	PYUSE+=build
+
+post-patch:
+	@${REINPLACE_CMD} -e '/find_package(Qt5/ d' ${WRKSRC}/cmake/findDependencies.cmake
 
 post-install-HTMLREPORT-on:
 	${INSTALL_SCRIPT} ${WRKSRC}/htmlreport/cppcheck-htmlreport ${STAGEDIR}${PREFIX}/bin

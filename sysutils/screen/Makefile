@@ -3,16 +3,16 @@
 
 PORTNAME=	screen
 PORTVERSION=	4.6.2
+PORTREVISION=	1
 CATEGORIES=	sysutils
-MASTER_SITES=	http://ftp.gnu.org/gnu/screen/ \
+MASTER_SITES=	GNU \
 		ftp://ftp.gnu.org/gnu/screen/ \
 		ftp://gnu.mirror.iweb.com/screen/ \
 		http://gnu.mirror.iweb.com/screen/ \
 		http://mirror.sdunix.com/gnu/ \
 		ftp://mirrors.kernel.org/gnu/screen/ \
-		http://komquats.com/distfiles/ \
-		http://people.freebsd.org/~cy/distfiles/ \
-		GNU
+		http://cschubert.com/distfiles/ \
+		LOCAL/cy
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Multi-screen window manager
@@ -56,12 +56,14 @@ LDFLAGS+=	-L${NCURSESLIB}
 .if ${PORT_OPTIONS:MMAN}
 MAKE_ARGS+=	WITH_MAN=1
 PLIST_SUB+=	MAN=""
+USES+=		groff
 .else
 PLIST_SUB+=	MAN="@comment"
 .endif
 .if ${PORT_OPTIONS:MINFO}
 INFO=		screen
 MAKE_ARGS+=	WITH_INFO=1
+USES+=		makeinfo
 .endif
 
 # Enables support for 256 colour xterm.  Note that you may need to

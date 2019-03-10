@@ -1,3 +1,3 @@
-TIMESTAMP = 1514773228
-SHA256 (unifi5-5.6.26/unifi_sysvinit_all.deb) = 6ade32913eddbc555c8c1120babe9baf765547aa5944f8554f59f77a0385865b
-SIZE (unifi5-5.6.26/unifi_sysvinit_all.deb) = 50195710
+TIMESTAMP = 1552151310
+SHA256 (unifi5-5.10.19/unifi_sysvinit_all.deb) = 58b8f1ea88e0cad7df3e97ea292ee011add96d0dd6819e78c60639f24370d407
+SIZE (unifi5-5.10.19/unifi_sysvinit_all.deb) = 81226348

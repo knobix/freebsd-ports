@@ -4,9 +4,10 @@ CATEGORIES=	www
 
 MASTERDIR=	${.CURDIR}/../../lang/php71
 
-PORTREVISION=	2
 PKGNAMESUFFIX=	-opcache
 
-USES=	php:zend
+TEST_TARGET=    test
+
+USES=	php:zend,noflavors
 
 .include "${MASTERDIR}/Makefile"

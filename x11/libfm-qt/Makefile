@@ -2,22 +2,23 @@
 # $FreeBSD$
 
 PORTNAME=	libfm-qt
-PORTVERSION=	0.12.0
+PORTVERSION=	0.13.0
+PORTREVISION=	3
 CATEGORIES=	x11
 MASTER_SITES=	LXQT
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	mbeis@xs4all.nl
 COMMENT=	Qt port of libfm
 
 LICENSE=	LGPL21+
 
-LIB_DEPENDS=	libfm.so:x11/libfm \
+LIB_DEPENDS=	libfm.so:x11/libfm@gtk2 \
 	libmenu-cache.so:x11/menu-cache \
 	libexif.so:graphics/libexif
 
-USES=	cmake:outsource compiler:c++11-lib gettext-runtime lxqt pkgconfig \
-	shared-mime-info tar:xz
-USE_QT5=	buildtools_build qmake_build core gui linguisttools widgets \
+USES=	cmake compiler:c++11-lib gettext-runtime lxqt pkgconfig \
+	qt:5 shared-mime-info tar:xz
+USE_QT=		buildtools_build qmake_build core gui linguisttools widgets \
 	x11extras
 USE_GNOME=	glib20
 USE_XORG=	xcb
