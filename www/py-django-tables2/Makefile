@@ -16,10 +16,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tablib>=0:textproc/py-tablib@${PY_FLAVOR}
 
-USES=		python django
+USES=		python django:111
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=		yes
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-tables2
+CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}django-tables2-2
 
 .include <bsd.port.mk>

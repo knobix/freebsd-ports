@@ -19,7 +19,6 @@ USES=		gettext python django
 USE_PYTHON=	autoplist distutils
 
 NO_ARCH=		yes
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django-happenings \
-			${PYTHON_PKGNAMEPREFIX}dj21-django-mptt
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django-happenings
 
 .include <bsd.port.mk>

@@ -18,8 +18,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${PY_FLAVOR}
 USES=		python django
 USE_PYTHON=	distutils autoplist
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}djangorestframework?? \
-			${PYTHON_PKGNAMEPREFIX}dj21-djangorestframework
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}djangorestframework??
 NO_ARCH=		yes
 
 .include <bsd.port.mk>

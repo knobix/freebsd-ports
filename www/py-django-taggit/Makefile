@@ -17,7 +17,6 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}isort>0:devel/py-isort@${PY_FLAVOR}
 USES=		python django
 USE_PYTHON=	autoplist distutils
 
-NO_ARCH=		yes
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-taggit
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

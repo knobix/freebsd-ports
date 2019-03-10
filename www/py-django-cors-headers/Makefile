@@ -14,6 +14,4 @@ LICENSE=	MIT
 USES=		python django
 USE_PYTHON=	distutils autoplist
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-cors-headers
-
 .include <bsd.port.mk>

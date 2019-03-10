@@ -19,6 +19,5 @@ USES=		python django
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=		yes
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-debug-toolbar
 
 .include <bsd.port.mk>

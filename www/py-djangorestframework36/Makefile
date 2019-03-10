@@ -5,7 +5,7 @@ PORTNAME=	djangorestframework
 PORTVERSION=	3.6.4
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 PKGNAMESUFFIX=	36
 
 MAINTAINER=	alfred@FreeBSD.org
@@ -13,10 +13,9 @@ COMMENT=	Django REST framework
 
 LICENSE=	BSD2CLAUSE
 
-USES=		python
+USES=		python django
 USE_PYTHON=	distutils autoplist
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}djangorestframework \
-			${PYTHON_PKGNAMEPREFIX}dj21-djangorestframework
+CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}djangorestframework
 
 .include <bsd.port.mk>
