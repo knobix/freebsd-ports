@@ -625,6 +625,7 @@
     SUBDIR += osg
     SUBDIR += osg-devel
     SUBDIR += osgearth
+    SUBDIR += ossim
     SUBDIR += oyranos
     SUBDIR += p5-Acme-Steganography-Image-Png
     SUBDIR += p5-Algorithm-Line-Bresenham
@@ -852,6 +853,7 @@
     SUBDIR += py-imagesize
     SUBDIR += py-imgurpython
     SUBDIR += py-leather
+    SUBDIR += py-mapclassify
     SUBDIR += py-mayavi
     SUBDIR += py-mcomix
     SUBDIR += py-ming
@@ -906,6 +908,7 @@
     SUBDIR += pysvg
     SUBDIR += qcomicbook
     SUBDIR += qgis
+    SUBDIR += qgis-ltr
     SUBDIR += qiv
     SUBDIR += qslim
     SUBDIR += qt4-iconengines

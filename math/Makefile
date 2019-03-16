@@ -265,6 +265,7 @@
     SUBDIR += gretl
     SUBDIR += gri
     SUBDIR += gringo
+    SUBDIR += grpn
     SUBDIR += gsl
     SUBDIR += hexcalc
     SUBDIR += hipmcl
@@ -382,7 +383,7 @@
     SUBDIR += mtrxmath
     SUBDIR += multichoose
     SUBDIR += mumps
-    SUBDIR += mumps-edf
+    SUBDIR += mumps4
     SUBDIR += muparser
     SUBDIR += nanoflann
     SUBDIR += naturalmath

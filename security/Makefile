@@ -417,6 +417,7 @@
     SUBDIR += mhash
     SUBDIR += mindterm-binary
     SUBDIR += minisign
+    SUBDIR += mkp224o
     SUBDIR += modsecurity3
     SUBDIR += monkeysphere
     SUBDIR += morphis
@@ -1107,6 +1108,7 @@
     SUBDIR += rifiuti2
     SUBDIR += rkhunter
     SUBDIR += rndpassw
+    SUBDIR += ruby-bitwarden
     SUBDIR += ruby-camellia
     SUBDIR += rubygem-aes_key_wrap
     SUBDIR += rubygem-airbrussh

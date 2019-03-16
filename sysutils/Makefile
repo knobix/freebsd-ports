@@ -273,6 +273,7 @@
     SUBDIR += dsbmc
     SUBDIR += dsbmc-cli
     SUBDIR += dsbmd
+    SUBDIR += dsbsu
     SUBDIR += dsbwrtsysctl
     SUBDIR += dt
     SUBDIR += dtc
@@ -750,6 +751,7 @@
     SUBDIR += npadmin
     SUBDIR += nq
     SUBDIR += nrg2iso
+    SUBDIR += nsysctl
     SUBDIR += ntfy
     SUBDIR += nut
     SUBDIR += nvclock

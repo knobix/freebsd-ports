@@ -234,6 +234,7 @@
     SUBDIR += bouml-doc
     SUBDIR += bpython
     SUBDIR += breakpad
+    SUBDIR += brz
     SUBDIR += bsdbuild
     SUBDIR += bsdcflow
     SUBDIR += bsdowl
@@ -1946,6 +1947,8 @@
     SUBDIR += p5-Algorithm-Permute
     SUBDIR += p5-Algorithm-SVM
     SUBDIR += p5-Alias
+    SUBDIR += p5-Alien-Base-ModuleBuild
+    SUBDIR += p5-Alien-Build
     SUBDIR += p5-Alien-SDL
     SUBDIR += p5-Alzabo
     SUBDIR += p5-Any-Daemon
@@ -3381,6 +3384,7 @@
     SUBDIR += p5-Set-Tiny
     SUBDIR += p5-Shape
     SUBDIR += p5-Shell-Base
+    SUBDIR += p5-Shell-Config-Generate
     SUBDIR += p5-Shell-EnvImporter
     SUBDIR += p5-Shell-Guess
     SUBDIR += p5-Shell-Parser
@@ -4751,8 +4755,11 @@
     SUBDIR += py-knack
     SUBDIR += py-kqueue
     SUBDIR += py-lark-parser
+    SUBDIR += py-launchpadlib
     SUBDIR += py-lazr.config
     SUBDIR += py-lazr.delegates
+    SUBDIR += py-lazr.restfulclient
+    SUBDIR += py-lazr.uri
     SUBDIR += py-lazy
     SUBDIR += py-lazy-object-proxy
     SUBDIR += py-libiocage
@@ -5277,6 +5284,7 @@
     SUBDIR += py-voluptuous
     SUBDIR += py-vsts-cd-manager
     SUBDIR += py-vulture
+    SUBDIR += py-wadllib
     SUBDIR += py-warlock
     SUBDIR += py-watchdog
     SUBDIR += py-wcwidth
@@ -5511,6 +5519,7 @@
     SUBDIR += readline
     SUBDIR += rebar
     SUBDIR += rebar3
+    SUBDIR += redasm
     SUBDIR += redo
     SUBDIR += regexx
     SUBDIR += regexxer
@@ -5581,6 +5590,7 @@
     SUBDIR += rubygem-attr_required
     SUBDIR += rubygem-authlogic
     SUBDIR += rubygem-awesome_print
+    SUBDIR += rubygem-aws-eventstream
     SUBDIR += rubygem-aws-sdk
     SUBDIR += rubygem-aws-sdk-core
     SUBDIR += rubygem-aws-sdk-resources
