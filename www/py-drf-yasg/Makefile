@@ -2,7 +2,7 @@
 
 PORTNAME=	drf-yasg
 DISTVERSION=	1.11.1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -25,8 +25,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}djangorestframework>=3.7.7:www/py-djangorest
 		${PYTHON_PKGNAMEPREFIX}swagger-spec-validator>=2.1.0:devel/py-swagger-spec-validator@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}uritemplate>=3.0.0:net/py-uritemplate@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 NO_ARCH=		yes
 

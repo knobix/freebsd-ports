@@ -26,7 +26,8 @@ NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DJANGO GAE WEBTEST
 DJANGO_DESC=		Use the library with Django
-DJANGO_USES=		django
+DJANGO_USE=		PYTHON=django
+DJANGO_VARS=		PKGNAMEPREFIX=${DJANGO_PKGNAMEPREFIX}
 GAE_DESC=		Use the library with Google App Engine
 GAE_RUN_DEPENDS=	google-appengine>=1.4.3:www/google-appengine
 WEBTEST_DESC=		Use WebTest helper to test WSGI apps

@@ -3,7 +3,7 @@
 PORTNAME=	django-rq-dashboard
 PORTVERSION=	0.3.3
 PORTREVISION=	1
-CATEGORIES=	devel python
+CATEGORIES=	devel python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	swills@FreeBSD.org
@@ -14,8 +14,8 @@ LICENSE_FILE=	${WRKSRC}/LICENCE
 
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-rq>0:devel/py-django-rq@${DJANGO_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	brutasse

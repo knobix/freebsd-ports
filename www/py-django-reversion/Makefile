@@ -3,7 +3,7 @@
 
 PORTNAME=	django-reversion
 PORTVERSION=	2.0.13
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,8 +13,8 @@ COMMENT=	Provides comprehensive version control facilities to Django apps
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils django
 NO_ARCH=	yes
 
 PORTDOCS=	*

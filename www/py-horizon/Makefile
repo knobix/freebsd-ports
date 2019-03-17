@@ -3,7 +3,7 @@
 
 PORTNAME=	horizon
 PORTVERSION=	13.0.1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	https://tarballs.openstack.org/horizon/
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -72,8 +72,8 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pbr>=2.0.0:devel/py-pbr@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}XStatic-term.js>=0.0.7.0:devel/py-XStatic-term.js@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}XStatic-tv4>=1.2.7.0:devel/py-XStatic-tv4@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 NO_ARCH=	yes
 
 USERS=		horizon

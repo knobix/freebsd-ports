@@ -4,7 +4,7 @@
 PORTNAME=	djangorestframework-csv
 PORTVERSION=	2.0.0
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,7 +13,7 @@ COMMENT=	Django REST framework
 
 LICENSE=	BSD2CLAUSE
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 .include <bsd.port.mk>

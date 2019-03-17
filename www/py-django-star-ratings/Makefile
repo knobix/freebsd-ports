@@ -4,7 +4,7 @@
 PORTNAME=	django-star-ratings
 PORTVERSION=	0.7.0
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -17,8 +17,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-braces>=0:www/py-django-braces@${DJAN
 		${DJANGO_PKGNAMEPREFIX}django-model-utils>=0:www/py-django-model-utils@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}swapper>=0:www/py-swapper@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 NO_ARCH=	yes
 

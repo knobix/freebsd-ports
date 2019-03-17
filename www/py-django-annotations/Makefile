@@ -3,7 +3,7 @@
 PORTNAME=	django-annotations
 PORTVERSION=	0.0.0.2016041401
 PORTREVISION=	3
-CATEGORIES=	www python
+CATEGORIES=	www python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	swills@FreeBSD.org
@@ -17,9 +17,9 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-cors-headers>=1.1.0:www/py-django-cor
 		${DJANGO_PKGNAMEPREFIX}django-rq-dashboard>0:devel/py-django-rq-dashboard@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytz>0:devel/py-pytz@${PY_FLAVOR}
 
-USES=		python django
+USES=		python
 USE_GITHUB=	yes
-USE_PYTHON=	autoplist concurrent distutils
+USE_PYTHON=	autoplist concurrent distutils django
 
 GH_ACCOUNT=	TheDataShed
 GH_TAGNAME=	cdb04b4

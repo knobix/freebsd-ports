@@ -4,7 +4,7 @@
 PORTNAME=	django-classy-tags
 PORTVERSION=	0.8.0
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,7 +13,7 @@ COMMENT=	Class based template tags for Django
 
 LICENSE=	BSD3CLAUSE
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 .include <bsd.port.mk>

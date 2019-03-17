@@ -4,7 +4,7 @@
 PORTNAME=	django-registration-defaults
 PORTVERSION=	0.4.4
 PORTREVISION=	2
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -15,7 +15,7 @@ LICENSE=	MIT
 
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-registration>=0:www/py-django-registration@${DJANGO_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 .include <bsd.port.mk>

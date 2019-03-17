@@ -4,7 +4,7 @@
 PORTNAME=	django-registration
 PORTVERSION=	2.4.1
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -18,7 +18,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}confusable_homoglyphs>=0:devel/py-confusable
 
 NO_ARCH=	yes
 USES=		python
-USE_PYTHON=	distutils autoplist
+USE_PYTHON=	distutils autoplist django
 
 CONFLICTS_INSTALL=	pootle ${DJANGO_PKGNAMEPREFIX}django-registration-redux
 

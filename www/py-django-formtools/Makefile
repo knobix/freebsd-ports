@@ -4,7 +4,7 @@
 PORTNAME=	django-formtools
 PORTVERSION=	2.1
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,7 +13,7 @@ COMMENT=	Bootstrap forms for django
 
 LICENSE=	MIT
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 .include <bsd.port.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	django-tinymce
 PORTVERSION=	2.7.0
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,8 +13,8 @@ COMMENT=	Django application to use TinyMCE editor
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-USES=		python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils django
 NO_ARCH=	yes
 
 PORTDOCS=	*.rst

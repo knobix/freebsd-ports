@@ -3,7 +3,7 @@
 
 PORTNAME=	django-sekizai
 PORTVERSION=	0.10.0
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -15,8 +15,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-classy-tags>=0.3.1:www/py-django-classy-tags@${DJANGO_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils concurrent autoplist
+USES=		python
+USE_PYTHON=	distutils concurrent autoplist django
 NO_ARCH=	yes
 
 PORTDOCS=	*

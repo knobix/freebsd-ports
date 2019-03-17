@@ -6,7 +6,7 @@ PORTREVISION=	1
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 DISTVERSIONPREFIX=	v
 
-CATEGORIES=	security
+CATEGORIES=	security python django
 
 MAINTAINER=	dvl@FreeBSD.org
 COMMENT=	Function Identification and Recovery Signature Tool
@@ -26,8 +26,8 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	vrtadmin
 GH_PROJECT=	FIRST-server
 
-USES=		python:3.5+ django
-USE_PYTHON=	flavors
+USES=		python:3.5+
+USE_PYTHON=	flavors django
 
 NO_BUILD=	yes
 

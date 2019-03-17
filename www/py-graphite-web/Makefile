@@ -4,7 +4,7 @@
 PORTNAME=	graphite-web
 PORTVERSION=	1.1.5
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	swills@FreeBSD.org
@@ -21,7 +21,8 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cairo>=1.8.10:graphics/py-cairo@${PY_FLAVOR}
 		xorg-fonts-truetype>=0:x11-fonts/xorg-fonts-truetype
 
 FETCH_ARGS=	-o ${DISTNAME}${EXTRACT_SUFX}
-USES=		cpe python:2.7 django shebangfix
+USES=		cpe python:2.7 shebangfix
+USE_PYTHON=	django
 USE_GITHUB=	yes
 GH_ACCOUNT=	graphite-project
 CPE_VENDOR=	graphite_project

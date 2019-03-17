@@ -3,7 +3,7 @@
 
 PORTNAME=	django-tables2
 DISTVERSION=	2.0.3
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 PKGNAMESUFFIX=	-2
@@ -16,10 +16,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tablib>=0:textproc/py-tablib@${PY_FLAVOR}
 
-USES=		python:3.5+ django:2.1+
-USE_PYTHON=	distutils autoplist
+USES=		python:3.5+
+USE_PYTHON=	distutils autoplist django:2.1+
 
 NO_ARCH=		yes
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django-tables2
+CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}django-tables2
 
 .include <bsd.port.mk>

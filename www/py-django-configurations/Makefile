@@ -3,7 +3,7 @@
 
 PORTNAME=	django-configurations
 PORTVERSION=	2.1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,8 +13,8 @@ COMMENT=	Django project configuration using the composability of Python classes
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python django
-USE_PYTHON=	distutils concurrent autoplist
+USES=		python
+USE_PYTHON=	distutils concurrent autoplist django
 
 NO_ARCH=	yes
 

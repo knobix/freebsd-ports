@@ -3,7 +3,7 @@
 
 PORTNAME=	django-otp
 PORTVERSION=	0.5.2
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -12,7 +12,7 @@ COMMENT=	Adding two-factor authentication to Django
 
 LICENSE=	BSD2CLAUSE
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 .include <bsd.port.mk>

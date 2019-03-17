@@ -4,7 +4,7 @@
 PORTNAME=	django-rq
 PORTVERSION=	1.3
 DISTVERSIONPREFIX=	v
-CATEGORIES=	devel python
+CATEGORIES=	devel python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
@@ -12,8 +12,8 @@ COMMENT=	Provides Django integration for RQ (Redis Queue)
 
 LICENSE=	MIT
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 USE_GITHUB=	yes
 GH_ACCOUNT=	rq
 

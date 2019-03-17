@@ -4,7 +4,7 @@
 PORTNAME=	django-mezzanine
 DISTVERSION=	4.2.3-148
 DISTVERSIONSUFFIX=	-g12114051
-CATEGORIES=	www python
+CATEGORIES=	www python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	koobs@FreeBSD.org
@@ -27,8 +27,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-contrib-comments>0:www/py-django-cont
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pep8>=1.4.1:devel/pep8@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyflakes>=0.6.1:devel/py-pyflakes@${PY_FLAVOR}
 
-USES=		gettext python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		gettext python
+USE_PYTHON=	autoplist concurrent distutils django
 USE_GITHUB=	yes
 GH_ACCOUNT=	stephenmcd
 GH_PROJECT=	mezzanine

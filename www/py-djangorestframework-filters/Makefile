@@ -4,7 +4,7 @@
 PORTNAME=	djangorestframework-filters
 PORTVERSION=	0.10.2
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,7 +13,7 @@ COMMENT=	Filtering extension to Django REST Framework
 
 LICENSE=	BSD2CLAUSE
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 .include <bsd.port.mk>

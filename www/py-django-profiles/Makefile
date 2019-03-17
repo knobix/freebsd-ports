@@ -4,7 +4,7 @@
 PORTNAME=	django-profiles
 PORTVERSION=	0.2
 PORTREVISION=	2
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	http://bitbucket.org/ubernostrum/django-profiles/get/
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 DISTNAME=	v${PORTVERSION}
@@ -16,8 +16,8 @@ COMMENT=	User-profile application for Django
 LICENSE=	BSD3CLAUSE
 
 WRKSRC=	${WRKDIR}/${PORTNAME}
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 DOCSDIR=	${PREFIX}/share/doc/${DJANGO_PKGNAMEPREFIX}-${PORTNAME}
 OPTIONS_DEFINE=	DOCS
 

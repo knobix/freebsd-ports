@@ -4,7 +4,7 @@
 PORTNAME=	django-annoying
 PORTVERSION=	0.10.4
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -13,7 +13,7 @@ COMMENT=	Eliminate annoying things in the Django framework
 
 LICENSE=	BSD3CLAUSE
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 .include <bsd.port.mk>

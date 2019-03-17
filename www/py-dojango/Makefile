@@ -4,7 +4,7 @@
 PORTNAME=	dojango
 PORTVERSION=	0.5.9
 PORTREVISION=	1
-CATEGORIES=	www python java
+CATEGORIES=	www python django java
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	jpaetzel@FreeBSD.org
@@ -12,8 +12,8 @@ COMMENT=	Django application for building dojo
 
 LICENSE=	BSD3CLAUSE
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	william-gr

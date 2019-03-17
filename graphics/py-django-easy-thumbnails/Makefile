@@ -3,7 +3,7 @@
 
 PORTNAME=	easy-thumbnails
 PORTVERSION=	2.5
-CATEGORIES=	graphics python
+CATEGORIES=	graphics python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -15,8 +15,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pillow>=0:graphics/py-pillow@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils django
 NO_ARCH=	yes
 
 PORTDOCS=	*

@@ -4,7 +4,7 @@
 PORTNAME=	logan
 PORTVERSION=	0.7.2
 PORTREVISION=	1
-CATEGORIES=	devel python
+CATEGORIES=	devel python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -16,8 +16,8 @@ LICENSE=	APACHE20
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mock>=0.8.0:devel/py-mock@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}nose>=1.1.2:devel/py-nose@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils django
 NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DOCS

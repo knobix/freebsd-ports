@@ -2,7 +2,7 @@
 
 PORTNAME=	django-storages
 PORTVERSION=	1.7.1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -11,7 +11,7 @@ COMMENT=	Generic storages for Django
 
 LICENSE=	BSD3CLAUSE
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 .include <bsd.port.mk>

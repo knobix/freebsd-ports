@@ -4,7 +4,7 @@
 PORTNAME=	sorl-thumbnail
 PORTVERSION=	12.4.1
 PORTREVISION=	1
-CATEGORIES=	graphics python
+CATEGORIES=	graphics python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -14,8 +14,8 @@ COMMENT=	Sorl-thumbnail provides an easy way to generate image thumbnails
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 NO_ARCH=	yes
 PORTDOCS=	*
 

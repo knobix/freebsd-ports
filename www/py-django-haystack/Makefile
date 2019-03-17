@@ -3,7 +3,7 @@
 
 PORTNAME=	django-haystack
 PORTVERSION=	2.8.1
-CATEGORIES=	www databases python
+CATEGORIES=	www databases python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -15,8 +15,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_scm>0:devel/py-setuptools_scm@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils concurrent autoplist
+USES=		python
+USE_PYTHON=	distutils concurrent autoplist django
 NO_ARCH=	yes
 PORTDOCS=	*
 

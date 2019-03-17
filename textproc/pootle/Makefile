@@ -3,7 +3,7 @@
 
 PORTNAME=	pootle
 DISTVERSION=	2.8.2
-CATEGORIES=	textproc
+CATEGORIES=	textproc python django
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	User-friendly web portal for simple translation process
@@ -39,8 +39,8 @@ RUN_DEPENDS=	translate-toolkit>=2.2.5:textproc/translate-toolkit \
 		${PYTHON_PKGNAMEPREFIX}scandir>=1.5:sysutils/py-scandir@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}stemming>=1.0.1:textproc/py-stemming@${PY_FLAVOR}
 
-USES=		gettext python:2.7 django tar:bzip2 shebangfix
-USE_PYTHON=	autoplist distutils
+USES=		gettext python:2.7 tar:bzip2 shebangfix
+USE_PYTHON=	autoplist distutils django
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	translate

@@ -3,7 +3,7 @@
 PORTNAME=	django-bulk-update
 PORTVERSION=	2.2.0
 PORTREVISION=	5
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -12,8 +12,8 @@ COMMENT=	Bulk update using a single query over Django ORM
 
 LICENSE=	MIT
 
-USES=		python:-3.4 django:111+
-USE_PYTHON=	autoplist distutils
+USES=		python:-3.4
+USE_PYTHON=	autoplist distutils django:1.11+
 
 NO_ARCH=	yes
 

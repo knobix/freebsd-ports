@@ -4,7 +4,7 @@
 PORTNAME=	django-photologue
 PORTVERSION=	3.8.1
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -19,7 +19,7 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-sortedm2m>=1.5.0:www/py-django-sorted
 		${PYTHON_PKGNAMEPREFIX}pillow>=4.3.0:graphics/py-pillow@${PY_FLAVOR}
 
 NO_ARCH=	yes
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 .include <bsd.port.mk>

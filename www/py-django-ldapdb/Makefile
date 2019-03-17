@@ -3,7 +3,7 @@
 
 PORTNAME=	django-ldapdb
 PORTVERSION=	1.0.0
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -15,8 +15,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ldap>=2.4.25:net/py-ldap@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils concurrent autoplist
+USES=		python
+USE_PYTHON=	distutils concurrent autoplist django
 NO_ARCH=	yes
 PORTDOCS=	README.rst
 

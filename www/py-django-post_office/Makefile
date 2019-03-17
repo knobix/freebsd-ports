@@ -4,7 +4,7 @@
 PORTNAME=	django-post_office
 DISTVERSIONPREFIX=	v
 DISTVERSION=	3.1.0
-CATEGORIES=	www python
+CATEGORIES=	www python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ultima@FreeBSD.org
@@ -15,8 +15,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-jsonfield>=0:www/py-django-jsonfield@${DJANGO_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	ui

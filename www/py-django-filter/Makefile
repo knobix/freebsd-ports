@@ -13,12 +13,12 @@ COMMENT=	Dynamic filtering for querysets with Django
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}djangorestframework>0:www/py-djangorestframework@${PY_FLAVOR} \
+RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}djangorestframework>0:www/py-djangorestframework@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}coreapi>0:devel/py-coreapi@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}coreschema>0:devel/py-coreschema@${PY_FLAVOR}
 
-USES=		python django:111
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django:1.11
 
 NO_ARCH=		yes
 CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}django-filter2

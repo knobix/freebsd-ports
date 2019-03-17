@@ -3,7 +3,7 @@
 PORTNAME=	netbox
 DISTVERSIONPREFIX=	v
 DISTVERSION=	2.5.8
-CATEGORIES=	net-mgmt
+CATEGORIES=	net-mgmt python django
 
 MAINTAINER=	kai@FreeBSD.org
 COMMENT=	IP address management tool
@@ -29,7 +29,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cor
 		${PYTHON_PKGNAMEPREFIX}pillow>=5.3.0:graphics/py-pillow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}psycopg2>=2.7.6.1:databases/py-psycopg2@${PY_FLAVOR}
 
-USES=		pgsql:9.4+ python:3.5+ django:2.1+
+USES=		pgsql:9.4+ python:3.5+
+USE_PYTHON=	django:2.1+
 USE_GITHUB=	yes
 GH_ACCOUNT=	digitalocean
 

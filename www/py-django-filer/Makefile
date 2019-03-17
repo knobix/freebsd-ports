@@ -3,7 +3,7 @@
 
 PORTNAME=	django-filer
 PORTVERSION=	1.3.2
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -19,8 +19,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-easy-thumbnails>=2:graphics/py-django
 		${PYTHON_PKGNAMEPREFIX}unidecode>=0:converters/py-unidecode@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pillow>=2.3.0:graphics/py-pillow@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 NO_ARCH=	yes
 
 .include <bsd.port.mk>

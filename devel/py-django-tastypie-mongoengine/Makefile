@@ -5,7 +5,7 @@ PORTNAME=		django-tastypie-mongoengine
 PORTVERSION=		0.4.6
 PORTREVISION=	3
 DISTVERSIONPREFIX=	v
-CATEGORIES=		devel
+CATEGORIES=		devel python django
 PKGNAMEPREFIX=		${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=		dvl@FreeBSD.org
@@ -20,7 +20,7 @@ RUN_DEPENDS?=	${DJANGO_PKGNAMEPREFIX}django-tastypie>=0.9.12:www/py-django-tasty
 USE_GITHUB=		yes
 GH_ACCOUNT=		wlanslovenija
 
-USES=		python django
-USE_PYTHON=	autoplist distutils
+USES=		python
+USE_PYTHON=	autoplist distutils django
 
 .include <bsd.port.mk>

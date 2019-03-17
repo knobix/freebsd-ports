@@ -3,7 +3,7 @@
 
 PORTNAME=	django-mezzanine-grappelli
 PORTVERSION=	0.4.7
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 DISTNAME=	grappelli_safe-${PORTVERSION}
@@ -16,7 +16,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 NO_ARCH=	yes
 
-USES=		gettext python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		gettext python
+USE_PYTHON=	autoplist concurrent distutils django
 
 .include <bsd.port.mk>

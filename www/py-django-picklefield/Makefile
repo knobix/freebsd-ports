@@ -3,7 +3,7 @@
 
 PORTNAME=	django-picklefield
 PORTVERSION=	2.0
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -16,8 +16,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 # Reminder: www/seahub depends on django, changing django version may break seahub
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
-USES=		python django
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+USE_PYTHON=	autoplist concurrent distutils django:build,run
 
 NO_ARCH=	yes
 

@@ -3,9 +3,9 @@
 
 PORTNAME=	wagtail
 PORTVERSION=	2.4
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Django content management system
@@ -14,11 +14,10 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4.5.1:www/py-beautifulsoup@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-modelcluster>=4.2:www/py-django-modelcluster@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-taggit>=0.23:www/py-django-taggit@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django-treebeard>=4.2.0:www/py-django-treebeard@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}django111>=1.11:www/py-django111@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}djangorestframework>=3.7.4:www/py-djangorestframework@${PY_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-modelcluster>=4.2:www/py-django-modelcluster@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-taggit>=0.23:www/py-django-taggit@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-treebeard>=4.2.0:www/py-django-treebeard@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}djangorestframework>=3.7.4:www/py-djangorestframework@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}draftjs_exporter>=2.1.5:www/py-draftjs_exporter@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}html5lib>=0.999:www/py-html5lib@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pillow>=4.0.0:graphics/py-pillow@${PY_FLAVOR} \
@@ -29,7 +28,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4.5.1:www/py-beautifulsoup@${
 		${PYTHON_PKGNAMEPREFIX}willow>=1.1:graphics/py-willow@${PY_FLAVOR}
 
 USES=		python shebangfix
-USE_PYTHON=	autoplist concurrent distutils
+USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
 

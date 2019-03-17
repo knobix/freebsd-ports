@@ -3,8 +3,8 @@
 
 PORTNAME=	jsonfield2
 PORTVERSION=	3.0.2
-CATEGORIES=	www python
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}django-
+CATEGORIES=	www python django
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Reusable Django field to store validated JSON in your model
@@ -12,10 +12,8 @@ COMMENT=	Reusable Django field to store validated JSON in your model
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django111>=0:www/py-django111@${PY_FLAVOR}
-
 USES=		python:3.4+
-USE_PYTHON=	autoplist distutils
+USE_PYTHON=	autoplist distutils django
 
 NO_ARCH=	yes
 

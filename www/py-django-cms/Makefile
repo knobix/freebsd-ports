@@ -3,7 +3,7 @@
 
 PORTNAME=	django-cms
 PORTVERSION=	3.5.2
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -19,8 +19,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}djangocms-admin-style>=1.0:www/py-djangocms-
 		${DJANGO_PKGNAMEPREFIX}django-sekizai>=0.7:www/py-django-sekizai@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-treebeard>=4.0.1:www/py-django-treebeard@${DJANGO_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 NO_ARCH=	yes
 
 OPTIONS_MULTI=		DATABASE

@@ -2,7 +2,7 @@
 
 PORTNAME=	django-cors-headers
 PORTVERSION=	2.4.0
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -11,7 +11,7 @@ COMMENT=	Handles server headers required for Cross-Origin Resource Sharing
 
 LICENSE=	MIT
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 .include <bsd.port.mk>

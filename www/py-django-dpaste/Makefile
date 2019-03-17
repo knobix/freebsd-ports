@@ -3,9 +3,9 @@
 
 PORTNAME=	dpaste
 PORTVERSION=	2.13
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
-PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}django-
+PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	koobs@FreeBSD.org
 COMMENT=	Django based pastebin
@@ -21,8 +21,8 @@ MIGRATIONS_DESC=	Schema and data migration support (via south)
 
 MIGRATIONS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}south>=0.8.2:databases/py-south@${PY_FLAVOR}
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 NO_ARCH=	yes
 

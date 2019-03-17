@@ -14,8 +14,8 @@ COMMENT=	Sudo mode is an extra layer of security for Django
 
 LICENSE=	BSD3CLAUSE
 
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 NO_ARCH=	yes
 
 .include <bsd.port.mk>

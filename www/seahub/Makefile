@@ -5,15 +5,13 @@ DISTVERSIONPREFIX=	v
 DISTVERSION=	${SEAHUB_VER}
 DISTVERSIONSUFFIX=	-pro
 PORTREVISION=	2
-CATEGORIES=	www
+CATEGORIES=	www python django
 
 MAINTAINER=	ultima@FreeBSD.org
 COMMENT=	Web frontend for Seafile
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
-
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django111>=0:www/py-django111@${PY_FLAVOR}
 
 RUN_DEPENDS=	bash:shells/bash \
 		${LOCALBASE}/www/haiwen/seafile-server/seafile/bin/seaf-server:net-mgmt/seafile-server \
@@ -38,7 +36,8 @@ RUN_DEPENDS=	bash:shells/bash \
 		${PYTHON_PKGNAMEPREFIX}qrcode>0:textproc/py-qrcode@${PY_FLAVOR} \
 		${PY_FUTURES}
 
-USES=		gettext-tools:build python:-2.7 django:1.11 shebangfix
+USES=		gettext-tools:build python:-2.7 shebangfix
+USE_PYTHON=	django:1.11,build,run
 USE_GITHUB=	yes
 GH_ACCOUNT=	haiwen
 SHEBANG_FILES=	*.sh tests/*.sh *.template *.py tools/*.py seahub/*.py

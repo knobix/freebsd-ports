@@ -5,7 +5,7 @@ PORTNAME=	django-registration-redux
 PORTVERSION=	2.4
 DISTVERSIONPREFIX=	v
 PORTREVISION=	1
-CATEGORIES=	www python
+CATEGORIES=	www python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@caomhin.org
@@ -15,8 +15,8 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 NO_ARCH=	yes
-USES=		python django
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist django
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	macropin

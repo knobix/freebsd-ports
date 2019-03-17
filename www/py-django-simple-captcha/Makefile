@@ -3,7 +3,7 @@
 
 PORTNAME=	django-simple-captcha
 PORTVERSION=	0.5.10
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
@@ -17,8 +17,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-ranged-response>=0.2.0:www/py-django-
 		${PYTHON_PKGNAMEPREFIX}pillow>=2.2.2:graphics/py-pillow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}six>=1.2.0:devel/py-six@${PY_FLAVOR}
 
-USES=		python django zip
-USE_PYTHON=	autoplist concurrent distutils
+USES=		python zip
+USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
 
