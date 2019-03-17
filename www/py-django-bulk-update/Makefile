@@ -13,7 +13,7 @@ COMMENT=	Bulk update using a single query over Django ORM
 LICENSE=	MIT
 
 USES=		python:-3.4
-USE_PYTHON=	autoplist distutils django:1.11+
+USE_PYTHON=	autoplist distutils django
 
 NO_ARCH=	yes
 
