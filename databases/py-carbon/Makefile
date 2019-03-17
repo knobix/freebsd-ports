@@ -4,7 +4,7 @@
 PORTNAME=	carbon
 PORTVERSION=	1.1.5
 CATEGORIES=	databases python
-PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	swills@FreeBSD.org
 COMMENT=	Backend storage application for graphite
