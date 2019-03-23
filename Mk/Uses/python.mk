@@ -406,7 +406,7 @@ FLAVOR=	${FLAVORS:[1]}
 .endif
 
 .if ${FLAVOR:Mpy[23][0-9]}
-_PYTHON_VERSION:=	${FLAVOR:S/py//:C/(.)/\1./}
+_PYTHON_VERSION=	${FLAVOR:S/py//:C/(.)/\1./}
 .endif
 
 .if !empty(FLAVOR) && ${_PYTHON_VERSION} != ${PYTHON_DEFAULT}
