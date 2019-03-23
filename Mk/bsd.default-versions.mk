@@ -35,7 +35,7 @@ APACHE_DEFAULT?=	2.4
 BDB_DEFAULT?=		5
 # Possible values: 2, 3
 COROSYNC_DEFAULT?=	2
-# Possible values: 1.8 1.11 2.0
+# Possible values: 1.8 1.11 2.0 2.1
 DJANGO_DEFAULT?=	1.11
 # Possible_values: full canna nox devel_full devel_nox
 #EMACS_DEFAULT?=	let the flavor be the default if not explicitly set
