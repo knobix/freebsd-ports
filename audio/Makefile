@@ -225,7 +225,6 @@
     SUBDIR += gmpc-mdcover
     SUBDIR += gmpc-mserver
     SUBDIR += gmpc-shout
-    SUBDIR += gmpc-wikipedia
     SUBDIR += gmsynth-lv2
     SUBDIR += gmtp
     SUBDIR += gmusicbrowser
@@ -655,6 +654,7 @@
     SUBDIR += pulseaudio
     SUBDIR += pulseaudio-module-sndio
     SUBDIR += pulseaudio-module-xrdp
+    SUBDIR += pulseaudio-qt
     SUBDIR += pulseeffects
     SUBDIR += py-SoundFile
     SUBDIR += py-al

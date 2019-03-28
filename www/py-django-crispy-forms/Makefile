@@ -13,8 +13,9 @@ COMMENT=	Best way to have Django DRY forms
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-NO_ARCH=	yes
 USES=		python
 USE_PYTHON=	autoplist concurrent distutils django
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

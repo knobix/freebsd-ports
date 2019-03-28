@@ -20,6 +20,7 @@ USE_PYTHON=	autoplist distutils django
 
 NO_ARCH=	yes
 PORTDOCS=	*
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj21-django-auth-ldap
 
 OPTIONS_DEFINE=	DOCS
 DOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>=0:textproc/py-sphinx@${PY_FLAVOR}

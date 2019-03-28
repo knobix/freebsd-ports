@@ -1324,6 +1324,7 @@
     SUBDIR += py-jsonslicer
     SUBDIR += py-jtextfsm
     SUBDIR += py-junit-xml
+    SUBDIR += py-langdetect
     SUBDIR += py-laserhammer
     SUBDIR += py-libtre
     SUBDIR += py-libxml2
@@ -1358,6 +1359,7 @@
     SUBDIR += py-pdfminer.six
     SUBDIR += py-pdfminer3k
     SUBDIR += py-pdfrw
+    SUBDIR += py-pdftotext
     SUBDIR += py-precis_i18n
     SUBDIR += py-pss
     SUBDIR += py-pyPEG2
@@ -1660,7 +1662,6 @@
     SUBDIR += rubygem-unf
     SUBDIR += rubygem-unf_ext
     SUBDIR += rubygem-version_sorter
-    SUBDIR += rubygem-version_sorter21
     SUBDIR += rubygem-whatlanguage
     SUBDIR += rubygem-wikicloth
     SUBDIR += rubygem-wikicloth081
@@ -1801,6 +1802,7 @@
     SUBDIR += unoconv
     SUBDIR += unroff
     SUBDIR += unrtf
+    SUBDIR += up
     SUBDIR += urlview
     SUBDIR += utf8proc
     SUBDIR += uz-aspell

@@ -235,6 +235,7 @@
     SUBDIR += haproxy
     SUBDIR += haproxy-devel
     SUBDIR += haproxy17
+    SUBDIR += haproxy18
     SUBDIR += hexinject
     SUBDIR += hidentd
     SUBDIR += hinfo
@@ -403,7 +404,6 @@
     SUBDIR += libproxy-mozjs
     SUBDIR += libproxy-perl
     SUBDIR += libproxy-python
-    SUBDIR += libproxy-webkit
     SUBDIR += libproxy-webkit3
     SUBDIR += librdkafka
     SUBDIR += librouteros
@@ -1227,6 +1227,7 @@
     SUBDIR += rubygem-fog-aws2
     SUBDIR += rubygem-fog-azure
     SUBDIR += rubygem-fog-brightbox
+    SUBDIR += rubygem-fog-brightbox0
     SUBDIR += rubygem-fog-cloudatcost
     SUBDIR += rubygem-fog-digitalocean
     SUBDIR += rubygem-fog-dnsimple
@@ -1238,7 +1239,6 @@
     SUBDIR += rubygem-fog-joyent
     SUBDIR += rubygem-fog-local
     SUBDIR += rubygem-fog-openstack
-    SUBDIR += rubygem-fog-openstack02
     SUBDIR += rubygem-fog-ovirt
     SUBDIR += rubygem-fog-powerdns
     SUBDIR += rubygem-fog-profitbricks
