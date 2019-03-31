@@ -14,7 +14,7 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		python:3.5+
-USE_PYTHON=	distutils autoplist django:2.1+
+USE_PYTHON=	distutils autoplist django=2.1+
 
 NO_ARCH=		yes
 CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}django-filter

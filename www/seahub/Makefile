@@ -37,7 +37,7 @@ RUN_DEPENDS=	bash:shells/bash \
 		${PY_FUTURES}
 
 USES=		gettext-tools:build python:-2.7 shebangfix
-USE_PYTHON=	django:1.11,build,run
+USE_PYTHON=	django=1.11,build,run
 USE_GITHUB=	yes
 GH_ACCOUNT=	haiwen
 SHEBANG_FILES=	*.sh tests/*.sh *.template *.py tools/*.py seahub/*.py

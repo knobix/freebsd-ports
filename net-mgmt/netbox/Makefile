@@ -30,7 +30,7 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cor
 		${PYTHON_PKGNAMEPREFIX}psycopg2>=2.7.6.1:databases/py-psycopg2@${PY_FLAVOR}
 
 USES=		pgsql:9.4+ python:3.5+
-USE_PYTHON=	django:2.1+
+USE_PYTHON=	django=2.1+
 USE_GITHUB=	yes
 GH_ACCOUNT=	digitalocean
 

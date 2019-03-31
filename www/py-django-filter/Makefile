@@ -18,7 +18,7 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}djangorestframework>0:www/py-djangorestframe
 		${PYTHON_PKGNAMEPREFIX}coreschema>0:devel/py-coreschema@${PY_FLAVOR}
 
 USES=		python
-USE_PYTHON=	distutils autoplist django:1.11
+USE_PYTHON=	distutils autoplist django=1.11
 
 NO_ARCH=		yes
 CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}django-filter2

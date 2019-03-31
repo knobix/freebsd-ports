@@ -17,7 +17,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tablib>=0:textproc/py-tablib@${PY_FLAVOR}
 
 USES=		python:3.5+
-USE_PYTHON=	distutils autoplist django:2.1+
+USE_PYTHON=	distutils autoplist django=2.1+
 
 NO_ARCH=		yes
 CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}django-tables2

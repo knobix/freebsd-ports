@@ -112,6 +112,30 @@
 #
 #	noegginfo	- Skip an egg-info entry from plist, if defined.
 #
+#       django          - Add a dependency on Django, and a second level of
+#                         flavoring so that we now have a combination
+#                         python+django flavor. This variable takes a
+#                         variety of additional sub-options.
+#                         Combinations of these can be supplied as a
+#                         comma-separated list:
+#
+#          django=1.8   - Only use the specified version of Django
+#          django=2.0+  - Use at least the specified version of Django
+#          django=1.8-1.11 - Use a version from the indicated range
+#          django=-2.1  - Use at most the specified version
+#          django=build - Add django as a build dependency
+#          django=run   - Add django as a run-time dependency
+#          django=test  - Add django as a test dependency
+#
+#                         If none of build, run or test are set
+#                         explicitly, the default behaviour is
+#                         equivalent to django=run.
+#
+#                         Not all combinations of Django and Python
+#                         versions are permitted.  Django 2.0+
+#                         requires Python 3.5+
+#
+#
 # PYTHON_CMD		- Python's command line file name, including the
 #			  version number (used for dependencies).
 #			  default: ${PYTHONBASE}/bin/${PYTHON_VERSION}
@@ -232,6 +256,31 @@
 #
 # PYDISTUTILS_INSTALLNOSINGLE
 #			- Deprecated without replacement
+#
+# Adding django to the USE_PYTHON settings causes the following
+# additional variables to be defined:
+#
+# DJANGO_PKGNAMEPREFIX
+#                       - Use instead of PYTHON_PKGNAMEPREFIX for Django
+#                         packages.
+#                         default py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
+#
+# DJANGO_FLAVOR         - Use to tag Django ports in
+#                         {BUILD,RUN,TEST}_DEPENDS lines for flavor
+#                         support.  This is a combination of PY_FLAVOR
+#                         with the addition of the Django version
+#
+# DJANGO_MAJOR_VER      - The major release version of the chosen Django
+#                         framework.  e.g. 1, 2
+#
+# DJANGO_VER            - The major-minor release version of the chosen
+#                         Django framework.  e.g. 1.8, 1.11, 2.0, 2.1
+#
+# DJANGO_SUFFIX         - The major-minor release version of the chosen
+#                         Django framework without dots. e.g. 18, 111,
+#                         20, 21
+#
+# DJANGO_PORTSDIR       - The port directory of the chosen Django framework
 #
 # MAINTAINER: python@FreeBSD.org
 

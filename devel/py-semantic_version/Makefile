@@ -21,7 +21,7 @@ GH_PROJECT=	python-semanticversion
 NO_ARCH=	yes
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django:test
+USE_PYTHON=	autoplist concurrent distutils django=test
 
 do-test:
 	@(cd ${TEST_WRKSRC}; ${SETENV} ${TEST_ENV} ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test)

@@ -17,7 +17,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 BUILD_DEPENDS=	${RUN_DEPENDS}
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django:build,run
+USE_PYTHON=	autoplist concurrent distutils django=build,run
 
 NO_ARCH=	yes
 
