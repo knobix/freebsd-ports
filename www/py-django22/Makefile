@@ -3,7 +3,7 @@
 
 PORTNAME=	django
 PORTVERSION=	2.2
-CATEGORIES=	www python
+CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP \
 		https://www.djangoproject.com/m/releases/${PORTVERSION}/
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
