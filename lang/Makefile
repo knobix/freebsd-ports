@@ -37,6 +37,7 @@
     SUBDIR += cint
     SUBDIR += cjs
     SUBDIR += cling
+    SUBDIR += clisp
     SUBDIR += clojure
     SUBDIR += clojure-mode.el
     SUBDIR += clover
@@ -72,6 +73,7 @@
     SUBDIR += erlang-runtime19
     SUBDIR += erlang-runtime20
     SUBDIR += erlang-runtime21
+    SUBDIR += erlang-runtime22
     SUBDIR += erlang-wx
     SUBDIR += execline
     SUBDIR += expect

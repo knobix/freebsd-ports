@@ -2,7 +2,7 @@
 
 PORTNAME=	netbox
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.5.9
+DISTVERSION=	2.5.10
 CATEGORIES=	net-mgmt python django
 
 MAINTAINER=	kai@FreeBSD.org
@@ -23,6 +23,7 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cor
 		${DJANGO_PKGNAMEPREFIX}drf-yasg>=1.14.0:www/py-drf-yasg@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}gfm>=0.1.4:textproc/py-gfm@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}graphviz>=0.10.1:graphics/py-graphviz@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}Jinja2>=2.10:devel/py-Jinja2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}markdown>=2.6.11:textproc/py-markdown@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}netaddr>=0.7.19:net/py-netaddr@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pycryptodome>=3.7.2:security/py-pycryptodome@${PY_FLAVOR} \
