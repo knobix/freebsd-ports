@@ -24,7 +24,7 @@ USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
 
-do-test: build
+do-test:
 	@cd ${WRKSRC}/tests && ${PYTHON_CMD} runtests.py
 
 .include <bsd.port.mk>

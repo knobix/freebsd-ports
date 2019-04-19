@@ -286,6 +286,7 @@
     SUBDIR += cervisia
     SUBDIR += cflow
     SUBDIR += cflow2vcg
+    SUBDIR += cfr
     SUBDIR += cgdb
     SUBDIR += cgilib
     SUBDIR += cgit
@@ -824,7 +825,6 @@
     SUBDIR += go-bindata
     SUBDIR += go-git
     SUBDIR += go-glide
-    SUBDIR += go-gocode
     SUBDIR += go-godef
     SUBDIR += go-protobuf
     SUBDIR += go-tools
@@ -2602,6 +2602,7 @@
     SUBDIR += p5-File-ShareDir-PAR
     SUBDIR += p5-File-ShareDir-PathClass
     SUBDIR += p5-File-ShareDir-ProjectDistDir
+    SUBDIR += p5-File-ShareDir-Tarball
     SUBDIR += p5-File-Slurp
     SUBDIR += p5-File-Slurp-Tiny
     SUBDIR += p5-File-Slurp-Tree
@@ -2978,6 +2979,7 @@
     SUBDIR += p5-MooX-Locale-Passthrough
     SUBDIR += p5-MooX-Options
     SUBDIR += p5-MooX-Role-Parameterized
+    SUBDIR += p5-MooX-Singleton
     SUBDIR += p5-MooX-StrictConstructor
     SUBDIR += p5-MooX-Thunking
     SUBDIR += p5-MooX-Traits
@@ -3026,6 +3028,7 @@
     SUBDIR += p5-MooseX-MethodAttributes
     SUBDIR += p5-MooseX-MultiInitArg
     SUBDIR += p5-MooseX-MultiMethods
+    SUBDIR += p5-MooseX-MungeHas
     SUBDIR += p5-MooseX-NonMoose
     SUBDIR += p5-MooseX-Object-Pluggable
     SUBDIR += p5-MooseX-OneArgNew
@@ -4106,6 +4109,7 @@
     SUBDIR += phpsh
     SUBDIR += phpunit6
     SUBDIR += phpunit7
+    SUBDIR += phpunit8
     SUBDIR += physfs
     SUBDIR += picp
     SUBDIR += picprog
@@ -4180,6 +4184,7 @@
     SUBDIR += py-IBMQuantumExperience
     SUBDIR += py-Jinja2
     SUBDIR += py-Jinja2-doc
+    SUBDIR += py-Js2Py
     SUBDIR += py-Missing
     SUBDIR += py-MultiMapping
     SUBDIR += py-PEAK-Rules
@@ -4596,6 +4601,7 @@
     SUBDIR += py-funcparserlib
     SUBDIR += py-funcsigs
     SUBDIR += py-functools32
+    SUBDIR += py-funcy
     SUBDIR += py-fusefs
     SUBDIR += py-fusepy
     SUBDIR += py-future
@@ -4626,6 +4632,7 @@
     SUBDIR += py-gobject
     SUBDIR += py-gobject3
     SUBDIR += py-google-apputils
+    SUBDIR += py-google-i18n-address
     SUBDIR += py-googleapis-common-protos
     SUBDIR += py-grab
     SUBDIR += py-graphene
@@ -4649,6 +4656,7 @@
     SUBDIR += py-icalendar
     SUBDIR += py-ice
     SUBDIR += py-ice37
+    SUBDIR += py-ijson
     SUBDIR += py-imgkit
     SUBDIR += py-incremental
     SUBDIR += py-inflect
@@ -4710,6 +4718,7 @@
     SUBDIR += py-jsonrpclib
     SUBDIR += py-jsonrpclib-pelix
     SUBDIR += py-jsonschema
+    SUBDIR += py-jsonschema2
     SUBDIR += py-jsonsir
     SUBDIR += py-jupyter_client
     SUBDIR += py-jupyter_console
@@ -4783,6 +4792,7 @@
     SUBDIR += py-monotonic
     SUBDIR += py-monty
     SUBDIR += py-more-itertools
+    SUBDIR += py-more-itertools5
     SUBDIR += py-mox
     SUBDIR += py-mox3
     SUBDIR += py-msgpack
@@ -4915,6 +4925,7 @@
     SUBDIR += py-proglog
     SUBDIR += py-promise
     SUBDIR += py-prompt_toolkit
+    SUBDIR += py-prompt_toolkit1
     SUBDIR += py-prompt_toolkit2
     SUBDIR += py-protobuf
     SUBDIR += py-protocols
@@ -4964,6 +4975,7 @@
     SUBDIR += py-pyicu
     SUBDIR += py-pyinotify
     SUBDIR += py-pyinstaller
+    SUBDIR += py-pyjsparser
     SUBDIR += py-pyke
     SUBDIR += py-pylibsrtp
     SUBDIR += py-pylru
@@ -5162,6 +5174,7 @@
     SUBDIR += py-sysv_ipc
     SUBDIR += py-tables
     SUBDIR += py-tabulate
+    SUBDIR += py-tabulator
     SUBDIR += py-tapi
     SUBDIR += py-tarantool-queue
     SUBDIR += py-taskflow
