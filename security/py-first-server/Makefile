@@ -15,7 +15,6 @@ LICENSE=	GPLv2
 
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}capstone>0:devel/py-capstone@${PY_FLAVOR}
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}mysqlclient>=1.3.8:databases/py-mysqlclient@${PY_FLAVOR}
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}django21>=2.1.7:www/py-django21@${PY_FLAVOR}
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}werkzeug>=0.11.11:www/py-werkzeug@${PY_FLAVOR}
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}httplib2>=0.9.2:www/py-httplib2@${PY_FLAVOR}
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}oauth2client>=3.0.0:security/py-oauth2client@${PY_FLAVOR}
@@ -27,7 +26,7 @@ GH_ACCOUNT=	vrtadmin
 GH_PROJECT=	FIRST-server
 
 USES=		python:3.5+
-USE_PYTHON=	flavors django
+USE_PYTHON=	flavors django=2.1+
 
 NO_BUILD=	yes
 

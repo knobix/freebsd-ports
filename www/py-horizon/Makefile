@@ -82,7 +82,7 @@ GROUPS=		horizon
 SUB_FILES=	pkg-message
 SUB_LIST=	PYTHON_SITELIBDIR=${PYTHON_SITELIBDIR}
 
-CONFLICTS_INSTALL=	py??-horizon-*
+CONFLICTS_INSTALL=	py??-django*-horizon-*
 
 post-patch:
 	@${REINPLACE_CMD} -Ee 's|(pyScss)!=1.3.5,|\1|' ${WRKSRC}/requirements.txt
