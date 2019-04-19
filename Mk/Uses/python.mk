@@ -274,7 +274,7 @@
 #                         framework.  e.g. 1, 2
 #
 # DJANGO_VER            - The major-minor release version of the chosen
-#                         Django framework.  e.g. 1.8, 1.11, 2.0, 2.1
+#                         Django framework.  e.g. 1.8, 1.11, 2.0, 2.1, 2.2
 #
 # DJANGO_SUFFIX         - The major-minor release version of the chosen
 #                         Django framework without dots. e.g. 18, 111,
@@ -772,4 +772,75 @@ do-install:
 	@(cd ${INSTALL_WRKSRC}; ${SETENV} ${MAKE_ENV} ${PYTHON_CMD} ${PYDISTUTILS_SETUP} ${PYDISTUTILS_INSTALL_TARGET} ${PYDISTUTILS_INSTALLARGS})
 .endif
 .endif # defined(_PYTHON_FEATURE_DISTUTILS)
+
+.if defined(_PYTHON_FEATURE_DJANGO)
+
+# What Django versions are currently supported?  Please keep in sync
+# with the comment in Mk/bsd.default-versions.mk.  These are in
+# preference order
+_DJANGO_VERSIONS=	1.11 2.1 2.2 2.0 1.8
+_DJANGO_PORTBRANCH=	1.11	# ${_DJANGO_VERSIONS:[1]}
+_DJANGO_RELPORTDIR=	www/py-django
+
+# Dependencies -- unless specific dependencies are requested, default
+# to adding a RUN_DEPENDS on the selected Django port with the
+# selected Python flavor.
+
+.undef _DJANGO_BUILD_DEP
+.if ${_PYTHON_FEATURE_DJANGO:Mbuild}
+_DJANGO_BUILD_DEP=		yes
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Nbuild}
+.endif
+
+.undef _DJANGO_RUN_DEP
+.if ${_PYTHON_FEATURE_DJANGO:Mrun}
+_DJANGO_RUN_DEP=		yes
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Nrun}
+.endif
+
+.undef _DJANGO_TEST_DEP
+.if ${_PYTHON_FEATURE_DJANGO:Mtest}
+_DJANGO_TEST_DEP=		yes
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ntest}
+.endif
+
+.if !defined(_DJANGO_BUILD_DEP) && !defined(_DJANGO_RUN_DEP) && \
+    !defined(_DJANGO_TEST_DEP)
+_DJANGO_RUN_DEP=		yes
+.endif
+
+# Choose ether the systemwide default -- the first value from
+# _DJANGO_VERSIONS -- or the value set in DEFAULT_VERSIONS
+_DJANGO_DEFAULT:= ${DJANGO_DEFAULT:U${_DJANGO_PORTBRANCH}}
+
+# DEFAULT_VERSIONS should contain one of the known Django versions
+.if ! ${_DJANGO_VERSIONS:M${_DJANGO_DEFAULT}}
+IGNORE= Invalid django version ${_DJANGO_DEFAULT} should be one of: ${_DJANGO_VERSIONS:O}
+.endif
+
+.if defined(DJANGO_VERSION)
+_DJANGO_VERSION:=	${DJANGO_VERSION:S/^py-django//}
+
+DJANGO_FLAVOR=		...
+DJANGO_VER=		${_DJANGO_VER}
+DJANGO_MAJOR_VER=	${_DJANGO_VER:R}
+DJANGO_SUFFIX=		${_DJANGO_VER:S/.//}
+DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
+DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
+
+
+
+.if defined(_DJANGO_BUILD_DEP)
+BUILD_DEPENDS+=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}>0:${DJANGO_PORTSDIR}@${PY_FLAVOR}
+.endif
+
+.if defined(_DJANGO_RUN_DEP)
+RUN_DEPENDS+=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}>0:${DJANGO_PORTSDIR}@${PY_FLAVOR}
+.endif
+
+.if defined(_DJANGO_TEST_DEP)
+TEST_DEPENDS+=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}>0:${DJANGO_PORTSDIR}@${PY_FLAVOR}
+.endif
+
+.endif # defined(_PYTHON_FEATURE_DJANGO)
 .endif # defined(_POSTMKINCLUDED) && !defined(_INCLUDE_USES_PYTHON_POST_MK)
