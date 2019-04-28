@@ -1482,6 +1482,7 @@
     SUBDIR += py-beaker
     SUBDIR += py-beautifulsoup
     SUBDIR += py-beautifulsoup32
+    SUBDIR += py-beautifulsoup460
     SUBDIR += py-biscuits
     SUBDIR += py-bjoern
     SUBDIR += py-bleach
@@ -1666,6 +1667,7 @@
     SUBDIR += py-google-api-python-client
     SUBDIR += py-google-cloud-core
     SUBDIR += py-google-cloud-dlp
+    SUBDIR += py-google-cloud-logging
     SUBDIR += py-google-cloud-storage
     SUBDIR += py-google-cloud-translate
     SUBDIR += py-google-cloud-vision
