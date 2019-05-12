@@ -106,12 +106,6 @@
     SUBDIR += hashtypes
     SUBDIR += hbase
     SUBDIR += hiredis
-    SUBDIR += hs-esqueleto
-    SUBDIR += hs-hedis
-    SUBDIR += hs-mysql
-    SUBDIR += hs-persistent
-    SUBDIR += hs-persistent-sqlite
-    SUBDIR += hs-persistent-template
     SUBDIR += hsqldb
     SUBDIR += influxdb
     SUBDIR += innotop
@@ -886,7 +880,6 @@
     SUBDIR += rrdtool
     SUBDIR += rrdtool12
     SUBDIR += ruby-bdb
-    SUBDIR += ruby-odbc
     SUBDIR += ruby-qdbm
     SUBDIR += ruby-tokyocabinet
     SUBDIR += ruby-xapian
@@ -917,11 +910,11 @@
     SUBDIR += rubygem-data_objects
     SUBDIR += rubygem-datamapper
     SUBDIR += rubygem-dbd-mysql
-    SUBDIR += rubygem-dbd-odbc
     SUBDIR += rubygem-dbd-pg
     SUBDIR += rubygem-dbd-sqlite3
     SUBDIR += rubygem-dbf
     SUBDIR += rubygem-dbi
+    SUBDIR += rubygem-dbm
     SUBDIR += rubygem-dm-aggregates
     SUBDIR += rubygem-dm-chunked_query
     SUBDIR += rubygem-dm-constraints
@@ -1049,8 +1042,6 @@
     SUBDIR += xtrabackup
     SUBDIR += zabbix22-libzbxpgsql
     SUBDIR += zabbix3-libzbxpgsql
-    SUBDIR += zabbix32-libzbxpgsql
-    SUBDIR += zabbix34-libzbxpgsql
     SUBDIR += zodb3
 
 .include <bsd.port.subdir.mk>

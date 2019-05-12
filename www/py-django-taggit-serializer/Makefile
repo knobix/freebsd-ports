@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-taggit>=0:www/py-django-taggit@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}six>=0:devel/py-six@${PY_FLAVOR}
 
-USES=		python
+USES=		python:3.5+
 USE_PYTHON=	distutils autoplist django
 
 NO_ARCH=		yes
