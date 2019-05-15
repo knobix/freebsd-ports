@@ -31,5 +31,4 @@ post-install-DOCS-on:
 		${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR} \
 			"! -name .buildinfo -and ! -name objects.inv")
 
-
 .include <bsd.port.mk>
