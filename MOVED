@@ -10193,7 +10193,6 @@ audio/kaudiocreator||2018-06-07|Has expired: Broken for more than 6 months
 audio/jxm||2018-06-07|Has expired: Depends on BROKEN and expiring comms/java-commapi
 audio/deforaos-mixer||2018-06-07|Has expired: Broken for more than 6 months
 audio/gkrellmss2||2018-06-07|Has expired: Broken for more than 6 months
-audio/ogg2mp3||2018-06-07|Has expired: Broken for more than 6 months
 audio/abcmidi||2018-06-07|Has expired: Broken for more than 6 months
 benchmarks/netpipe||2018-06-07|Has expired: Broken for more than 6 months
 biology/plink||2018-06-07|Has expired: Broken for more than 6 months
@@ -12728,7 +12727,6 @@ graphics/qslim||2019-05-09|Has expired: Broken for more than 6 months
 graphics/rawstudio||2019-05-09|Has expired: Broken for more than 6 months
 graphics/tulip||2019-05-09|Has expired: Broken for more than 6 months
 lang/qore||2019-05-09|Has expired: Broken for more than 6 months
-mail/milter-manager||2019-05-09|Has expired: Broken for more than 6 months
 math/goblin||2019-05-09|Has expired: Broken for more than 6 months
 math/mosesdecoder||2019-05-09|Has expired: Broken for more than 6 months
 multimedia/asdcplib||2019-05-09|Has expired: Broken for more than 6 months
@@ -12747,3 +12745,9 @@ converters/hs-sandi||2019-05-09|Has expired: Haskell libraries are getting pushe
 devel/hs-gtk2hs-buildtools||2019-05-09|Removed, does not build with recent GHC and references deleted port
 lang/perl5.24||2019-05-09|Has expired: Support ends three years after .0 release, please upgrade to a more recent version of Perl
 sysutils/bareos-client-static|sysutils/bareos17-client-static|2019-05-09|Port was renamed
+cad/brlcad||2019-05-13|Has expired: Broken for more than 6 months
+misc/gnuit||2019-05-13|Has expired: Upstream stale for 10 years, no users it appears
+print/py-reportlab1|print/py-reportlab|2019-05-13|Has expired: consider using latest upstream version in print/py-reportlab
+sysutils/djmount||2019-05-15|Has expired: Unmaintained upstream and does not build with upnp >= 1.8
+multimedia/vdr-plugin-upnp||2019-05-15|Has expired: Unmaintained upstream and does not build with upnp >= 1.8
+databases/puppetdb-cli|databases/rubygem-puppetdb_cli|2019-05-15|puppetdb-cli was rewritten in Ruby

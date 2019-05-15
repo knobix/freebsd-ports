@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-allauth
-PORTVERSION=	0.38.0
-PORTREVISION=	1
+PORTVERSION=	0.39.1
 CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -16,9 +15,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests-oauthlib>=0.3.0:www/py-requests-oauthlib@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=0:www/py-requests@${PY_FLAVOR}
 
-NO_ARCH=	yes
 USES=		python
 USE_PYTHON=	autoplist distutils django
+
+NO_ARCH=	yes
 
 .include <bsd.port.pre.mk>
 

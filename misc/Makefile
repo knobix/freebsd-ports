@@ -168,7 +168,6 @@
     SUBDIR += gnome-osd
     SUBDIR += gnome-user-docs
     SUBDIR += gnu-watch
-    SUBDIR += gnuit
     SUBDIR += gnuls
     SUBDIR += gnustep-examples
     SUBDIR += gone
@@ -272,6 +271,7 @@
     SUBDIR += openhmd
     SUBDIR += openmvg
     SUBDIR += openr2
+    SUBDIR += openvdb
     SUBDIR += orange3
     SUBDIR += orion
     SUBDIR += orville-write

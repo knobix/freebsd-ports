@@ -1434,8 +1434,8 @@
     SUBDIR += raptor2
     SUBDIR += rarian
     SUBDIR += rasqal
-    SUBDIR += re_graph
     SUBDIR += re-flex
+    SUBDIR += re_graph
     SUBDIR += redet
     SUBDIR += redland
     SUBDIR += redland-bindings
@@ -1609,6 +1609,8 @@
     SUBDIR += rubygem-sass-rails-rails50
     SUBDIR += rubygem-sass32
     SUBDIR += rubygem-sass34
+    SUBDIR += rubygem-sassc
+    SUBDIR += rubygem-sassc-rails
     SUBDIR += rubygem-sax-machine
     SUBDIR += rubygem-scss_lint
     SUBDIR += rubygem-shell2html
