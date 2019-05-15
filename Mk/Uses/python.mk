@@ -119,9 +119,9 @@
 #                         Combinations of these can be supplied as a
 #                         comma-separated list:
 #
-#          django=1.8   - Only use the specified version of Django
-#          django=2.0+  - Use at least the specified version of Django
-#          django=1.8-1.11 - Use a version from the indicated range
+#          django=1.11  - Only use the specified version of Django
+#          django=2.1+  - Use at least the specified version of Django
+#          django=1.11-2.1 - Use a version from the indicated range
 #          django=-2.1  - Use at most the specified version
 #          django=build - Add django as a build dependency
 #          django=run   - Add django as a run-time dependency
@@ -301,9 +301,11 @@ _PYTHON_BASECMD=		${LOCALBASE}/bin/python
 _PYTHON_RELPORTDIR=		lang/python
 
 # List all valid USE_PYTHON features here
-_VALID_PYTHON_FEATURES=	allflavors autoplist concurrent cython cython_run \
-			distutils flavors noegginfo noflavors optsuffix \
-			py3kplist pythonprefix
+
+_VALID_PYTHON_FEATURES= allflavors autoplist concurrent cython		\
+			cython_run distutils django flavors noegginfo	\
+			noflavors optsuffix py3kplist pythonprefix
+
 _INVALID_PYTHON_FEATURES=
 .for var in ${USE_PYTHON}
 .  if empty(_VALID_PYTHON_FEATURES:M${var})
@@ -803,7 +805,7 @@ do-install:
 # What Django versions are currently supported?  Please keep in sync
 # with the comment in Mk/bsd.default-versions.mk.  These are in
 # preference order
-_DJANGO_VERSIONS=	1.11 2.1 2.2 2.0 1.8
+_DJANGO_VERSIONS=	1.11 2.2 2.1 2.0
 _DJANGO_PORTBRANCH=	1.11	# ${_DJANGO_VERSIONS:[1]}
 _DJANGO_RELPORTDIR=	www/py-django
 
@@ -844,47 +846,83 @@ IGNORE= Invalid django version ${_DJANGO_DEFAULT} should be one of: ${_DJANGO_VE
 .endif
 
 .if defined(DJANGO_VERSION)
-_DJANGO_VERSION:=	${DJANGO_VERSION:S/^py-django//}
+_DJANGO_VERSION:=	${DJANGO_VERSION:S/^django//}
+.else
+_DJANGO_VERSION:=	${DJANGO_DEFAULT}
+.endif # defined(DJANGO_VERSION)
 
-DJANGO_VER=		${_DJANGO_VER}
-DJANGO_MAJOR_VER=	${_DJANGO_VER:R}
-DJANGO_SUFFIX=		${_DJANGO_VER:S/.//}
-DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
-DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
+# Validate Django version whether it meets the version restriction.
+_DJANGO_VERSION_CHECK:=	${_PYTHON_FEATURE_DJANGO:C/^([1-9]\.[0-9]+)$/\1-\1/}
+_DJANGO_VERSION_MINIMUM:= ${_DJANGO_VERSION_CHECK:C/^([1-9]\.[0-9]+)[-+]/\1/}
+_DJANGO_VERSION_MAXIMUM:= ${_DJANGO_VERSION_CHECK:C/-([1-9]\.[0-9]+)$/\1/}
+
+# Remove any version specifiers: there should be nothing remaining in
+# ${_PYTHON_FEATURE_DJANGO}
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:C/^[1-9]\.[0-9]+\+?//:C/^-[1-9]\.[0-9]+//}
+if !empty(_PYTHON_FEATURE_DJANGO)
+IGNORE=	uses unknown USE_PYTHON=django arguments: ${_PYTHON_FEATURE_DJANGO}
+.endif
 
 # Protect partial checkouts from Mk/Scripts/functions.sh:export_ports_env().
 .if !defined(_PORTS_ENV_CHECK) || exists(${PORTSDIR}/${DJANGO_PORTSDIR})
 .include "${PORTSDIR}/${DJANGO_PORTSDIR}/Makefile.version"
 .endif
 
-# Create a 5 digit integer version string in seven easy steps:
+# Create a 3 digit integer version string in seven easy steps:
 #  1: Double up the field separator '.' to '..' This makes step 6 easy
 #  2: Delete any non-numeric suffix (rc1, alpha4, etc.)
-#  3: Use only the first three fields
+#  3: Use only the first two fields
 #  4: Add a '.' at the end -- 2nd and subseq. fields are now bounded by '.' 
 #  5: Append .00. if the third field is absent
 #  6: Zero fill any 1 digit fields after the first
 #  7: Delete all the '.' characters
 #
-#    1.11.20    2.0.13     2.1.8      2.2        1.2.3.4    2.2r1      2.3.0.b4
-# _1 1..11..20  2..0..13   2..1..8    2..2       1..2..3..4 2..2r1     2..3..0..b4
-# _2 1..11..20  2..0..13   2..1..8    2..2       1..2..3..4 2..2       2..3..0..
-# _3 1..11..20  2..0..13   2..1..8    2..2       1..2..3    2..2       2..3..0
-# _4 1..11..20. 2..0..13.  2..1..8.   2..2.      1..2..3.   2..2.      2..3..0.
-# _5 1..11..20. 2..0..13.  2..1..8.   2..2..00.  1..2..3.   2..2..00.  2..3..0.
-# _6 1..11..20. 2..00..13. 2..01..08. 2..02..00. 1..02..03. 2..02..00. 2..03..00.
-# _7 11120      20013      20108      20200      10203      20200      20300
+#    1.11.20   2.0.13   2.1.8   2      2.2    1.2.3.4    2.2r1  2.3.0.b4
+# _1 1..11..20 2..0..13 2..1..8 2      2..2   1..2..3..4 2..2r1 2..3..0..b4
+# _2 1..11..20 2..0..13 2..1..8 2      2..2   1..2..3..4 2..2   2..3..0..
+# _3 1..11     2..0     2..1    2      2..2   1..2       2..2   2..3
+# _4 1..11.    2..0.    2..1.   2.     2..2.  1..2.      2..2.  2..3.
+# _5 1..11.    2..0.    2..1.   2..00. 2..2.  1..2.      2..2.  2..3.
+# _6 1..11.    2..00.   2..01.  2..00. 2..02. 1..02.     2..02. 2..03.
+# _7 111       200      201     200    202    102        202    203
 
-_1=     C/\./../g
-_2=     C/[^0-9\.].*$$//
-_3=     C/^([0-9]+\.\.[0-9]+\.\.[0-9]+).*$$/\1/
-_4=     C/$$/./
-_5=     C/^([0-9]+\.\.[0-9]+\.)$$/\1.00./
-_6=     C/\.([0-9])\./.0\1./g
-_7=     S/.//g
+_1=	C/\./../g
+_2=	C/[^0-9\.].*$$//
+_3=	C/^([0-9]+\.\.[0-9]+).*$$/\1/
+_4=	C/$$/./
+_5=	C/^([0-9]+\.)$$/\1.00./
+_6=	C/\.([0-9])\./.0\1./g
+_7=	S/.//g
 
-DJANGO_REL=     ${DJANGO_PORTVERSION:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+DJANGO_REL:=	${DJANGO_PORTVERSION:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+_DJANGO_MIN:=	${_DJANGO_VERSION_MINIMUM:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+_DJANGO_MAX:=	${_DJANGO_VERSION_MAXIMUM:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
 
+.undef _DJANGO_VERSION_NONSUPPORTED
+.if !empty(_DJANGO_MIN) && (${DJANGO_REL} < ${_DJANGO_MIN})
+_DJANGO_VERSION_NONSUPPORTED=	${_DJANGO_VERSION_MINIMUM} at least
+.elif !empty(_DJANGO_MAX) && (${DJANGO_REL} >= ${_DJANGO_MAX})
+_DJANGO_VERSION_NONSUPPORTED=	${_DJANGO_VERSION_MAXIMUM} at most
+.endif
+
+.if defined(_DJANGO_VERSION_NONSUPPORTED)
+.  if defined(DJANGO_VERSION)
+_DV:=		${_DJANGO_VERSION}
+IGNORE=		needs Django ${_DJANGO_VERSION_NONSUPPORTED}, but ${_DV} was specified
+.  endif	# defined(DJANGO_VERSION)
+.  undef _DJANGO_VERSION
+# @@@@@@@@@@
+.  if !defined(_DJANGO_VERSION)
+IGNORE=		needs an unsupported version of Django
+.  endif
+.endif 	# defined(_DJANGO_VERSION_NONSUPPORTED)
+
+
+DJANGO_VER=		${_DJANGO_VER}
+DJANGO_MAJOR_VER=	${_DJANGO_VER:R}
+DJANGO_SUFFIX=		${_DJANGO_VER:S/.//}
+DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
+DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
 
 .for _stage in BUILD RUN TEST
 .  if defined(_DJANGO_${_stage}_DEP)
