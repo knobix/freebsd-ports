@@ -17,7 +17,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}mock>=0.8.0:devel/py-mock@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}nose>=1.1.2:devel/py-nose@${PY_FLAVOR}
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django
+USE_PYTHON=	autoplist concurrent distutils django=run,test
 NO_ARCH=	yes
 
 OPTIONS_DEFINE=	DOCS
