@@ -911,11 +911,23 @@ _DV:=		${_DJANGO_VERSION}
 IGNORE=		needs Django ${_DJANGO_VERSION_NONSUPPORTED}, but ${_DV} was specified
 .  endif	# defined(DJANGO_VERSION)
 .  undef _DJANGO_VERSION
-# @@@@@@@@@@
+.  for ver in ${DJANGO1_DEFAULT} ${DJANGO2_DEFAULT} ${_DJANGO_VERSIONS}
+__VER=		${ver:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+.    if !defined(_DJANGO_VERSION) && \
+	!(!empty(_DJANGO_MIN) && (${__VER} < ${_DJANGO_MIN})) && \
+	!(!empty(_DJANGO_MAX) && (${__VER} >= ${_DJANGO_MAX}))
+_DJANGO_VERSION=	${ver}
+.    endif
+.  endfor
 .  if !defined(_DJANGO_VERSION)
 IGNORE=		needs an unsupported version of Django
 .  endif
 .endif 	# defined(_DJANGO_VERSION_NONSUPPORTED)
+
+# ----------------------------------
+# FLAVORS: A combination if the Django and Python versions, with
+# certain restrictions.
+
 
 
 DJANGO_VER=		${_DJANGO_VER}
