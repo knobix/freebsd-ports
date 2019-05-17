@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-rq
-PORTVERSION=	1.3.1
+PORTVERSION=	2.0
 CATEGORIES=	devel python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 MASTER_SITES=	CHEESESHOP
@@ -13,7 +13,7 @@ COMMENT=	Provides Django integration for RQ (Redis Queue)
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}rq>=0.12.0:devel/py-rq@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}rq>=1.0:devel/py-rq@${PY_FLAVOR}
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coverage>=0:devel/py-coverage@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}docutils>=0:textproc/py-docutils@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}mock>=0:devel/py-mock@${PY_FLAVOR} \
