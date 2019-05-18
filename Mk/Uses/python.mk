@@ -122,7 +122,7 @@
 #          django=1.11  - Only use the specified version of Django
 #          django=2.1+  - Use at least the specified version of Django
 #          django=1.11-2.1 - Use a version from the indicated range
-#          django=-2.1  - Use at most the specified version
+#          django=-2.1  - Use at most the specified version of Django
 #          django=build - Add django as a build dependency
 #          django=run   - Add django as a run-time dependency
 #          django=test  - Add django as a test dependency
@@ -132,9 +132,10 @@
 #                         equivalent to django=run.
 #
 #                         Not all combinations of Django and Python
-#                         versions are permitted.  Django 2.0+
-#                         requires Python 3.5+
-#
+#                         versions are permitted.  Django 1.11 is
+#                         compatible with all of the Python versions
+#                         in the ports, but Django 2.0+ requires
+#                         Python 3.5+
 #
 # PYTHON_CMD		- Python's command line file name, including the
 #			  version number (used for dependencies).
@@ -268,22 +269,22 @@
 # DJANGO_FLAVOR         - Use to tag Django ports in
 #                         {BUILD,RUN,TEST}_DEPENDS lines for flavor
 #                         support.  This is a combination of PY_FLAVOR
-#                         with the addition of the Django version
+#                         with the addition of the Django version eg
+#                         py36-django20
 #
 # DJANGO_MAJOR_VER      - The major release version of the chosen Django
 #                         framework.  e.g. 1, 2
 #
-# DJANGO_VER            - The major-minor release version of the chosen
-#                         Django framework.  e.g. 1.11, 2.0, 2.1, 2.2
+# DJANGO_VERSION        - The major-minor release version of the chosen
+#                         Django framework.  e.g. django1.11, django2.0,
+#                         django2.1, django2.2
 #
 # DJANGO_PORTVERSION    - Version number suitable for ${PORTVERSION}
-#
-# DJANGO_REL            - The release version of django as a 5 digit integer
-#                         without dots, eg. 11120, 20013, 20108, 202000 
+#                         Imported from ${DJANGO_PORTSDIR}/Makefile.version
 #
 # DJANGO_SUFFIX         - The major-minor release version of the chosen
-#                         Django framework without dots. e.g. 18, 111,
-#                         20, 21
+#                         Django framework without dots. e.g. 111, 20, 21,
+#                         22
 #
 # DJANGO_PORTSDIR       - The port directory of the chosen Django framework
 #
@@ -928,7 +929,27 @@ IGNORE=		needs an unsupported version of Django
 # FLAVORS: A combination if the Django and Python versions, with
 # certain restrictions.
 
+_PY_FLAVORS:=	${FLAVORS}
+.undef FLAVORS
 
+# We have _PYTHON_VERSION as the chosen python version and
+# _DJANGO_VERSION as the chosen django version, from which we should
+# be able to derive the particular DJANGO_FLAVOR we want to build.
+# Except that we need to ensure compatible versions of python and
+# django -- django-2.0+ requires python-3.4+ while django-1.11 will
+# work with all python 2.7+
+DJANGO_FLAVOR=	py${_PYTHON_VERSION:S/.//}-django${_DJANGO_VERSION:S/.//}
+
+.for _djv in ${_DJANGO_VERSIONS:S/.//}
+.  for _pyv in ${_PYTHON_VERSIONS:S/.//}
+.    if ( ${_pyv} != 27 || ${_djv} == 111 )
+_f:=	py${_pyv}-django${_djv}
+FLAVORS:=	${FLAVORS} ${_f}
+.    endif
+.  endfor
+.endfor
+
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 DJANGO_VER=		${_DJANGO_VER}
 DJANGO_MAJOR_VER=	${_DJANGO_VER:R}
