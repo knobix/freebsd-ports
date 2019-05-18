@@ -478,16 +478,16 @@ FLAVORS:=	${_f}
 .      endif
 .    endfor
 .  endif
-.  if !empty(FLAVORS) && empty(PY_FLAVOR)
-PY_FLAVOR:=	${FLAVORS:[1]}
+.  if !empty(FLAVORS) && empty(FLAVOR)
+FLAVOR:=	${FLAVORS:[1]}
 .  endif
 .endif
 
-.if ${PY_FLAVOR:Mpy[23][0-9]}
-_PYTHON_VERSION=	${PY_FLAVOR:S/py//:C/(.)/\1./}
+.if ${FLAVOR:Mpy[23][0-9]}
+_PYTHON_VERSION:=	${FLAVOR:S/py//:C/(.)/\1./}
 .endif
 
-.if !empty(PY_FLAVOR) && ${_PYTHON_VERSION} != ${PYTHON_DEFAULT}
+.if !empty(FLAVOR) && ${_PYTHON_VERSION} != ${PYTHON_DEFAULT}
 .if defined(_PYTHON_FEATURE_OPTSUFFIX)
 DEV_WARNING+=	"USE_PYTHON=optsuffix is deprecated, consider migrating to using unconditional PKGNAMESUFFIX or PKGNAMEPREFIX"
 PKGNAMESUFFIX=	${PYTHON_PKGNAMESUFFIX}
@@ -500,7 +500,7 @@ PKGNAMESUFFIX=	${PYTHON_PKGNAMESUFFIX}
 # - If using a version restriction (USES=python:3.4+), from the first
 #   acceptable default Python version.
 # - From PYTHON_DEFAULT
-FLAVOR:=	${PY_FLAVOR}
+PY_FLAVOR:=	${FLAVOR}
 
 # Pass PYTHON_VERSION down the dependency chain. This ensures that
 # port A -> B -> C all will use the same python version and do not
