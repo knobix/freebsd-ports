@@ -478,16 +478,16 @@ FLAVORS:=	${_f}
 .      endif
 .    endfor
 .  endif
-.  if !empty(FLAVORS) && empty(FLAVOR)
-FLAVOR=	${FLAVORS:[1]}
+.  if !empty(FLAVORS) && empty(PY_FLAVOR)
+PY_FLAVOR:=	${FLAVORS:[1]}
 .  endif
 .endif
 
-.if ${FLAVOR:Mpy[23][0-9]}
-_PYTHON_VERSION=	${FLAVOR:S/py//:C/(.)/\1./}
+.if ${PY_FLAVOR:Mpy[23][0-9]}
+_PYTHON_VERSION=	${PY_FLAVOR:S/py//:C/(.)/\1./}
 .endif
 
-.if !empty(FLAVOR) && ${_PYTHON_VERSION} != ${PYTHON_DEFAULT}
+.if !empty(PY_FLAVOR) && ${_PYTHON_VERSION} != ${PYTHON_DEFAULT}
 .if defined(_PYTHON_FEATURE_OPTSUFFIX)
 DEV_WARNING+=	"USE_PYTHON=optsuffix is deprecated, consider migrating to using unconditional PKGNAMESUFFIX or PKGNAMEPREFIX"
 PKGNAMESUFFIX=	${PYTHON_PKGNAMESUFFIX}
@@ -500,7 +500,7 @@ PKGNAMESUFFIX=	${PYTHON_PKGNAMESUFFIX}
 # - If using a version restriction (USES=python:3.4+), from the first
 #   acceptable default Python version.
 # - From PYTHON_DEFAULT
-PY_FLAVOR=	py${_PYTHON_VERSION:S/.//}
+FLAVOR:=	${PY_FLAVOR}
 
 # Pass PYTHON_VERSION down the dependency chain. This ensures that
 # port A -> B -> C all will use the same python version and do not
@@ -864,6 +864,12 @@ _PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:C/^[1-9]\.[0-9]+\+?//:C/^-[1-9
 IGNORE=	uses unknown USE_PYTHON=django arguments: ${_PYTHON_FEATURE_DJANGO}
 .endif
 
+DJANGO_VERSION=		django${_DJANGO_VERSION}
+DJANGO_MAJOR_VER=	${_DJANGO_VERSION:R}
+DJANGO_SUFFIX=		${_DJANGO_VERSION:S/.//}
+DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
+DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
+
 # Protect partial checkouts from Mk/Scripts/functions.sh:export_ports_env().
 .if !defined(_PORTS_ENV_CHECK) || exists(${PORTSDIR}/${DJANGO_PORTSDIR})
 .include "${PORTSDIR}/${DJANGO_PORTSDIR}/Makefile.version"
@@ -949,13 +955,7 @@ FLAVORS:=	${FLAVORS} ${_f}
 .  endfor
 .endfor
 
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-DJANGO_VER=		${_DJANGO_VER}
-DJANGO_MAJOR_VER=	${_DJANGO_VER:R}
-DJANGO_SUFFIX=		${_DJANGO_VER:S/.//}
-DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
-DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
+FLAVOR:=	${DJANGO_FLAVOR}
 
 .for _stage in BUILD RUN TEST
 .  if defined(_DJANGO_${_stage}_DEP)
