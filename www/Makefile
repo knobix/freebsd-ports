@@ -1792,7 +1792,6 @@
     SUBDIR += py-requests-mock
     SUBDIR += py-requests-oauthlib
     SUBDIR += py-requests-toolbelt
-    SUBDIR += py-requests1
     SUBDIR += py-requests_ntlm
     SUBDIR += py-restclient
     SUBDIR += py-rfc3986
@@ -2131,6 +2130,7 @@
     SUBDIR += rubygem-sinatra1
     SUBDIR += rubygem-smashing
     SUBDIR += rubygem-socksify
+    SUBDIR += rubygem-swd
     SUBDIR += rubygem-task_list
     SUBDIR += rubygem-thin
     SUBDIR += rubygem-tinyatom
@@ -2177,6 +2177,7 @@
     SUBDIR += sfnt2woff
     SUBDIR += shellinabox
     SUBDIR += shttpd
+    SUBDIR += silicon
     SUBDIR += sitecopy
     SUBDIR += skytemplate
     SUBDIR += slowcgi
