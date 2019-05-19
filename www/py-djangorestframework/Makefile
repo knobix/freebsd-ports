@@ -16,7 +16,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE.md
 USES=		python
 USE_PYTHON=	distutils autoplist django
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}djangorestframework??
+CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}djangorestframework??
 NO_ARCH=		yes
 
 .include <bsd.port.mk>
