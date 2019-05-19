@@ -493,6 +493,7 @@
     SUBDIR += dsymbol
     SUBDIR += dub
     SUBDIR += dulwich
+    SUBDIR += dupl
     SUBDIR += duplo
     SUBDIR += dwarfdump
     SUBDIR += dxa65
@@ -5217,6 +5218,7 @@
     SUBDIR += qtcreator
     SUBDIR += quickcheck++
     SUBDIR += quilt
+    SUBDIR += rabs
     SUBDIR += racer
     SUBDIR += racerd
     SUBDIR += radare2
