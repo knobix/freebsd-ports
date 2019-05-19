@@ -500,7 +500,7 @@ PKGNAMESUFFIX=	${PYTHON_PKGNAMESUFFIX}
 # - If using a version restriction (USES=python:3.4+), from the first
 #   acceptable default Python version.
 # - From PYTHON_DEFAULT
-PY_FLAVOR:=	${FLAVOR}
+PY_FLAVOR:=	py${_PYTHON_VERSION:S/.//}
 
 # Pass PYTHON_VERSION down the dependency chain. This ensures that
 # port A -> B -> C all will use the same python version and do not
@@ -849,13 +849,13 @@ IGNORE= Invalid django version ${_DJANGO_DEFAULT} should be one of: ${_DJANGO_VE
 .if defined(DJANGO_VERSION)
 _DJANGO_VERSION:=	${DJANGO_VERSION:S/^django//}
 .else
-_DJANGO_VERSION:=	${DJANGO_DEFAULT}
+_DJANGO_VERSION:=	${_DJANGO_DEFAULT}
 .endif # defined(DJANGO_VERSION)
 
 # Validate Django version whether it meets the version restriction.
 _DJANGO_VERSION_CHECK:=	${_PYTHON_FEATURE_DJANGO:C/^([1-9]\.[0-9]+)$/\1-\1/}
-_DJANGO_VERSION_MINIMUM:= ${_DJANGO_VERSION_CHECK:C/^([1-9]\.[0-9]+)[-+]/\1/}
-_DJANGO_VERSION_MAXIMUM:= ${_DJANGO_VERSION_CHECK:C/-([1-9]\.[0-9]+)$/\1/}
+_DJANGO_VERSION_MINIMUM:= ${_DJANGO_VERSION_CHECK:C/^([1-9]\.[0-9]+)[-+].*$/\1/}
+_DJANGO_VERSION_MAXIMUM:= ${_DJANGO_VERSION_CHECK:C/^[^-]+-([1-9]\.[0-9]+)$/\1/}
 
 # Remove any version specifiers: there should be nothing remaining in
 # ${_PYTHON_FEATURE_DJANGO}
@@ -921,8 +921,8 @@ IGNORE=		needs Django ${_DJANGO_VERSION_NONSUPPORTED}, but ${_DV} was specified
 .  for ver in ${DJANGO1_DEFAULT} ${DJANGO2_DEFAULT} ${_DJANGO_VERSIONS}
 __VER=		${ver:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
 .    if !defined(_DJANGO_VERSION) && \
-	!(!empty(_DJANGO_MIN) && (${__VER} < ${_DJANGO_MIN})) && \
-	!(!empty(_DJANGO_MAX) && (${__VER} >= ${_DJANGO_MAX}))
+	${__VER} >= ${_DJANGO_MIN} && \
+	${__VER} <= ${_DJANGO_MAX}
 _DJANGO_VERSION=	${ver}
 .    endif
 .  endfor
