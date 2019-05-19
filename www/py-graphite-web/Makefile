@@ -22,12 +22,11 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cairo>=1.8.10:graphics/py-cairo@${PY_FLAVOR}
 
 FETCH_ARGS=	-o ${DISTNAME}${EXTRACT_SUFX}
 USES=		cpe python:2.7 shebangfix
-USE_PYTHON=	django
 USE_GITHUB=	yes
 GH_ACCOUNT=	graphite-project
 CPE_VENDOR=	graphite_project
 CPE_PRODUCT=	graphite
-USE_PYTHON=	distutils
+USE_PYTHON=	distutils django
 SHEBANG_FILES=	bin/build-index.sh
 SUB_FILES=	pkg-message
 SUB_LIST+=	PYTHON_SITELIBDIR=${PYTHON_SITELIBDIR} WWWOWN=${WWWOWN} \
