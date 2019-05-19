@@ -14,7 +14,7 @@ COMMENT=	Django REST framework
 LICENSE=	BSD2CLAUSE
 
 USES=		python
-USE_PYTHON=	distutils autoplist django
+USE_PYTHON=	distutils autoplist django=1.11
 
 CONFLICTS_INSTALL=	${DJANGO_PKGNAMEPREFIX}djangorestframework
 
