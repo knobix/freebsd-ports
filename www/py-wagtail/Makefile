@@ -14,7 +14,7 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup460>=4.5.1<4.6.1:www/py-beautifulsoup460@${PY_FLAVOR} \
-		${DJANGO_PKGNAMEPREFIX}django-modelcluster>=4.2<5.0:www/py-django-modelcluster@${DJANGO_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}django-modelcluster>=4.2<5.0:www/py-django-modelcluster@${PY_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-taggit>=0.23<1.0:www/py-django-taggit@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-treebeard>=4.2.0<5.0:www/py-django-treebeard@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}djangorestframework>=3.7.4<4.0:www/py-djangorestframework@${DJANGO_FLAVOR} \

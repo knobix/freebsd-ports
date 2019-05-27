@@ -15,7 +15,7 @@ LICENSE=	BSD3CLAUSE
 
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-braces>=0:www/py-django-braces@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-model-utils>=0:www/py-django-model-utils@${DJANGO_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}swapper>=0:www/py-swapper@${PY_FLAVOR}
+		${DJANGO_PKGNAMEPREFIX}swapper>=0:www/py-swapper@${DJANGO_FLAVOR}
 
 USES=		python
 USE_PYTHON=	distutils autoplist django

@@ -13,7 +13,7 @@ COMMENT=	Django PostgreSQL netfields implementation
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}netaddr>=0:net/py-netaddr@${FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}netaddr>=0:net/py-netaddr@${PY_FLAVOR} \
 		${PY_IPADDRESS}
 
 USES=		python

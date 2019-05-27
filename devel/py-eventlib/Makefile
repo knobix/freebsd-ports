@@ -16,7 +16,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}celery>=3.0.0:devel/py-celery@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}ejson>=0:devel/py-ejson@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}logan>=0.5.0:devel/py-logan@${PY_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}logan>=0.5.0:devel/py-logan@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}redis>=2.7.1:databases/py-redis@${PY_FLAVOR}
 
 NO_ARCH=	yes
