@@ -2,7 +2,7 @@
 
 PORTNAME=	netbox
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.5.10
+DISTVERSION=	2.5.12
 CATEGORIES=	net-mgmt python django
 
 MAINTAINER=	kai@FreeBSD.org
@@ -15,8 +15,8 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cor
 		${DJANGO_PKGNAMEPREFIX}django-debug-toolbar>=1.11:www/py-django-debug-toolbar@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-filter>=2.0.0:www/py-django-filter@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-mptt>=0.9.1:www/py-django-mptt@${DJANGO_FLAVOR} \
-		${DJANGO_PKGNAMEPREFIX}django-tables2-2>=2.0.3:www/py-django-tables2-2@${DJANGO_FLAVOR} \
-		${DJANGO_PKGNAMEPREFIX}django-taggit>=0.23.0:www/py-django-taggit@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-tables2>=2.0.3:www/py-django-tables2@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-taggit>=0.24.0:www/py-django-taggit@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-taggit-serializer>=0.1.7:www/py-django-taggit-serializer@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-timezone-field>=3.0:www/py-django-timezone-field@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}djangorestframework>=3.9.0:www/py-djangorestframework@${DJANGO_FLAVOR} \
@@ -31,7 +31,7 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-cors-headers>=2.4.0:www/py-django-cor
 		${PYTHON_PKGNAMEPREFIX}psycopg2>=2.7.6.1:databases/py-psycopg2@${PY_FLAVOR}
 
 USES=		pgsql:9.4+ python:3.5+
-USE_PYTHON=	django=2.1+
+USE_PYTHON=	django=2.2+
 USE_GITHUB=	yes
 GH_ACCOUNT=	digitalocean
 
