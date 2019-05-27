@@ -123,6 +123,9 @@
 #          django=2.1+  - Use at least the specified version of Django
 #          django=1.11-2.1 - Use a version from the indicated range
 #          django=-2.1  - Use at most the specified version of Django
+#          django=nodjangoflavor
+#                       - Don't modify FLAVOR or FLAVORS to include
+#                         the django version. 
 #          django=build - Add django as a build dependency
 #          django=run   - Add django as a run-time dependency
 #          django=test  - Add django as a test dependency
@@ -837,6 +840,12 @@ _PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ntest}
 _DJANGO_RUN_DEP=		yes
 .endif
 
+.undef _DJANGO_NO_FLAVOR
+.if ${_PYTHON_FEATURE_DJANGO:Mnodjangoflavor}
+_DJANGO_NO_FLAVOR=		yes
+_PYTHON_FEATUREDJANGO:=		${_PYTHON_FEATURE_DJANGO:Nnodjangoflavor}
+.endif
+
 # Choose ether the systemwide default -- the first value from
 # _DJANGO_VERSIONS -- or the value set in DEFAULT_VERSIONS
 _DJANGO_DEFAULT:= ${DJANGO_DEFAULT:U${_DJANGO_PORTBRANCH}}
@@ -931,6 +940,8 @@ IGNORE=		needs an unsupported version of Django
 .  endif
 .endif 	# defined(_DJANGO_VERSION_NONSUPPORTED)
 
+.if !defined(_DJANGO_NO_FLAVOR)
+
 # ----------------------------------
 # FLAVORS: A combination if the Django and Python versions, with
 # certain restrictions.
@@ -956,6 +967,7 @@ FLAVORS:=	${FLAVORS} ${_f}
 .endfor
 
 FLAVOR:=	${DJANGO_FLAVOR}
+.endif # !defined(_DJANGO_NO_FLAVOR)
 
 .for _stage in BUILD RUN TEST
 .  if defined(_DJANGO_${_stage}_DEP)

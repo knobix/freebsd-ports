@@ -5,7 +5,7 @@ PORTNAME=	semantic_version
 PORTVERSION=	2.6.0
 PORTREVISION=	1
 DISTVERSIONPREFIX=	v
-CATEGORIES=	devel python django
+CATEGORIES=	devel python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	loader@FreeBSD.org
@@ -21,7 +21,7 @@ GH_PROJECT=	python-semanticversion
 NO_ARCH=	yes
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django=test
+USE_PYTHON=	autoplist concurrent distutils django=test,nodjangoflavor
 
 do-test:
 	@(cd ${TEST_WRKSRC}; ${SETENV} ${TEST_ENV} ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test)
