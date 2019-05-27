@@ -125,7 +125,7 @@
 #          django=-2.1  - Use at most the specified version of Django
 #          django=nodjangoflavor
 #                       - Don't modify FLAVOR or FLAVORS to include
-#                         the django version. 
+#                         the django version.
 #          django=build - Add django as a build dependency
 #          django=run   - Add django as a run-time dependency
 #          django=test  - Add django as a test dependency
