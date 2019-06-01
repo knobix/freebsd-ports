@@ -65,6 +65,7 @@
     SUBDIR += barbecue
     SUBDIR += barcode
     SUBDIR += batik
+    SUBDIR += bitmap
     SUBDIR += blender
     SUBDIR += blender-doc
     SUBDIR += bmeps
@@ -88,7 +89,6 @@
     SUBDIR += cfdg
     SUBDIR += charls
     SUBDIR += cimg
-    SUBDIR += cinepaint
     SUBDIR += cloudcompare
     SUBDIR += clutter
     SUBDIR += clutter-gtk3
@@ -551,6 +551,7 @@
     SUBDIR += minder
     SUBDIR += ming
     SUBDIR += mirage
+    SUBDIR += mirtk
     SUBDIR += mmrecover
     SUBDIR += movit
     SUBDIR += mozjpeg

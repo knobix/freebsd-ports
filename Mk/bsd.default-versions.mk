@@ -15,9 +15,10 @@ _INCLUDE_BSD_DEFAULT_VERSIONS_MK=	yes
 
 LOCALBASE?=	/usr/local
 
-.for lang in APACHE BDB COROSYNC DJANGO EMACS FIREBIRD FORTRAN FPC GCC GHOSTSCRIPT \
-	LAZARUS LINUX LLVM LUA MYSQL PERL5 PGSQL PHP PYTHON PYTHON2 PYTHON3 \
-	RUBY RUST SAMBA SSL TCLTK VARNISH
+.for lang in APACHE BDB COROSYNC DJANGO EMACS FIREBIRD FORTRAN FPC	\
+	GCC GHOSTSCRIPT JULIA LAZARUS LINUX LLVM LUA MYSQL PERL5	\
+	PGSQL PHP PYTHON PYTHON2 PYTHON3 RUBY RUST SAMBA SSL TCLTK	\
+	VARNISH
 .if defined(${lang}_DEFAULT)
 ERROR+=	"The variable ${lang}_DEFAULT is set and it should only be defined through DEFAULT_VERSIONS+=${lang:tl}=${${lang}_DEFAULT} in /etc/make.conf"
 .endif
@@ -35,11 +36,11 @@ APACHE_DEFAULT?=	2.4
 BDB_DEFAULT?=		5
 # Possible values: 2, 3
 COROSYNC_DEFAULT?=	2
-# Possible values: 1.11 2.0 2.1 2.2
+# Possible values: 1.11 2.1 2.2
 DJANGO_DEFAULT?=	1.11
 # Possible values: 1.11
 DJANGO1_DEFAULT=	1.11
-# Possible values: 2.0 2.1 2.2
+# Possible values: 2.1 2.2
 DJANGO2_DEFAULT=	2.2
 # Possible_values: full canna nox devel_full devel_nox
 #EMACS_DEFAULT?=	let the flavor be the default if not explicitly set
@@ -53,6 +54,8 @@ FPC_DEFAULT?=		3.0.4
 GCC_DEFAULT?=		8
 # Possible values: 7, 8, 9, agpl
 GHOSTSCRIPT_DEFAULT?=	agpl
+# Possible values: 0.6, 0.7, 1.0, 1.1
+JULIA_DEFAULT?=		1.0
 # Possible values: 2.0.0
 LAZARUS_DEFAULT?=	2.0.0
 .if ${ARCH} == amd64

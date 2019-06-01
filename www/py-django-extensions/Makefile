@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-extensions
-PORTVERSION=	2.1.6
+PORTVERSION=	2.1.7
 CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -20,10 +20,4 @@ USE_PYTHON=	autoplist distutils django
 
 NO_ARCH=	yes
 
-.include <bsd.port.pre.mk>
-
-.if ${PYTHON_REL} < 3500
-RUN_DEPENDS+=   ${PYTHON_PKGNAMEPREFIX}typing>=0:devel/py-typing@${PY_FLAVOR}
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

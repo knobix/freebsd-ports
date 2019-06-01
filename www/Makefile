@@ -1402,7 +1402,6 @@
     SUBDIR += phproxy
     SUBDIR += phpsysinfo
     SUBDIR += phpvirtualbox
-    SUBDIR += pivotx
     SUBDIR += piwigo
     SUBDIR += planet
     SUBDIR += plasma5-plasma-browser-integration
@@ -1566,7 +1565,6 @@
     SUBDIR += py-django-webpack-loader
     SUBDIR += py-django-widget-tweaks
     SUBDIR += py-django111
-    SUBDIR += py-django20
     SUBDIR += py-django21
     SUBDIR += py-django22
     SUBDIR += py-django_compressor
@@ -1969,6 +1967,7 @@
     SUBDIR += rubygem-gollum-grit_adapter10
     SUBDIR += rubygem-gollum-lib
     SUBDIR += rubygem-gollum-rugged_adapter
+    SUBDIR += rubygem-gon-rails5
     SUBDIR += rubygem-gon-rails50
     SUBDIR += rubygem-hackpad-cli
     SUBDIR += rubygem-haml
@@ -1981,7 +1980,6 @@
     SUBDIR += rubygem-hamlit-rails-rails5
     SUBDIR += rubygem-hamlit-rails-rails50
     SUBDIR += rubygem-hashicorp-checkpoint
-    SUBDIR += rubygem-heroku
     SUBDIR += rubygem-heroku-api
     SUBDIR += rubygem-heroku-nav
     SUBDIR += rubygem-hpricot
@@ -2155,7 +2153,7 @@
     SUBDIR += rubygem-vegas
     SUBDIR += rubygem-wasabi
     SUBDIR += rubygem-webmock
-    SUBDIR += rubygem-webpack-rails-rails50
+    SUBDIR += rubygem-webpack-rails-rails5
     SUBDIR += rubygem-webrobots
     SUBDIR += rubygem-websocket
     SUBDIR += rubygem-websocket-driver
@@ -2413,6 +2411,8 @@
     SUBDIR += yabb
     SUBDIR += yanopaste
     SUBDIR += yarn
+    SUBDIR += yarn-node10
+    SUBDIR += yarn-node8
     SUBDIR += yaws
     SUBDIR += you-get
     SUBDIR += yourls

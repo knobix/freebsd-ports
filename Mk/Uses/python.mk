@@ -273,21 +273,20 @@
 #                         {BUILD,RUN,TEST}_DEPENDS lines for flavor
 #                         support.  This is a combination of PY_FLAVOR
 #                         with the addition of the Django version eg
-#                         py36-django20
+#                         py36-django21
 #
 # DJANGO_MAJOR_VER      - The major release version of the chosen Django
 #                         framework.  e.g. 1, 2
 #
 # DJANGO_VERSION        - The major-minor release version of the chosen
-#                         Django framework.  e.g. django1.11, django2.0,
-#                         django2.1, django2.2
+#                         Django framework.  e.g. django1.11, django2.1,
+#                         django2.2
 #
 # DJANGO_PORTVERSION    - Version number suitable for ${PORTVERSION}
 #                         Imported from ${DJANGO_PORTSDIR}/Makefile.version
 #
 # DJANGO_SUFFIX         - The major-minor release version of the chosen
-#                         Django framework without dots. e.g. 111, 20, 21,
-#                         22
+#                         Django framework without dots. e.g. 111, 21, 22
 #
 # DJANGO_PORTSDIR       - The port directory of the chosen Django framework
 #
@@ -719,6 +718,12 @@ PYGAME=		${PYTHON_PKGNAMEPREFIX}game>0:devel/py-game@${PY_FLAVOR}
 PYNUMPY=	${PYTHON_PKGNAMEPREFIX}numpy>0:math/py-numpy@${PY_FLAVOR}
 
 # Common Python modules that can be needed but only for some versions of Python.
+.if ${PYTHON_REL} < 3500
+PY_TYPING=	${PYTHON_PKGNAMEPREFIX}typing>=3.6.4:devel/py-typing@${PY_FLAVOR}
+.else
+PY_TYPING=
+.endif
+
 .if ${PYTHON_REL} < 3400
 PY_ENUM34=	${PYTHON_PKGNAMEPREFIX}enum34>0:devel/py-enum34@${PY_FLAVOR}
 PY_ENUM_COMPAT=	${PYTHON_PKGNAMEPREFIX}enum-compat>0:devel/py-enum-compat@${PY_FLAVOR}
@@ -809,7 +814,7 @@ do-install:
 # What Django versions are currently supported?  Please keep in sync
 # with the comment in Mk/bsd.default-versions.mk.  These are in
 # preference order
-_DJANGO_VERSIONS=	1.11 2.2 2.1 2.0
+_DJANGO_VERSIONS=	1.11 2.2 2.1
 _DJANGO_PORTBRANCH=	1.11	# ${_DJANGO_VERSIONS:[1]}
 _DJANGO_RELPORTDIR=	www/py-django
 
@@ -953,7 +958,7 @@ _PY_FLAVORS:=	${FLAVORS}
 # _DJANGO_VERSION as the chosen django version, from which we should
 # be able to derive the particular DJANGO_FLAVOR we want to build.
 # Except that we need to ensure compatible versions of python and
-# django -- django-2.0+ requires python-3.4+ while django-1.11 will
+# django -- django-2.1+ requires python-3.4+ while django-1.11 will
 # work with all python 2.7+
 DJANGO_FLAVOR=	py${_PYTHON_VERSION:S/.//}-django${_DJANGO_VERSION:S/.//}
 
