@@ -871,9 +871,10 @@ _DJANGO_VERSION_CHECK:=	${_PYTHON_FEATURE_DJANGO:C/^([1-9]\.[0-9]+)$/\1-\1/}
 _DJANGO_VERSION_MINIMUM:= ${_DJANGO_VERSION_CHECK:C/^([1-9]\.[0-9]+)[-+].*$/\1/}
 _DJANGO_VERSION_MAXIMUM:= ${_DJANGO_VERSION_CHECK:C/^[^-]+-([1-9]\.[0-9]+)$/\1/}
 
-# Remove any version specifiers: there should be nothing remaining in
-# ${_PYTHON_FEATURE_DJANGO}
+# Remove any version specifiers and the word 'django: there should be
+# nothing remaining in ${_PYTHON_FEATURE_DJANGO}
 _PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:C/^[1-9]\.[0-9]+\+?//:C/^-[1-9]\.[0-9]+//}
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ndjango}
 .if !empty(_PYTHON_FEATURE_DJANGO)
 IGNORE=	uses unknown USE_PYTHON=django arguments: ${_PYTHON_FEATURE_DJANGO}
 .endif
