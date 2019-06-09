@@ -2,7 +2,7 @@
 
 PORTNAME=	netbox
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.5.12
+DISTVERSION=	2.5.13
 CATEGORIES=	net-mgmt python django
 
 MAINTAINER=	kai@FreeBSD.org
