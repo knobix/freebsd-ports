@@ -467,7 +467,7 @@ _ALL_PYTHON_FLAVORS=	${_PYTHON_VERSIONS:S/.//:S/^/py/}
 # Decide how many flavors we want.  By default, only generate the default
 # versions.
 .  if defined(BUILD_ALL_PYTHON_FLAVORS) || defined(_PYTHON_FEATURE_ALLFLAVORS)
-FLAVORS=	${_ALL_PYTHON_FLAVORS}
+FLAVORS:=	${_ALL_PYTHON_FLAVORS}
 .  else
 .    for _v in ${PYTHON_DEFAULT} ${PYTHON2_DEFAULT} ${PYTHON3_DEFAULT}
 _f=	py${_v:S/.//}
