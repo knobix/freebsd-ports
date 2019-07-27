@@ -579,6 +579,180 @@ PYTHON_PYOEXTENSION=	pyo
 PYTHON_PYOEXTENSION=	opt-1.pyc
 .endif
 
+.if defined(_PYTHON_FEATURE_DJANGO)
+
+# What Django versions are currently supported?  Please keep in sync
+# with the comment in Mk/bsd.default-versions.mk.  These are in
+# preference order
+_DJANGO_VERSIONS=	1.11 2.2 2.1
+_DJANGO_PORTBRANCH=	1.11	# ${_DJANGO_VERSIONS:[1]}
+_DJANGO_RELPORTDIR=	www/py-django
+
+# Dependencies -- unless specific dependencies are requested, default
+# to adding a RUN_DEPENDS on the selected Django port with the
+# selected Python flavor.
+
+.undef _DJANGO_BUILD_DEP
+.if ${_PYTHON_FEATURE_DJANGO:Mbuild}
+_DJANGO_BUILD_DEP=		yes
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Nbuild}
+.endif
+
+.undef _DJANGO_RUN_DEP
+.if ${_PYTHON_FEATURE_DJANGO:Mrun}
+_DJANGO_RUN_DEP=		yes
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Nrun}
+.endif
+
+.undef _DJANGO_TEST_DEP
+.if ${_PYTHON_FEATURE_DJANGO:Mtest}
+_DJANGO_TEST_DEP=		yes
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ntest}
+.endif
+
+.if !defined(_DJANGO_BUILD_DEP) && !defined(_DJANGO_RUN_DEP) && \
+    !defined(_DJANGO_TEST_DEP)
+_DJANGO_RUN_DEP=		yes
+.endif
+
+.undef _DJANGO_NO_FLAVOR
+.if ${_PYTHON_FEATURE_DJANGO:Mnodjangoflavor}
+_DJANGO_NO_FLAVOR=		yes
+_PYTHON_FEATUREDJANGO:=		${_PYTHON_FEATURE_DJANGO:Nnodjangoflavor}
+.endif
+
+# Choose ether the systemwide default -- the first value from
+# _DJANGO_VERSIONS -- or the value set in DEFAULT_VERSIONS
+_DJANGO_DEFAULT:= ${DJANGO_DEFAULT:U${_DJANGO_PORTBRANCH}}
+
+# DEFAULT_VERSIONS should contain one of the known Django versions
+.if ! ${_DJANGO_VERSIONS:M${_DJANGO_DEFAULT}}
+IGNORE= Invalid django version ${_DJANGO_DEFAULT} should be one of: ${_DJANGO_VERSIONS:O}
+.endif
+
+.if defined(DJANGO_VERSION)
+_DJANGO_VERSION:=	${DJANGO_VERSION:S/^django//}
+.else
+_DJANGO_VERSION:=	${_DJANGO_DEFAULT}
+.endif # defined(DJANGO_VERSION)
+
+# Validate Django version whether it meets the version restriction.
+_DJANGO_VERSION_CHECK:=	${_PYTHON_FEATURE_DJANGO:C/^([1-9]\.[0-9]+)$/\1-\1/}
+_DJANGO_VERSION_MINIMUM:= ${_DJANGO_VERSION_CHECK:C/^([1-9]\.[0-9]+)[-+].*$/\1/}
+_DJANGO_VERSION_MAXIMUM:= ${_DJANGO_VERSION_CHECK:C/^[^-]+-([1-9]\.[0-9]+)$/\1/}
+
+# Remove any version specifiers and the word 'django: there should be
+# nothing remaining in ${_PYTHON_FEATURE_DJANGO}
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:C/^[1-9]\.[0-9]+\+?//:C/^-[1-9]\.[0-9]+//}
+_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ndjango}
+.if !empty(_PYTHON_FEATURE_DJANGO)
+IGNORE=	uses unknown USE_PYTHON=django arguments: ${_PYTHON_FEATURE_DJANGO}
+.endif
+
+DJANGO_VERSION=		django${_DJANGO_VERSION}
+DJANGO_MAJOR_VER=	${_DJANGO_VERSION:R}
+DJANGO_SUFFIX=		${_DJANGO_VERSION:S/.//}
+DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
+DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
+
+# Protect partial checkouts from Mk/Scripts/functions.sh:export_ports_env().
+.if !defined(_PORTS_ENV_CHECK) || exists(${PORTSDIR}/${DJANGO_PORTSDIR})
+.include "${PORTSDIR}/${DJANGO_PORTSDIR}/Makefile.version"
+.endif
+
+# Create a 3 digit integer version string in seven easy steps:
+#  1: Double up the field separator '.' to '..' This makes step 6 easy
+#  2: Delete any non-numeric suffix (rc1, alpha4, etc.)
+#  3: Use only the first two fields
+#  4: Add a '.' at the end -- 2nd and subseq. fields are now bounded by '.' 
+#  5: Append .00. if the third field is absent
+#  6: Zero fill any 1 digit fields after the first
+#  7: Delete all the '.' characters
+#
+#    1.11.20   2.0.13   2.1.8   2      2.2    1.2.3.4    2.2r1  2.3.0.b4
+# _1 1..11..20 2..0..13 2..1..8 2      2..2   1..2..3..4 2..2r1 2..3..0..b4
+# _2 1..11..20 2..0..13 2..1..8 2      2..2   1..2..3..4 2..2   2..3..0..
+# _3 1..11     2..0     2..1    2      2..2   1..2       2..2   2..3
+# _4 1..11.    2..0.    2..1.   2.     2..2.  1..2.      2..2.  2..3.
+# _5 1..11.    2..0.    2..1.   2..00. 2..2.  1..2.      2..2.  2..3.
+# _6 1..11.    2..00.   2..01.  2..00. 2..02. 1..02.     2..02. 2..03.
+# _7 111       200      201     200    202    102        202    203
+
+_1=	C/\./../g
+_2=	C/[^0-9\.].*$$//
+_3=	C/^([0-9]+\.\.[0-9]+).*$$/\1/
+_4=	C/$$/./
+_5=	C/^([0-9]+\.)$$/\1.00./
+_6=	C/\.([0-9])\./.0\1./g
+_7=	S/.//g
+
+DJANGO_REL:=	${DJANGO_PORTVERSION:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+_DJANGO_MIN:=	${_DJANGO_VERSION_MINIMUM:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+_DJANGO_MAX:=	${_DJANGO_VERSION_MAXIMUM:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+
+.undef _DJANGO_VERSION_NONSUPPORTED
+.if !empty(_DJANGO_MIN) && (${DJANGO_REL} < ${_DJANGO_MIN})
+_DJANGO_VERSION_NONSUPPORTED=	${_DJANGO_VERSION_MINIMUM} at least
+.elif !empty(_DJANGO_MAX) && (${DJANGO_REL} >= ${_DJANGO_MAX})
+_DJANGO_VERSION_NONSUPPORTED=	${_DJANGO_VERSION_MAXIMUM} at most
+.endif
+
+.if defined(_DJANGO_VERSION_NONSUPPORTED)
+.  if defined(DJANGO_VERSION)
+_DV:=		${_DJANGO_VERSION}
+IGNORE=		needs Django ${_DJANGO_VERSION_NONSUPPORTED}, but ${_DV} was specified
+.  endif	# defined(DJANGO_VERSION)
+.  undef _DJANGO_VERSION
+.  for ver in ${DJANGO1_DEFAULT} ${DJANGO2_DEFAULT} ${_DJANGO_VERSIONS}
+__VER=		${ver:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
+.    if !defined(_DJANGO_VERSION) && \
+	${__VER} >= ${_DJANGO_MIN} && \
+	${__VER} <= ${_DJANGO_MAX}
+_DJANGO_VERSION=	${ver}
+.    endif
+.  endfor
+.  if !defined(_DJANGO_VERSION)
+IGNORE=		needs an unsupported version of Django
+.  endif
+.endif 	# defined(_DJANGO_VERSION_NONSUPPORTED)
+
+.if !defined(_DJANGO_NO_FLAVOR)
+
+# ----------------------------------
+# FLAVORS: A combination if the Django and Python versions, with
+# certain restrictions.
+
+_PY_FLAVORS:=	${FLAVORS}
+.undef FLAVORS
+
+# We have _PYTHON_VERSION as the chosen python version and
+# _DJANGO_VERSION as the chosen django version, from which we should
+# be able to derive the particular DJANGO_FLAVOR we want to build.
+# Except that we need to ensure compatible versions of python and
+# django -- django-2.1+ requires python-3.4+ while django-1.11 will
+# work with all python 2.7+
+DJANGO_FLAVOR=	py${_PYTHON_VERSION:S/.//}-django${_DJANGO_VERSION:S/.//}
+
+.for _djv in ${_DJANGO_VERSIONS:S/.//}
+.  for _pyv in ${_PYTHON_VERSIONS:S/.//}
+.    if ( ${_pyv} != 27 || ${_djv} == 111 )
+_f:=	py${_pyv}-django${_djv}
+FLAVORS:=	${FLAVORS} ${_f}
+.    endif
+.  endfor
+.endfor
+
+FLAVOR:=	${DJANGO_FLAVOR}
+.endif # !defined(_DJANGO_NO_FLAVOR)
+
+.for _stage in BUILD RUN TEST
+.  if defined(_DJANGO_${_stage}_DEP)
+${_stage}_DEPENDS+=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}>0:${DJANGO_PORTSDIR}@${PY_FLAVOR}
+.  endif
+.endfor
+
+.endif # defined(_PYTHON_FEATURE_DJANGO)
+
 # Ports bound to a certain python version SHOULD
 # - use the PYTHON_PKGNAMEPREFIX
 # - use directories using the PYTHON_PKGNAMEPREFIX
@@ -809,177 +983,4 @@ do-install:
 .endif
 .endif # defined(_PYTHON_FEATURE_DISTUTILS)
 
-.if defined(_PYTHON_FEATURE_DJANGO)
-
-# What Django versions are currently supported?  Please keep in sync
-# with the comment in Mk/bsd.default-versions.mk.  These are in
-# preference order
-_DJANGO_VERSIONS=	1.11 2.2 2.1
-_DJANGO_PORTBRANCH=	1.11	# ${_DJANGO_VERSIONS:[1]}
-_DJANGO_RELPORTDIR=	www/py-django
-
-# Dependencies -- unless specific dependencies are requested, default
-# to adding a RUN_DEPENDS on the selected Django port with the
-# selected Python flavor.
-
-.undef _DJANGO_BUILD_DEP
-.if ${_PYTHON_FEATURE_DJANGO:Mbuild}
-_DJANGO_BUILD_DEP=		yes
-_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Nbuild}
-.endif
-
-.undef _DJANGO_RUN_DEP
-.if ${_PYTHON_FEATURE_DJANGO:Mrun}
-_DJANGO_RUN_DEP=		yes
-_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Nrun}
-.endif
-
-.undef _DJANGO_TEST_DEP
-.if ${_PYTHON_FEATURE_DJANGO:Mtest}
-_DJANGO_TEST_DEP=		yes
-_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ntest}
-.endif
-
-.if !defined(_DJANGO_BUILD_DEP) && !defined(_DJANGO_RUN_DEP) && \
-    !defined(_DJANGO_TEST_DEP)
-_DJANGO_RUN_DEP=		yes
-.endif
-
-.undef _DJANGO_NO_FLAVOR
-.if ${_PYTHON_FEATURE_DJANGO:Mnodjangoflavor}
-_DJANGO_NO_FLAVOR=		yes
-_PYTHON_FEATUREDJANGO:=		${_PYTHON_FEATURE_DJANGO:Nnodjangoflavor}
-.endif
-
-# Choose ether the systemwide default -- the first value from
-# _DJANGO_VERSIONS -- or the value set in DEFAULT_VERSIONS
-_DJANGO_DEFAULT:= ${DJANGO_DEFAULT:U${_DJANGO_PORTBRANCH}}
-
-# DEFAULT_VERSIONS should contain one of the known Django versions
-.if ! ${_DJANGO_VERSIONS:M${_DJANGO_DEFAULT}}
-IGNORE= Invalid django version ${_DJANGO_DEFAULT} should be one of: ${_DJANGO_VERSIONS:O}
-.endif
-
-.if defined(DJANGO_VERSION)
-_DJANGO_VERSION:=	${DJANGO_VERSION:S/^django//}
-.else
-_DJANGO_VERSION:=	${_DJANGO_DEFAULT}
-.endif # defined(DJANGO_VERSION)
-
-# Validate Django version whether it meets the version restriction.
-_DJANGO_VERSION_CHECK:=	${_PYTHON_FEATURE_DJANGO:C/^([1-9]\.[0-9]+)$/\1-\1/}
-_DJANGO_VERSION_MINIMUM:= ${_DJANGO_VERSION_CHECK:C/^([1-9]\.[0-9]+)[-+].*$/\1/}
-_DJANGO_VERSION_MAXIMUM:= ${_DJANGO_VERSION_CHECK:C/^[^-]+-([1-9]\.[0-9]+)$/\1/}
-
-# Remove any version specifiers and the word 'django: there should be
-# nothing remaining in ${_PYTHON_FEATURE_DJANGO}
-_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:C/^[1-9]\.[0-9]+\+?//:C/^-[1-9]\.[0-9]+//}
-_PYTHON_FEATURE_DJANGO:=	${_PYTHON_FEATURE_DJANGO:Ndjango}
-.if !empty(_PYTHON_FEATURE_DJANGO)
-IGNORE=	uses unknown USE_PYTHON=django arguments: ${_PYTHON_FEATURE_DJANGO}
-.endif
-
-DJANGO_VERSION=		django${_DJANGO_VERSION}
-DJANGO_MAJOR_VER=	${_DJANGO_VERSION:R}
-DJANGO_SUFFIX=		${_DJANGO_VERSION:S/.//}
-DJANGO_PKGNAMEPREFIX=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}-
-DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
-
-# Protect partial checkouts from Mk/Scripts/functions.sh:export_ports_env().
-.if !defined(_PORTS_ENV_CHECK) || exists(${PORTSDIR}/${DJANGO_PORTSDIR})
-.include "${PORTSDIR}/${DJANGO_PORTSDIR}/Makefile.version"
-.endif
-
-# Create a 3 digit integer version string in seven easy steps:
-#  1: Double up the field separator '.' to '..' This makes step 6 easy
-#  2: Delete any non-numeric suffix (rc1, alpha4, etc.)
-#  3: Use only the first two fields
-#  4: Add a '.' at the end -- 2nd and subseq. fields are now bounded by '.' 
-#  5: Append .00. if the third field is absent
-#  6: Zero fill any 1 digit fields after the first
-#  7: Delete all the '.' characters
-#
-#    1.11.20   2.0.13   2.1.8   2      2.2    1.2.3.4    2.2r1  2.3.0.b4
-# _1 1..11..20 2..0..13 2..1..8 2      2..2   1..2..3..4 2..2r1 2..3..0..b4
-# _2 1..11..20 2..0..13 2..1..8 2      2..2   1..2..3..4 2..2   2..3..0..
-# _3 1..11     2..0     2..1    2      2..2   1..2       2..2   2..3
-# _4 1..11.    2..0.    2..1.   2.     2..2.  1..2.      2..2.  2..3.
-# _5 1..11.    2..0.    2..1.   2..00. 2..2.  1..2.      2..2.  2..3.
-# _6 1..11.    2..00.   2..01.  2..00. 2..02. 1..02.     2..02. 2..03.
-# _7 111       200      201     200    202    102        202    203
-
-_1=	C/\./../g
-_2=	C/[^0-9\.].*$$//
-_3=	C/^([0-9]+\.\.[0-9]+).*$$/\1/
-_4=	C/$$/./
-_5=	C/^([0-9]+\.)$$/\1.00./
-_6=	C/\.([0-9])\./.0\1./g
-_7=	S/.//g
-
-DJANGO_REL:=	${DJANGO_PORTVERSION:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
-_DJANGO_MIN:=	${_DJANGO_VERSION_MINIMUM:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
-_DJANGO_MAX:=	${_DJANGO_VERSION_MAXIMUM:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
-
-.undef _DJANGO_VERSION_NONSUPPORTED
-.if !empty(_DJANGO_MIN) && (${DJANGO_REL} < ${_DJANGO_MIN})
-_DJANGO_VERSION_NONSUPPORTED=	${_DJANGO_VERSION_MINIMUM} at least
-.elif !empty(_DJANGO_MAX) && (${DJANGO_REL} >= ${_DJANGO_MAX})
-_DJANGO_VERSION_NONSUPPORTED=	${_DJANGO_VERSION_MAXIMUM} at most
-.endif
-
-.if defined(_DJANGO_VERSION_NONSUPPORTED)
-.  if defined(DJANGO_VERSION)
-_DV:=		${_DJANGO_VERSION}
-IGNORE=		needs Django ${_DJANGO_VERSION_NONSUPPORTED}, but ${_DV} was specified
-.  endif	# defined(DJANGO_VERSION)
-.  undef _DJANGO_VERSION
-.  for ver in ${DJANGO1_DEFAULT} ${DJANGO2_DEFAULT} ${_DJANGO_VERSIONS}
-__VER=		${ver:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
-.    if !defined(_DJANGO_VERSION) && \
-	${__VER} >= ${_DJANGO_MIN} && \
-	${__VER} <= ${_DJANGO_MAX}
-_DJANGO_VERSION=	${ver}
-.    endif
-.  endfor
-.  if !defined(_DJANGO_VERSION)
-IGNORE=		needs an unsupported version of Django
-.  endif
-.endif 	# defined(_DJANGO_VERSION_NONSUPPORTED)
-
-.if !defined(_DJANGO_NO_FLAVOR)
-
-# ----------------------------------
-# FLAVORS: A combination if the Django and Python versions, with
-# certain restrictions.
-
-_PY_FLAVORS:=	${FLAVORS}
-.undef FLAVORS
-
-# We have _PYTHON_VERSION as the chosen python version and
-# _DJANGO_VERSION as the chosen django version, from which we should
-# be able to derive the particular DJANGO_FLAVOR we want to build.
-# Except that we need to ensure compatible versions of python and
-# django -- django-2.1+ requires python-3.4+ while django-1.11 will
-# work with all python 2.7+
-DJANGO_FLAVOR=	py${_PYTHON_VERSION:S/.//}-django${_DJANGO_VERSION:S/.//}
-
-.for _djv in ${_DJANGO_VERSIONS:S/.//}
-.  for _pyv in ${_PYTHON_VERSIONS:S/.//}
-.    if ( ${_pyv} != 27 || ${_djv} == 111 )
-_f:=	py${_pyv}-django${_djv}
-FLAVORS:=	${FLAVORS} ${_f}
-.    endif
-.  endfor
-.endfor
-
-FLAVOR:=	${DJANGO_FLAVOR}
-.endif # !defined(_DJANGO_NO_FLAVOR)
-
-.for _stage in BUILD RUN TEST
-.  if defined(_DJANGO_${_stage}_DEP)
-${_stage}_DEPENDS+=	py${PYTHON_SUFFIX}-django${DJANGO_SUFFIX}>0:${DJANGO_PORTSDIR}@${PY_FLAVOR}
-.  endif
-.endfor
-
-.endif # defined(_PYTHON_FEATURE_DJANGO)
 .endif # defined(_POSTMKINCLUDED) && !defined(_INCLUDE_USES_PYTHON_POST_MK)
