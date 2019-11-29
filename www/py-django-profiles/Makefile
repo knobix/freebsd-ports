@@ -13,6 +13,8 @@ DIST_SUBDIR=	${PORTNAME}
 MAINTAINER=	jpaetzel@FreeBSD.org
 COMMENT=	User-profile application for Django
 
+BROKEN=		unfetchable
+
 LICENSE=	BSD3CLAUSE
 
 WRKSRC=	${WRKDIR}/${PORTNAME}

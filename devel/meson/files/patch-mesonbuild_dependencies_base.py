@@ -1,6 +1,6 @@
 https://github.com/mesonbuild/meson/pull/4325
 
-From 158d627c141859e28bbca2c2126b5306608aac6e Mon Sep 17 00:00:00 2001
+From c4686de2612157a4040766738a700b710d866da4 Mon Sep 17 00:00:00 2001
 From: Ting-Wei Lan <lantw@src.gnome.org>
 Date: Thu, 4 Oct 2018 23:30:28 +0800
 Subject: [PATCH] PkgConfigDependency: Sort -L flags according to
@@ -51,34 +51,13 @@ library files. This makes sure that we always follow the preferences of
 users, without depending on the unreliable part of pkg-config output.
 
 Fixes https://github.com/mesonbuild/meson/issues/4271.
---- mesonbuild/dependencies/base.py.orig	2018-09-22 13:22:03 UTC
+
+--- mesonbuild/dependencies/base.py.orig	2019-10-06 17:01:35 UTC
 +++ mesonbuild/dependencies/base.py
-@@ -604,6 +604,21 @@ class PkgConfigDependency(ExternalDepend
-                                       (self.name, out))
-         self.compile_args = self._convert_mingw_paths(shlex.split(out))
- 
-+    def _sort_libpaths(self, libpaths, refpaths):
-+        if len(refpaths) == 0:
-+            return list(libpaths)
-+
-+        def key_func(libpath):
-+            common_lengths = []
-+            for refpath in refpaths:
-+                common_path = os.path.commonpath([libpath, refpath])
-+                common_lengths.append(len(common_path))
-+            max_length = max(common_lengths)
-+            max_index = common_lengths.index(max_length)
-+            reversed_max_length = len(refpaths[max_index]) - max_length
-+            return (max_index, reversed_max_length)
-+        return sorted(libpaths, key=key_func)
-+
-     def _search_libs(self, out, out_raw):
-         '''
-         @out: PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 pkg-config --libs
-@@ -635,6 +650,22 @@ class PkgConfigDependency(ExternalDepend
-         for arg in raw_link_args:
-             if arg.startswith('-L') and not arg.startswith(('-L-l', '-L-L')):
-                 prefix_libpaths.add(arg[2:])
+@@ -784,6 +784,22 @@ class PkgConfigDependency(ExternalDependency):
+                     # Resolve the path as a compiler in the build directory would
+                     path = os.path.join(self.env.get_build_dir(), path)
+                 prefix_libpaths.add(path)
 +        # Library paths are not always ordered in a meaningful way
 +        #
 +        # Instead of relying on pkg-config or pkgconf to provide -L flags in a
@@ -94,7 +73,38 @@ Fixes https://github.com/mesonbuild/meson/issues/4271.
 +        else:
 +            pkg_config_path = []
 +        pkg_config_path = self._convert_mingw_paths(pkg_config_path)
-+        prefix_libpaths = self._sort_libpaths(prefix_libpaths, pkg_config_path)
++        prefix_libpaths = sort_libpaths(prefix_libpaths, pkg_config_path)
          system_libpaths = OrderedSet()
-         full_args = self._convert_mingw_paths(shlex.split(out))
+         full_args = self._convert_mingw_paths(self._split_args(out))
          for arg in full_args:
+@@ -2284,6 +2300,30 @@ def _build_external_dependency_list(name, env: Environ
+                                                 False, None, env, None, kwargs))
+ 
+     return candidates
++
++
++def sort_libpaths(libpaths: List[str], refpaths: List[str]) -> List[str]:
++    """Sort <libpaths> according to <refpaths>
++
++    It is intended to be used to sort -L flags returned by pkg-config.
++    Pkg-config returns flags in random order which cannot be relied on.
++    """
++    if len(refpaths) == 0:
++        return list(libpaths)
++
++    def key_func(libpath):
++        common_lengths = []
++        for refpath in refpaths:
++            try:
++                common_path = os.path.commonpath([libpath, refpath])
++            except ValueError:
++                common_path = ''
++            common_lengths.append(len(common_path))
++        max_length = max(common_lengths)
++        max_index = common_lengths.index(max_length)
++        reversed_max_length = len(refpaths[max_index]) - max_length
++        return (max_index, reversed_max_length)
++    return sorted(libpaths, key=key_func)
+ 
+ 
+ def strip_system_libdirs(environment, for_machine: MachineChoice, link_args):

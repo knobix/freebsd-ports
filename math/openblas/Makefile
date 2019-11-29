@@ -3,7 +3,7 @@
 
 PORTNAME=	openblas
 PORTVERSION=	0.2.20
-PORTREVISION=	8
+PORTREVISION=	11
 DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	math
@@ -16,8 +16,6 @@ COMMENT=	Optimized BLAS library based on GotoBLAS2
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
-
-BROKEN_powerpc64=	fails to compile: gemm.c:403: 'SGEMM_DEFAULT_Q' undeclared (first use in this function)
 
 USES=		fortran gmake perl5
 
@@ -42,6 +40,8 @@ BUILDFLAGS=	FCOMMON_OPT=-frecursive MAKE_NB_JOBS=-1
 OPTIONS_DEFINE=		INTERFACE64 OPENMP
 OPTIONS_DEFINE_i386=	DYNAMIC_ARCH AVX AVX2
 OPTIONS_DEFINE_amd64=	${OPTIONS_DEFINE_i386}
+OPTIONS_DEFINE_powerpc64=	POWER6
+OPTIONS_EXCLUDE_powerpc64=	OPENMP
 
 .if defined(BATCH) || defined(PACKAGE_BUILDING)
 OPTIONS_DEFAULT_i386=	DYNAMIC_ARCH
@@ -53,8 +53,18 @@ INTERFACE64_DESC=	Use 8 byte integers on 64-bit architectures
 OPENMP_DESC=		Use OpenMP for threading
 AVX_DESC=		Support Advanced Vector Extensions (AVX)
 AVX2_DESC=		Support Advanced Vector Extensions 2 (AVX2)
+POWER6_DESC=		Optimize for POWER6, instead of the default PPC970
 
 .include <bsd.port.options.mk>
+
+.if ${ARCH} == powerpc64
+USE_GCC=	yes
+.  if ${PORT_OPTIONS:MPOWER6}
+TARGET_CPU_ARCH=	POWER6
+.else
+TARGET_CPU_ARCH=	PPC970
+.  endif
+.endif
 
 .if defined(TARGET_CPU_ARCH)
 BUILDFLAGS+=	TARGET=${TARGET_CPU_ARCH}
@@ -75,6 +85,9 @@ MANUAL_PACKAGE_BUILD=	Optimizes for the build machine.
 
 .if ${PORT_OPTIONS:MDYNAMIC_ARCH}
 BUILDFLAGS+=	DYNAMIC_ARCH=1
+PLIST_SUB+=	DYNARCH=""
+.else
+PLIST_SUB+=	DYNARCH="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MINTERFACE64}
@@ -84,6 +97,8 @@ BUILDFLAGS+=	INTERFACE64=1
 .if ${PORT_OPTIONS:MOPENMP}
 USES+=		compiler:openmp
 BUILDFLAGS_THREAD+=	USE_OPENMP=1
+.else
+USES+=		compiler:c11
 .endif
 
 .if ! ${PORT_OPTIONS:MAVX}
@@ -131,6 +146,10 @@ post-patch:
 	-e 's+$${CROSS_SUFFIX}+${LOCALBASE}/bin/+' \
 	-e '/Clang.*OpenMP/g' \
 		${WRKSRC}/Makefile.system
+	${REINPLACE_CMD} \
+	-e 's/defined(linux)/(defined(linux) || defined(__FreeBSD__))/g' \
+	-e 's/ifdef linux/if defined(linux) || defined(__FreeBSD__)/g' \
+		${WRKSRC}/kernel/power/*.S
 
 post-patch-OPENMP-on:
 	${REINPLACE_CMD} -e "s+OPENBLAS_NUM_THREADS+OMP_NUM_THREADS+g" \
@@ -167,5 +186,28 @@ do-install:
 	${INSTALL_LIB} ${WRKDIR}/lib/${L}.so.${OPENBLAS_SVER} ${STAGEDIR}${PREFIX}/lib
 	${LN} -sf ${L}.so.${OPENBLAS_SVER} ${STAGEDIR}${PREFIX}/lib/${L}.so
 .endfor
+	cd ${WRKSRC} && \
+		${FIND} . -name 'common*.h' -print | ${XARGS} ${BASENAME} | ${XARGS} -I {} ${MV} {} openblas_{}
+	${MV} ${WRKSRC}/version.h ${WRKSRC}/openblas_version.h
+	${MV} ${WRKSRC}/param.h ${WRKSRC}/openblas_param.h
+	${MV} ${WRKSRC}/cpuid.h ${WRKSRC}/openblas_cpuid.h
+	${MV} ${WRKSRC}/config.h ${WRKSRC}/openblas_config.h
+	${REINPLACE_CMD} \
+	-e 's/"common.h"/"openblas_common.h"/' \
+	-e 's/"version.h"/"openblas_version.h"/' \
+	-e 's/"param.h"/"openblas_param.h"/' \
+	-e 's/"cpuid.h"/"openblas_cpuid.h"/' \
+	-e 's/"config.h"/"openblas_config.h"/' \
+	-e 's/"common_/"openblas_common_/' \
+		${WRKSRC}/*.h \
+		${WRKSRC}/*.c \
+		${WRKSRC}/interface/*.c
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/openblas
+	${INSTALL_DATA} ${WRKSRC}/openblas_*.h ${STAGEDIR}${PREFIX}/include/openblas
+	${INSTALL_DATA} ${WRKSRC}/cblas.h ${WRKSRC}/config_last.h ${WRKSRC}/l1param.h ${WRKSRC}/l2param.h ${WRKSRC}/symcopy.h \
+		${STAGEDIR}${PREFIX}/include/openblas
+
+do-install-DYNAMIC_ARCH-on:
+	${INSTALL_DATA} ${WRKSRC}/config_kernel.h ${STAGEDIR}${PREFIX}/include/openblas
 
 .include <bsd.port.mk>

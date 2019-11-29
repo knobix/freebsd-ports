@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	kbibtex
-DISTVERSION=	0.9
+DISTVERSION=	0.9.1
 CATEGORIES=	databases kde
 MASTER_SITES=	KDE/stable/KBibTeX/${DISTVERSION}
 

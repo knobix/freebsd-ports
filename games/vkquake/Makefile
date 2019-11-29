@@ -2,6 +2,7 @@
 
 PORTNAME=	vkquake
 DISTVERSION=	1.00.0
+PORTREVISION=	1
 CATEGORIES=	games
 
 MAINTAINER=	greg@unrelenting.technology
@@ -16,7 +17,7 @@ LIB_DEPENDS=	libX11-xcb.so:x11/libX11 \
 
 WRKSRC_SUBDIR=	Quake
 
-USES=		desktop-file-utils gmake pkgconfig
+USES=		desktop-file-utils gmake gnome pkgconfig sdl
 USE_SDL=	sdl2
 
 USE_GITHUB=	yes

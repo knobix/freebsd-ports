@@ -4,7 +4,7 @@
 PORTNAME=	echoping
 PORTVERSION=	6.0.2
 PORTREVISION=	6
-CATEGORIES=	net ipv6
+CATEGORIES=	net
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Ping-like program that uses TCP and/or HTTP
@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 LIB_DEPENDS=	libpopt.so:devel/popt \
 		libidn.so:dns/libidn
 
-USES=		autoreconf cpe libtool ssl
+USES=		autoreconf cpe libtool pkgconfig ssl
 
 CPE_VENDOR=	echoping_project
 GNU_CONFIGURE=	yes
@@ -28,9 +28,8 @@ PING_PLUGINS=	dns random whois
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	bortzmeyer
-GH_PROJECT=	${PORTNAME}
 GH_TAGNAME=	dfe95b5
-WRKSRC=		${WRKDIR}/${PORTNAME}-${GH_TAGNAME}/SRC
+WRKSRC_SUBDIR=	SRC
 
 OPTIONS_DEFINE=	LDAP PGSQL
 OPTIONS_DEFAULT=LDAP

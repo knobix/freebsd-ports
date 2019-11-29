@@ -3,7 +3,7 @@
 
 PORTNAME=	eventlib
 PORTVERSION=	0.1.5
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	devel python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -19,8 +19,9 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}celery>=3.0.0:devel/py-celery@${PY_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}logan>=0.5.0:devel/py-logan@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}redis>=2.7.1:databases/py-redis@${PY_FLAVOR}
 
-NO_ARCH=	yes
-USE_PYTHON=	autoplist concurrent distutils django
 USES=		python
+USE_PYTHON=	autoplist concurrent distutils django
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

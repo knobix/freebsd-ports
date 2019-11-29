@@ -2,31 +2,31 @@
 # $FreeBSD$
 
 PORTNAME=	dpaste
-PORTVERSION=	2.13
+PORTVERSION=	3.3.1
 CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
 MAINTAINER=	koobs@FreeBSD.org
-COMMENT=	Django based pastebin
+COMMENT=	Django based pastebin for text and code
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pygments>=1.6:textproc/py-pygments@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:devel/py-six@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pygments>=1.6:textproc/py-pygments@${PY_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django_csp>=3.3:www/py-django_csp@${DJANGO_FLAVOR} \
+		${DJANGO_PKGNAMEPREFIX}django-staticinline>=1.0:www/py-django-staticinline@${DJANGO_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}jsx-lexer=0.0.7:textproc/py-jsx-lexer@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}docutils>0:textproc/py-docutils@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}misaka>=2.1.0:textproc/py-misaka@${PY_FLAVOR}
 
-OPTIONS_DEFINE=		MIGRATIONS
-
-MIGRATIONS_DESC=	Schema and data migration support (via south)
-
-MIGRATIONS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}south>=0.8.2:databases/py-south@${PY_FLAVOR}
-
-USES=		python
+USES=		python:3.4+
 USE_PYTHON=	distutils autoplist django
 
 NO_ARCH=	yes
 
 do-test:
-	@cd ${WRKSRC} && ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test
+	@cd ${WRKSRC} && ${PYTHON_CMD} runtests.py
 
 .include <bsd.port.mk>

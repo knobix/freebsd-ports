@@ -3,6 +3,7 @@
 
 PORTNAME=	sip
 PORTVERSION=	${SIP_VERSION}
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	devel python
 MASTER_SITES=	${MASTER_SITES_SIP}
@@ -32,10 +33,11 @@ DEBUG_CONFIGURE_ON=	--debug
 # When building PyQt5 v5.11 or later you must configure SIP to create a
 # private copy of the sip module using a command line similar to the following:
 #  > python configure.py --sip-module PyQt5.sip --no-tools
-# As this port is already flavored we cannot add further Qt4/Qt5 flavoring.
 CONFIGURE_WRKSRC=	${WRKSRC}/default
 BUILD_WRKSRC=		${CONFIGURE_WRKSRC}
 INSTALL_WRKSRC=		${CONFIGURE_WRKSRC}
+
+PYQT_SIPDIR=	${LOCALBASE}/share/PyQt5/${PYTHON_VER}/sip
 
 do-configure:
 	# The default sip 'flavor'

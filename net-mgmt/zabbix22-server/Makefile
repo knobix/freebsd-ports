@@ -3,7 +3,7 @@
 
 PORTNAME=	zabbix22
 PORTVERSION=	2.2.23
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES=	net-mgmt
 MASTER_SITES=	SF/zabbix/ZABBIX%20Latest%20Stable/${PORTVERSION}
 PKGNAMESUFFIX?=	-server
@@ -14,6 +14,9 @@ COMMENT=	Enterprise-class open source distributed monitoring (${PKGNAMESUFFIX:S/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+DEPRECATED=		End of Life was August, 2019
+EXPIRATION_DATE=	2019-11-30
 
 LIB_DEPENDS=	libnetsnmp.so:net-mgmt/net-snmp
 

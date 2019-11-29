@@ -40,7 +40,6 @@
     SUBDIR += kmymoney
     SUBDIR += ktoblzcheck
     SUBDIR += ledger
-    SUBDIR += ledgersmb
     SUBDIR += ledgersmb12
     SUBDIR += libofx
     SUBDIR += libstocks
@@ -92,6 +91,7 @@
     SUBDIR += p5-PayflowPro
     SUBDIR += pear_Payment_DTA
     SUBDIR += prestashop
+    SUBDIR += py-backtrader
     SUBDIR += py-bitcoin
     SUBDIR += py-pycoin
     SUBDIR += py-python-bitcoinlib

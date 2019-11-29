@@ -5,14 +5,13 @@
 
     SUBDIR += R-cran-RCurl
     SUBDIR += R-cran-curl
-    SUBDIR += atftp
     SUBDIR += axel
     SUBDIR += bbftp
     SUBDIR += bftpd
     SUBDIR += bsdftpd-ssl
-    SUBDIR += cftp
     SUBDIR += cmdftp
     SUBDIR += curl
+    SUBDIR += curlie
     SUBDIR += curlpp
     SUBDIR += dmachine
     SUBDIR += fastdfs
@@ -43,7 +42,6 @@
     SUBDIR += mirror
     SUBDIR += multiget
     SUBDIR += ncftp3
-    SUBDIR += ncftpd
     SUBDIR += net2ftp
     SUBDIR += netdumpd
     SUBDIR += ocaml-ocurl
@@ -67,6 +65,8 @@
     SUBDIR += php72-ftp
     SUBDIR += php73-curl
     SUBDIR += php73-ftp
+    SUBDIR += php74-curl
+    SUBDIR += php74-ftp
     SUBDIR += phpwebftp
     SUBDIR += proftpd
     SUBDIR += proftpd-mod_vroot

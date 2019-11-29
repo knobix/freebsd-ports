@@ -2,12 +2,12 @@
 # $FreeBSD$
 
 PORTNAME=	django-auth-ldap
-PORTVERSION=	1.7.0
+PORTVERSION=	2.0.0
 CATEGORIES=	www security python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 
-MAINTAINER=	avk@vl.ru
+MAINTAINER=	kai@FreeBSD.org
 COMMENT=	LDAP integration for django.contrib.auth
 
 LICENSE=	BSD2CLAUSE
@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ldap>=3.1:net/py-ldap@${PY_FLAVOR}
 
-USES=		python
+USES=		python:3.5+
 USE_PYTHON=	autoplist distutils django
 
 NO_ARCH=	yes

@@ -14,7 +14,6 @@ LICENSE_FILE=	${WRKSRC}/LICENSE.txt
 
 RUN_DEPENDS=	bash:shells/bash \
 		${LOCALBASE}/www/haiwen/seafile-server/seafile/bin/seaf-server:net-mgmt/seafile-server \
-		${PYTHON_PKGNAMEPREFIX}pytz>=0:devel/py-pytz@${PY_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-simple-captcha>=0:www/py-django-simple-captcha@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-statici18n>=0:www/py-django-statici18n@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}djangorestframework>=0:www/py-djangorestframework@${DJANGO_FLAVOR} \
@@ -24,12 +23,9 @@ RUN_DEPENDS=	bash:shells/bash \
 		${DJANGO_PKGNAMEPREFIX}django-constance>=0:www/py-django-constance@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-webpack-loader>=0.6.0:www/py-django-webpack-loader@${DJANGO_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}gunicorn>=0:www/py-gunicorn@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}chardet>=0:textproc/py-chardet@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}dateutil>=0:devel/py-dateutil@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=0:www/py-requests@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}requests-oauthlib>=0.6.0:www/py-requests-oauthlib@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}social-auth-core>=1.7.0:security/py-social-auth-core@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}six>=0:devel/py-six@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}openpyxl>=0:textproc/py-openpyxl@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pillow>=0:graphics/py-pillow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}MySQLdb>0:databases/py-MySQLdb@${PY_FLAVOR} \

@@ -19,6 +19,8 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}redis>=2.9.1:databases/py-redis@${PY_FLAVOR}
 USES=		python
 USE_PYTHON=	autoplist distutils django
 
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj22-django-cacheops
+
 NO_ARCH=		yes
 
 .include <bsd.port.mk>

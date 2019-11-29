@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-debug-toolbar
-PORTVERSION=	1.11
+PORTVERSION=	2.1
 CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -16,8 +16,8 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlparse>=0.2.0:databases/py-sqlparse@${PY_FLAVOR}
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django
+USE_PYTHON=	autoplist distutils django
 
-NO_ARCH=		yes
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

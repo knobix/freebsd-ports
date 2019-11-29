@@ -11,8 +11,6 @@ COMMENT=	Accounting and aggregation tool for IPv4 and IPv6 traffic
 
 LICENSE=	GPLv2
 
-BROKEN_aarch64=		fails to build: undefined reference to sbrk
-
 USES=		libtool
 USE_RC_SUBR=	pmacctd nfacctd sfacctd
 SUB_FILES=	pkg-message
@@ -43,9 +41,11 @@ SQLITE3_DESC=	Enable SQLite3 support
 USES+=		mysql
 CONFIGURE_ARGS+=--enable-mysql
 PLIST_SUB+=	WITH_MYSQL=""
+PLIST_SUB+=	SQLDOC=""
 .else
 CONFIGURE_ARGS+=--disable-mysql
 PLIST_SUB+=	WITH_MYSQL="@comment "
+PLIST_SUB+=	SQLDOC="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MPGSQL}
@@ -53,9 +53,11 @@ USES+=		pgsql
 WANT_PGSQL=	client
 CONFIGURE_ARGS+=--enable-pgsql
 PLIST_SUB+=	WITH_PGSQL=""
+PLIST_SUB+=	SQLDOC=""
 .else
 CONFIGURE_ARGS+=--disable-pgsql
 PLIST_SUB+=	WITH_PGSQL="@comment "
+PLIST_SUB+=	SQLDOC="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MSQLITE3}
@@ -63,9 +65,11 @@ USES+=		pkgconfig sqlite
 CONFIGURE_ARGS+=--enable-sqlite3 \
 		--with-sqlite3-includes=${LOCALBASE}/include
 PLIST_SUB+=	WITH_SQLITE3=""
+PLIST_SUB+=	SQLDOC=""
 .else
 CONFIGURE_ARGS+=--disable-sqlite3
 PLIST_SUB+=	WITH_SQLITE3="@comment "
+PLIST_SUB+=	SQLDOC="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MLAYER2}
@@ -157,9 +161,9 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|-O2||g' ${WRKSRC}/configure
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${WRKSRC}/docs/* ${STAGEDIR}${DOCSDIR}
 .for i in AUTHORS CONFIG-KEYS COPYING ChangeLog FAQS INSTALL QUICKSTART UPGRADE
 	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}

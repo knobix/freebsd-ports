@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	weechat
-PORTVERSION=	2.5
+DISTVERSION=	2.6
 CATEGORIES=	irc
 MASTER_SITES=	https://weechat.org/files/src/
 
@@ -19,8 +19,7 @@ LIB_DEPENDS+=	libcurl.so:ftp/curl \
 USES=		cmake:noninja ncurses libtool tar:xz
 USE_LDCONFIG=	yes
 
-CMAKE_ARGS+=	-DENABLE_GUILE=no \
-		-DLIBDATADIR=${LOCALBASE}/libdata
+CMAKE_ARGS=	-DLIBDATADIR=${LOCALBASE}/libdata
 
 OPTIONS_DEFINE=		BACKTRACE DOCS CA_BUNDLE GNUTLS HEADLESS ICON ICONV \
 			MANPAGES NLS
@@ -58,7 +57,8 @@ DOCS_CMAKE_BOOL=	ENABLE_DOC
 DOCS_BUILD_DEPENDS=	${LOCALBASE}/bin/asciidoctor:textproc/rubygem-asciidoctor
 GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
 GNUTLS_USES=		pkgconfig
-GUILE_LIB_DEPENDS=	libguile-2.0.so:lang/guile2
+GUILE_LIB_DEPENDS=	libguile-2.2.so:lang/guile2
+GUILE_CMAKE_BOOL=	ENABLE_GUILE
 ICONV_USES=		iconv
 JAVASCRIPT_LIB_DEPENDS=	libv8.so:lang/v8
 LUA_USES=		lua pkgconfig
@@ -76,19 +76,20 @@ TCL_USES=		tcl
 
 .include <bsd.port.pre.mk>
 
-.if !empty(PORT_OPTIONS:MPYTHON) && ${PYTHON_MAJOR_VER} >= 3
-WARNING=	"Using Python 3.x is NOT recommended because many \"official\" scripts won\'t work"
-CMAKE_ARGS+=	-DENABLE_PYTHON3:BOOL=true \
-		-DPYTHON_LIBRARY:FILEPATH=${LOCALBASE}/lib/libpython${PYTHON_VER}m.so
+.if !empty(PORT_OPTIONS:MPYTHON) && ${PYTHON_MAJOR_VER} == 2
+CMAKE_ARGS+=	-DENABLE_PYTHON2:BOOL=true \
+#		-DPYTHON_LIBRARIES=${LOCALBASE}/lib
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|$${LIBDIR}/../pkgconfig|$${CMAKE_INSTALL_PREFIX}/libdata/pkgconfig|' \
+	@${REINPLACE_CMD} 's|$${LIBDIR}/../pkgconfig|$${CMAKE_INSTALL_PREFIX}/libdata/pkgconfig|' \
 		${WRKSRC}/CMakeLists.txt
 .for f in src/CMakeLists.txt src/core/CMakeLists.txt cmake/*.cmake
-	@${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|' \
+	@${REINPLACE_CMD} 's|/usr/local|${LOCALBASE}|' \
 		${WRKSRC}/${f}
 .endfor
+	@${REINPLACE_CMD} 's|python${PYTHON_MAJOR_VER}|python-${PYTHON_VER}|' \
+		${WRKSRC}/cmake/FindPython.cmake
 
 post-patch-ICON-off:
 	@${REINPLACE_CMD} -e '/^# icon$$/,/^$$/d' ${WRKSRC}/CMakeLists.txt
