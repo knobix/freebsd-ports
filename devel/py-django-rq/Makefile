@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-rq
-PORTVERSION=	2.1.0
-PORTREVISION=	1
+PORTVERSION=	2.2.0
 CATEGORIES=	devel python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 MASTER_SITES=	CHEESESHOP
@@ -23,14 +22,9 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coverage>=0:devel/py-coverage@${PY_FLAVOR} 
 		redis-server:databases/redis
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django
+USE_PYTHON=	autoplist concurrent distutils django=2.2+
 
 NO_ARCH=	yes
-
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj22-django-rq
-
-# django-rq 2.2.0+ requires Django 2.0+
-PORTSCOUT=	limit:^2\.1\.
 
 # https://github.com/rq/django-rq/blob/master/Makefile
 do-test:
