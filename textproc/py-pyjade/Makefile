@@ -22,6 +22,6 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Jinja2>=0:devel/py-Jinja2@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tornado>=0:www/py-tornado@${PY_FLAVOR}
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django=test
+USE_PYTHON=	autoplist concurrent distutils django=1.11,test
 
 .include <bsd.port.mk>

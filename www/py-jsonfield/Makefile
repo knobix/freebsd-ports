@@ -15,7 +15,7 @@ LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		python
-USE_PYTHON=	autoplist concurrent distutils django=1.11+
+USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
 
