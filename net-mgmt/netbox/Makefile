@@ -2,8 +2,9 @@
 
 PORTNAME=	netbox
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.6.7
+DISTVERSION=	2.6.12
 CATEGORIES=	net-mgmt python django
+
 MAINTAINER=	kai@FreeBSD.org
 COMMENT=	IP address management tool
 

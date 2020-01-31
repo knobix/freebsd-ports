@@ -24,6 +24,8 @@ USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
 
+PORTSCOUT=	limit:^4\.10\.
+
 do-test:
 	@cd ${WRKSRC}/tests && ${PYTHON_CMD} runtests.py
 

@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tesseract
-PORTVERSION=	4.1.0
-PORTREVISION=	3
+PORTVERSION=	4.1.1
 CATEGORIES=	graphics
 
 MAINTAINER=	pkubaj@FreeBSD.org
@@ -44,12 +43,17 @@ OPTIONS_DEFAULT_i386=OPENMP
 OPTIONS_SUB=	yes
 
 OPENMP_CONFIGURE_ENABLE=openmp
-OPENMP_LIB_DEPENDS=libomp.so:devel/openmp
 
 TOOLS_DESC=	Include training tools
 TOOLS_LIB_DEPENDS=libicui18n.so:devel/icu \
 		libfontconfig.so:x11-fonts/fontconfig
 TOOLS_USE=	GNOME=cairo,glib20,pango
+
+.include <bsd.port.pre.mk>
+
+.if ${CHOSEN_COMPILER_TYPE} == clang && !exists(/usr/include/omp.h)
+OPENMP_LIB_DEPENDS=libomp.so:devel/openmp
+.endif
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|-O3 -DNDEBUG||' ${WRKSRC}/configure.ac
@@ -64,4 +68,4 @@ post-install-DOCS-on:
 post-install-TOOLS-on:
 	@cd ${WRKSRC} && ${MAKE} DESTDIR=${STAGEDIR} training-install
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

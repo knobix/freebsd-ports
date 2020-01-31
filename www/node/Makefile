@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	node
-PORTVERSION=	13.2.0
+PORTVERSION=	13.4.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 MASTER_SITES=	http://nodejs.org/dist/v${PORTVERSION}/
@@ -12,7 +12,7 @@ COMMENT=	V8 JavaScript for client and server
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BROKEN_SSL=		openssl libressl libressl-devel
+BROKEN_SSL=		libressl libressl-devel
 BROKEN_SSL_REASON=	Node.js 12.x requires OpenSSL 1.1.x or the BUNDLED_SSL option enabled
 ONLY_FOR_ARCHS=		aarch64 amd64 armv6 armv7 i386 powerpc64
 
@@ -76,6 +76,10 @@ LIB_DEPENDS+=	libcares.so:dns/c-ares\
 		libnghttp2.so:www/libnghttp2
 
 .include <bsd.port.options.mk>
+
+.if defined(PPC_ABI) && ${PPC_ABI} == ELFv2
+EXTRA_PATCHES=		${PATCHDIR}/extra-patch-common.gypi
+.endif
 
 .if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200085
 BROKEN_SSL+=	base

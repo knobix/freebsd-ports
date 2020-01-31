@@ -321,7 +321,6 @@ LDFLAGS+=	-B${LOCALBASE}/bin
 .elif ${ARCH:Mpowerpc*}
 . if ${ARCH} == "powerpc64"
 MOZ_EXPORT+=	UNAME_m="${ARCH}"
-CFLAGS+=	-mminimal-toc
 . endif
 .elif ${ARCH} == "sparc64"
 # Work around miscompilation/mislinkage of the sCanonicalVTable hacks.
@@ -373,6 +372,14 @@ gecko-post-patch:
 		-e 's|share/mozilla/extensions|lib/xpi|g' \
 		${MOZSRC}/xpcom/io/nsAppFileLocationProvider.cpp \
 		${MOZSRC}/toolkit/xre/nsXREDirProvider.cpp
+# Disable vendor checksums like lang/rust
+	@${REINPLACE_CMD} 's,"files":{[^}]*},"files":{},' \
+		${MOZSRC}/third_party/rust/*/.cargo-checksum.json
+
+pre-configure-script:
+# Check that the running kernel has COMPAT_FREEBSD11 required by lang/rust post-ino64
+	@${SETENV} CC="${CC}" OPSYS="${OPSYS}" OSVERSION="${OSVERSION}" WRKDIR="${WRKDIR}" \
+		${SH} ${SCRIPTSDIR}/rust-compat11-canary.sh
 
 post-install-script: gecko-create-plist
 

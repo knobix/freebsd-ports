@@ -147,10 +147,6 @@
     SUBDIR += php-lz4
     SUBDIR += php-snappy
     SUBDIR += php-zstd
-    SUBDIR += php71-bz2
-    SUBDIR += php71-phar
-    SUBDIR += php71-zip
-    SUBDIR += php71-zlib
     SUBDIR += php72-bz2
     SUBDIR += php72-phar
     SUBDIR += php72-zip
@@ -177,7 +173,6 @@
     SUBDIR += py-brotlipy
     SUBDIR += py-bup
     SUBDIR += py-bz2file
-    SUBDIR += py-czipfile
     SUBDIR += py-libarchive-c
     SUBDIR += py-librtfcomp
     SUBDIR += py-lz4
@@ -220,7 +215,6 @@
     SUBDIR += snappy
     SUBDIR += snappy-java
     SUBDIR += snzip
-    SUBDIR += squeeze
     SUBDIR += squsq
     SUBDIR += star
     SUBDIR += stuffit

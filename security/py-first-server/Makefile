@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	first-server
-PORTVERSION=	0.0.6
+PORTVERSION=	0.0.7
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security python django
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -19,8 +19,8 @@ RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}oauth2client>=3.0.0:security/py-oauth2clien
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}google-api-python-client>=1.5.3:www/py-google-api-python-client@${PY_FLAVOR}
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}capstone>=3.0.4:devel/py-capstone@${PY_FLAVOR}
 
-USES=		python:3.5+
-USE_PYTHON=	flavors django=2.1+
+USES=		python:3.6+
+USE_PYTHON=	flavors django=3.0+
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	vrtadmin

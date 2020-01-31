@@ -100,10 +100,6 @@
     SUBDIR += latex2rtf
     SUBDIR += latexdiff
     SUBDIR += lgrind
-    SUBDIR += libgnomecups
-    SUBDIR += libgnomeprint
-    SUBDIR += libgnomeprint-reference
-    SUBDIR += libgnomeprintmm
     SUBDIR += libharu
     SUBDIR += libijs
     SUBDIR += libmspub01
@@ -114,7 +110,6 @@
     SUBDIR += libspectre
     SUBDIR += lilypond
     SUBDIR += lilypond-devel
-    SUBDIR += linux-c6-cups-libs
     SUBDIR += linux-c7-cups-libs
     SUBDIR += linux-c7-freetype
     SUBDIR += linux-c7-harfbuzz
@@ -170,8 +165,6 @@
     SUBDIR += pkfonts360
     SUBDIR += pkfonts400
     SUBDIR += pkfonts600
-    SUBDIR += pkipplib
-    SUBDIR += pkpgcounter
     SUBDIR += pmw
     SUBDIR += pnm2ppa
     SUBDIR += print-manager
@@ -181,7 +174,11 @@
     SUBDIR += pslib
     SUBDIR += pstotext
     SUBDIR += psutils
+    SUBDIR += py-font-v
+    SUBDIR += py-fontaine
+    SUBDIR += py-fontbakery
     SUBDIR += py-fonttools
+    SUBDIR += py-fonttools3
     SUBDIR += py-fpdf
     SUBDIR += py-pdf
     SUBDIR += py-pdf2
@@ -197,6 +194,7 @@
     SUBDIR += py-rtf
     SUBDIR += py-stapler
     SUBDIR += py-trml2pdf
+    SUBDIR += py-ttfautohint-py
     SUBDIR += py-weasyprint
     SUBDIR += qpdf
     SUBDIR += qpdfview
@@ -225,6 +223,7 @@
     SUBDIR += rubygem-ttfunk
     SUBDIR += scribus-devel
     SUBDIR += sgf2tex
+    SUBDIR += shrinkpdf
     SUBDIR += splix
     SUBDIR += system-config-printer
     SUBDIR += t1utils
@@ -251,7 +250,7 @@
     SUBDIR += transfig
     SUBDIR += trueprint
     SUBDIR += ttf2pt1
-    SUBDIR += ttfquery
+    SUBDIR += ttfautohint
     SUBDIR += ttftot42
     SUBDIR += txtbdf2ps
     SUBDIR += typetools

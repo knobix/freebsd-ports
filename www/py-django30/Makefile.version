@@ -1,0 +1,4 @@
+# Mk/Uses/python.mk includes this file, don't remove it!
+# $FreeBSD$
+
+DJANGO_PORTVERSION=     3.0.2

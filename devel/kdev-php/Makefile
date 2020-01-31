@@ -1,13 +1,16 @@
 # $FreeBSD$
 
 PORTNAME=	kdev-php
-DISTVERSION=	5.4.4
+DISTVERSION=	5.4.6
 CATEGORIES=	devel kde
 MASTER_SITES=	KDE/stable/kdevelop/${DISTVERSION}/src
 DIST_SUBDIR=	KDE/kdevelop
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	PHP support for KDevelop
+
+LICENSE=	GPLv2+
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	kdev-pg-qt:devel/kdevelop-pg-qt
 LIB_DEPENDS=	libkdevcmakecommon.so:devel/kdevelop
@@ -25,6 +28,5 @@ PLIST_SUB+=	PLATFORM_VER=${PLATFORM_VER} PRIVATE_VER=${DISTVERSION:R}
 
 # Does not build with jobs.
 MAKE_JOBS_UNSAFE=	yes
-
 
 .include <bsd.port.mk>

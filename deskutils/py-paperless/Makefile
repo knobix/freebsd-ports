@@ -2,7 +2,7 @@
 
 PORTNAME=	paperless
 PORTVERSION=	2.7.0
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	deskutils python django
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -34,7 +34,7 @@ RUN_DEPENDS+=	gpg2:security/gnupg \
 		unpaper:graphics/unpaper
 
 USES=		python:3.5+ shebangfix
-USE_PYTHON=	django=2.1+
+USE_PYTHON=	django=2.2+
 USE_GITHUB=	yes
 GH_ACCOUNT=	the-paperless-project
 GH_PROJECT=	paperless
@@ -109,7 +109,6 @@ do-install:
 		${STAGEDIR}/var/db/paperless/sqlite
 	${INSTALL_MAN} ${WRKDIR}/paperless.7 ${STAGEDIR}${MANPREFIX}/man/man7
 
-# Klammern aussenrum?
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}/presentation
 	@cd ${WRKSRC}/docs/_build/html && \

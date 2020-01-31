@@ -10,6 +10,12 @@
     SUBDIR += bitcoin-daemon
     SUBDIR += bitcoin-utils
     SUBDIR += bitflu
+    SUBDIR += bitmark
+    SUBDIR += bitmark-cli
+    SUBDIR += bitmark-daemon
+    SUBDIR += bitmark-recorder
+    SUBDIR += btpd
+    SUBDIR += c-lightning
     SUBDIR += couchpotato
     SUBDIR += cpuminer
     SUBDIR += createtorrent
@@ -87,7 +93,6 @@
     SUBDIR += transmission-gtk
     SUBDIR += transmission-qt
     SUBDIR += transmission-remote-gui
-    SUBDIR += tribler
     SUBDIR += uhub
     SUBDIR += vuze
     SUBDIR += xmrig

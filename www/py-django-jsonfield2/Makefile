@@ -17,6 +17,9 @@ USE_PYTHON=	autoplist distutils django
 
 NO_ARCH=	yes
 
+# jsonfield2 3.1.0+ requires Django 2.2+
+PORTSCOUT=	limit:^3\.0\.
+
 GH_ACCOUNT=	rpkilby
 USE_GITHUB=	yes
 
