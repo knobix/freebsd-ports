@@ -129,9 +129,9 @@
 #                         comma-separated list:
 #
 #          django=1.11  - Only use the specified version of Django
-#          django=2.1+  - Use at least the specified version of Django
-#          django=1.11-2.1 - Use a version from the indicated range
-#          django=-2.1  - Use at most the specified version of Django
+#          django=2.2+  - Use at least the specified version of Django
+#          django=1.11-2.2 - Use a version from the indicated range
+#          django=-3.0  - Use at most the specified version of Django
 #          django=nodjangoflavor
 #                       - Don't modify FLAVOR or FLAVORS to include
 #                         the django version.
@@ -288,14 +288,14 @@
 #                         framework.  e.g. 1, 2
 #
 # DJANGO_VERSION        - The major-minor release version of the chosen
-#                         Django framework.  e.g. django1.11, django2.1,
-#                         django2.2
+#                         Django framework.  e.g. django1.11, django2.2,
+#                         django3.0
 #
 # DJANGO_PORTVERSION    - Version number suitable for ${PORTVERSION}
 #                         Imported from ${DJANGO_PORTSDIR}/Makefile.version
 #
 # DJANGO_SUFFIX         - The major-minor release version of the chosen
-#                         Django framework without dots. e.g. 111, 21, 22
+#                         Django framework without dots. e.g. 111, 22, 30
 #
 # DJANGO_PORTSDIR       - The port directory of the chosen Django framework
 #
@@ -552,7 +552,7 @@ PYTHON_PYOEXTENSION=	opt-1.pyc
 # What Django versions are currently supported?  Please keep in sync
 # with the comment in Mk/bsd.default-versions.mk.  These are in
 # preference order
-_DJANGO_VERSIONS=	1.11 2.2 2.1
+_DJANGO_VERSIONS=	1.11 2.2 3.0
 _DJANGO_PORTBRANCH=	1.11	# ${_DJANGO_VERSIONS:[1]}
 _DJANGO_RELPORTDIR=	www/py-django
 
@@ -632,7 +632,7 @@ DJANGO_PORTSDIR=	${_DJANGO_RELPORTDIR}${DJANGO_SUFFIX}
 #  1: Double up the field separator '.' to '..' This makes step 6 easy
 #  2: Delete any non-numeric suffix (rc1, alpha4, etc.)
 #  3: Use only the first two fields
-#  4: Add a '.' at the end -- 2nd and subseq. fields are now bounded by '.' 
+#  4: Add a '.' at the end -- 2nd and subseq. fields are now bounded by '.'
 #  5: Append .00. if the third field is absent
 #  6: Zero fill any 1 digit fields after the first
 #  7: Delete all the '.' characters
@@ -671,7 +671,7 @@ _DV:=		${_DJANGO_VERSION}
 IGNORE=		needs Django ${_DJANGO_VERSION_NONSUPPORTED}, but ${_DV} was specified
 .  endif	# defined(DJANGO_VERSION)
 .  undef _DJANGO_VERSION
-.  for ver in ${DJANGO1_DEFAULT} ${DJANGO2_DEFAULT} ${_DJANGO_VERSIONS}
+.  for ver in ${DJANGO_DEFAULT} ${_DJANGO_VERSIONS}
 __VER=		${ver:${_1}:${_2}:${_3}:${_4}:${_5}:${_6}:${_7}}
 .    if !defined(_DJANGO_VERSION) && \
 	${__VER} >= ${_DJANGO_MIN} && \
@@ -697,7 +697,7 @@ _PY_FLAVORS:=	${FLAVORS}
 # _DJANGO_VERSION as the chosen django version, from which we should
 # be able to derive the particular DJANGO_FLAVOR we want to build.
 # Except that we need to ensure compatible versions of python and
-# django -- django-2.1+ requires python-3.4+ while django-1.11 will
+# django -- django-2.2+ requires python-3.5+ while django-1.11 will
 # work with all python 2.7+
 DJANGO_FLAVOR=	py${_PYTHON_VERSION:S/.//}-django${_DJANGO_VERSION:S/.//}
 
