@@ -47,6 +47,7 @@
     SUBDIR += bluefish
     SUBDIR += bolt
     SUBDIR += bozohttpd
+    SUBDIR += browsh
     SUBDIR += bugzilla2atom
     SUBDIR += buku
     SUBDIR += butterfly
@@ -1779,7 +1780,7 @@
     SUBDIR += py-qt5-webengine
     SUBDIR += py-qt5-webkit
     SUBDIR += py-qt5-webkitwidgets
-    SUBDUR += py-qt5-websockets
+    SUBDIR += py-qt5-websockets
     SUBDIR += py-rackspace-monitoring
     SUBDIR += py-recaptcha
     SUBDIR += py-requestbuilder
