@@ -699,7 +699,9 @@ FLAVORS:=	${FLAVORS} ${_f}
 .  endfor
 .endfor
 
-FLAVOR:=	${DJANGO_FLAVOR}
+.if empty(FLAVOR)
+FLAVOR:=	${FLAVORS:[1]}
+.endif
 
 .for _stage in BUILD RUN TEST
 .  if defined(_DJANGO_${_stage}_DEP)
