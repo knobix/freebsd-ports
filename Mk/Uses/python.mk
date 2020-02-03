@@ -311,9 +311,9 @@ _PYTHON_RELPORTDIR=		lang/python
 
 # List all valid USE_PYTHON features here
 
-_VALID_PYTHON_FEATURES= allflavors autoplist concurrent cython		\
-			cython_run distutils django flavors noegginfo	\
-			noflavors optsuffix py3kplist pythonprefix
+_VALID_PYTHON_FEATURES= allflavors autoplist concurrent cython	cython_run \
+			distutils django flavors noegginfo noflavors optsuffix \
+			py3kplist pythonprefix
 
 _INVALID_PYTHON_FEATURES=
 .for var in ${USE_PYTHON}
