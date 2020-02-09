@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-redis
-PORTVERSION=	4.10.0
-PORTREVISION=	1
+PORTVERSION=	4.11.0
 CATEGORIES=	www databases python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -23,8 +22,6 @@ USES=		python
 USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
-
-PORTSCOUT=	limit:^4\.10\.
 
 do-test:
 	@cd ${WRKSRC}/tests && ${PYTHON_CMD} runtests.py

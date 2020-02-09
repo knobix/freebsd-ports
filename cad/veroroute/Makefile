@@ -2,7 +2,7 @@
 
 PORTNAME=	veroroute
 DISTVERSIONPREFIX=	V
-DISTVERSION=	174
+DISTVERSION=	175
 DISTVERSIONSUFFIX=	_Src
 CATEGORIES=	cad
 MASTER_SITES=	SF/${PORTNAME}/
@@ -14,7 +14,7 @@ COMMENT=	PCB (printed circuit board) design software
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/../licenses/license_GPLv3.txt
 
-USES=		qmake qt:5 zip
+USES=		compiler:c++11-lang qmake qt:5 zip
 USE_QT=		core gui network widgets buildtools_build
 
 WRKSRC=		${WRKDIR}/VeroRoute
