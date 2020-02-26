@@ -89,6 +89,7 @@ OPTIONS_DEFINE+=		DEVELOPER MANDOC
 
 OPTIONS_DEFINE_amd64=		AESNI
 OPTIONS_DEFAULT_amd64=		AESNI
+OPTIONS_EXCLUDE_powerpc64=	DEBUG
 
 OPTIONS_GROUP=			VFS
 OPTIONS_GROUP_VFS=		FRUIT GLUSTERFS
@@ -410,7 +411,7 @@ SAMBA4_MODULES+=		auth_skel pdb_test gpext_security gpext_registry gpext_scripts
 .endif
 # Python bindings
 .if defined(NO_PYTHON)
-USES+=				python:2.7+,build,test
+USES+=				python:build,test
 CONFIGURE_ARGS+=		--disable-python
 PLIST_SUB+=			SAMBA4_PYTHON="@comment "
 SUB_LIST+=			SAMBA4_PYTHON="@comment "

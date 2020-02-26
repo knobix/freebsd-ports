@@ -19,6 +19,7 @@
     SUBDIR += avidemux
     SUBDIR += avidemux-cli
     SUBDIR += avidemux-plugins
+    SUBDIR += avidemux-qt5
     SUBDIR += avinfo
     SUBDIR += baka-mplayer
     SUBDIR += bcmatroska2
@@ -33,7 +34,6 @@
     SUBDIR += celluloid
     SUBDIR += cheese
     SUBDIR += chilitags
-    SUBDIR += cinelerra-gg
     SUBDIR += clipgrab
     SUBDIR += clive
     SUBDIR += clutter-gst
@@ -315,7 +315,6 @@
     SUBDIR += pitivi
     SUBDIR += plexmediaserver
     SUBDIR += plexmediaserver-plexpass
-    SUBDIR += plexwatch
     SUBDIR += podcastdl
     SUBDIR += poe
     SUBDIR += ppm2fli
@@ -360,7 +359,6 @@
     SUBDIR += recmpeg
     SUBDIR += recordmydesktop
     SUBDIR += replex
-    SUBDIR += rox-videothumbnail
     SUBDIR += rtmpdump
     SUBDIR += rubygem-av
     SUBDIR += rubygem-clutter-gstreamer

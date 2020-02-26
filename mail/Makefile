@@ -519,9 +519,7 @@
     SUBDIR += py-pyzmail
     SUBDIR += py-spambayes
     SUBDIR += py-validate_email
-    SUBDIR += py-zope.sendmail
     SUBDIR += pymsgauth
-    SUBDIR += pysieved
     SUBDIR += pyzor
     SUBDIR += qconfirm
     SUBDIR += qmail
@@ -601,10 +599,12 @@
     SUBDIR += rubygem-premailer-rails
     SUBDIR += rubygem-premailer-rails-rails5
     SUBDIR += rubygem-premailer-rails-rails52
+    SUBDIR += rubygem-premailer-rails-rails60
     SUBDIR += rubygem-rmail
     SUBDIR += rubygem-roadie
     SUBDIR += rubygem-roadie-rails
     SUBDIR += rubygem-roadie-rails52
+    SUBDIR += rubygem-roadie3
     SUBDIR += rubygem-ruby-qmail
     SUBDIR += rubygem-tmail
     SUBDIR += rubygem-vmail

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-configurations
-PORTVERSION=	2.1
+PORTVERSION=	2.2
 CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -17,13 +17,13 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_scm>=0:devel/py-setuptools_scm@
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>=0:devel/py-six@${PY_FLAVOR}
 
 USES=		python
-USE_PYTHON=	distutils concurrent autoplist django
+USE_PYTHON=	autoplist concurrent distutils django
 
 NO_ARCH=	yes
 
 PORTDOCS=	*
 
-OPTIONS_DEFINE=		DOCS
+OPTIONS_DEFINE=	DOCS
 DOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>0:textproc/py-sphinx@${PY_FLAVOR}
 DOCS_VARS=		PYDISTUTILS_BUILD_TARGET+="build_sphinx -a -E"
 

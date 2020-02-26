@@ -11,6 +11,9 @@ PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
 MAINTAINER=	kurt.lidl@cello.com
 COMMENT=	Serve static content from within django app directories
 
+DEPRECATED=	Uses deprecated version of python
+EXPIRATION_DATE=	2020-08-15
+
 USES=		python:2.7
 USE_PYTHON=	autoplist distutils django
 

@@ -2,11 +2,12 @@
 
 PORTNAME=	wlroots
 DISTVERSION=	0.10.0
-PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	x11-toolkits
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
 PATCHFILES+=	f0594fb73225.patch:-p1 144d2041adfb.patch:-p1
+PATCHFILES+=	2bad34e02423.patch:-p1
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Modular Wayland compositor library
@@ -21,6 +22,7 @@ LIB_DEPENDS=	libudev.so:devel/libudev-devd \
 		libwayland-egl.so:graphics/wayland \
 		libinput.so:x11/libinput \
 		libxkbcommon.so:x11/libxkbcommon
+RUN_DEPENDS=	libudev-devd>=0.4.1:devel/libudev-devd
 
 USES=		compiler:c11 gl meson pkgconfig xorg
 USE_GITHUB=	yes
@@ -52,7 +54,7 @@ CONSOLEKIT_MESON_ENABLED=	consolekit2
 
 X11_LIB_DEPENDS=libxcb-errors.so:x11/xcb-util-errors \
 		libxcb-icccm.so:x11/xcb-util-wm
-X11_RUN_DEPENDS=Xwayland:x11-servers/xwayland
+X11_RUN_DEPENDS=xwayland-devel>0:x11-servers/xwayland-devel
 X11_USE=	XORG=x11,xcb
 X11_MESON_ENABLED=x11-backend xcb-icccm xwayland
 

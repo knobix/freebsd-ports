@@ -13,6 +13,9 @@ COMMENT=	Database schema evolution tool for the Django web framework
 
 LICENSE=	BSD3CLAUSE
 
+DEPRECATED=	Uses deprecated version of python
+EXPIRATION_DATE=	2020-08-15
+
 USE_GITHUB=	yes
 
 GH_ACCOUNT=	beanbaginc

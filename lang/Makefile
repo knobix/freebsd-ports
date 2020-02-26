@@ -125,6 +125,7 @@
     SUBDIR += groovy
     SUBDIR += gscheme
     SUBDIR += guile
+    SUBDIR += guile1
     SUBDIR += guile2
     SUBDIR += harbour
     SUBDIR += haskell-mode.el
@@ -316,6 +317,7 @@
     SUBDIR += ruby27
     SUBDIR += runawk
     SUBDIR += rust
+    SUBDIR += rust-bootstrap
     SUBDIR += rust-nightly
     SUBDIR += sagittarius-scheme
     SUBDIR += sather-specification

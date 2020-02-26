@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	django-mezzanine
-DISTVERSION=	4.3.1
+PORTVERSION=	4.3.1
+PORTREVISION=	1
 CATEGORIES=	www python django
-PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	koobs@FreeBSD.org
 COMMENT=	Content management platform built using the Django framework
@@ -21,7 +22,6 @@ RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-contrib-comments>0:www/py-django-cont
 		${PYTHON_PKGNAMEPREFIX}requests>=2.1.0:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests-oauthlib>=0.4:www/py-requests-oauthlib@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}future>=0.9.0:devel/py-future@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pillow>0:graphics/py-pillow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}chardet>0:textproc/py-chardet@${PY_FLAVOR}
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pep8>=1.4.1:devel/pep8@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pyflakes>=0.6.1:devel/py-pyflakes@${PY_FLAVOR}
@@ -38,7 +38,15 @@ NO_ARCH=	yes
 SUB_FILES=	pkg-message
 SUB_LIST=	PYTHON_VER=${PYTHON_VER}
 
+.include <bsd.port.pre.mk>
+
+.if ${PYTHON_REL} < 3500
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}pillow6>0:graphics/py-pillow6@${PY_FLAVOR}
+.else
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}pillow>0:graphics/py-pillow@${PY_FLAVOR}
+.endif
+
 do-test:
 	@cd ${WRKSRC} && ${SETENV} TZ=UTC LC_ALL=en_US.UTF-8 ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

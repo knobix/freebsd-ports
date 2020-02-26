@@ -3,6 +3,7 @@
 
 PORTNAME=	vice
 PORTVERSION=	3.4
+PORTREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/vice-emu/releases
 
@@ -36,6 +37,7 @@ MAKE_ENV+=	MAKEINFOFLAGS="--no-split"
 CONFIGURE_ARGS+=	--enable-ipv6 \
 			--enable-external-ffmpeg \
 			--enable-x64 \
+			--disable-realdevice \
 			--mandir="${PREFIX}/man" \
 			--infodir="${PREFIX}/${INFO_PATH}" \
 			--localedir="${LOCALBASE}/share/locale" \

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-tables2
-DISTVERSION=	2.0.6
+DISTVERSION=	2.2.1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tablib>=0:textproc/py-tablib@${PY_FLAVOR}
 
-USES=		python
+USES=		python:3.4+
 USE_PYTHON=	distutils autoplist django
 
 NO_ARCH=		yes

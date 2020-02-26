@@ -3,6 +3,7 @@
 
 PORTNAME=	django-filer
 PORTVERSION=	1.3.2
+PORTREVISION=	1
 CATEGORIES=	www python django
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${DJANGO_PKGNAMEPREFIX}
@@ -16,11 +17,18 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 RUN_DEPENDS=	${DJANGO_PKGNAMEPREFIX}django-easy-thumbnails>=2:graphics/py-django-easy-thumbnails@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django-mptt>=0.6:www/py-django-mptt@${DJANGO_FLAVOR} \
 		${DJANGO_PKGNAMEPREFIX}django_polymorphic>=0.7:www/py-django_polymorphic@${DJANGO_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}unidecode>=0:converters/py-unidecode@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pillow>=2.3.0:graphics/py-pillow@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}unidecode>=0:converters/py-unidecode@${PY_FLAVOR}
 
 USES=		python
 USE_PYTHON=	autoplist distutils django
 NO_ARCH=	yes
 
-.include <bsd.port.mk>
+.include <bsd.port.pre.mk>
+
+.if ${PYTHON_REL} < 3500
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}pillow6>=2.3.0:graphics/py-pillow6@${PY_FLAVOR}
+.else
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}pillow>=2.3.0:graphics/py-pillow@${PY_FLAVOR}
+.endif
+
+.include <bsd.port.post.mk>
